@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="38666696-592d-47ea-934a-e6edaf70ab6f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/.unsaved/.user/Metadata/Asset/{d8bbc69e-2f46-463b-8022-900469688ee1}.user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/.unsaved/.user/Metadata/Asset/{d8bbc69e-2f46-463b-8022-900469688ee1}.user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/.unsaved/.user/Metadata/Mixer.user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/.unsaved/.user/Metadata/Mixer.user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/.unsaved/.user/Metadata/Workspace.user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/.unsaved/.user/Metadata/Workspace.user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/.user/Metadata/Asset/{d8bbc69e-2f46-463b-8022-900469688ee1}.user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/.user/Metadata/Asset/{d8bbc69e-2f46-463b-8022-900469688ee1}.user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/.user/Metadata/Mixer.user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/.user/Metadata/Mixer.user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/.user/Metadata/Workspace.user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/.user/Metadata/Workspace.user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/FMOD_Projet_Scar.fspro" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/FMOD_Projet_Scar.fspro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FMOD_Projet_Scar/Metadata/Workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FMOD_Projet_Scar/Metadata/Workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Intermediate/CachedAssetRegistry.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/CachedAssetRegistry.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Intermediate/Config/CoalescedSourceConfigs/Engine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Config/CoalescedSourceConfigs/Engine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/AutoScreenshot.png" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/AutoScreenshot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Config/Windows/EditorPerProjectUserSettings.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/Config/Windows/EditorPerProjectUserSettings.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Logs/FastArenaShooter.log" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/Logs/FastArenaShooter.log" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="24yCgYZLbrgsX4lhUJPqTLWlDOq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="CppIncludesOrderConfigurable" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1644593556352</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1644593556352</updated>
+      <workItem from="1644593556656" duration="3000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
