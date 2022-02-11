@@ -14,21 +14,21 @@ class UFMODEvent;
 #endif
 #define FMODSTUDIO_FMODAudioComponent_generated_h
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_82_GENERATED_BODY \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_82_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FFMODOcclusionDetails_Statics; \
 	FMODSTUDIO_API static class UScriptStruct* StaticStruct();
 
 
 template<> FMODSTUDIO_API UScriptStruct* StaticStruct<struct FFMODOcclusionDetails>();
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_56_GENERATED_BODY \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_56_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FFMODAttenuationDetails_Statics; \
 	FMODSTUDIO_API static class UScriptStruct* StaticStruct();
 
 
 template<> FMODSTUDIO_API UScriptStruct* StaticStruct<struct FFMODAttenuationDetails>();
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_109_DELEGATE \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_109_DELEGATE \
 struct _Script_FMODStudio_eventOnTimelineBeat_Parms \
 { \
 	int32 Bar; \
@@ -51,7 +51,7 @@ static inline void FOnTimelineBeat_DelegateWrapper(const FMulticastScriptDelegat
 }
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_106_DELEGATE \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_106_DELEGATE \
 struct _Script_FMODStudio_eventOnTimelineMarker_Parms \
 { \
 	FString Name; \
@@ -66,15 +66,15 @@ static inline void FOnTimelineMarker_DelegateWrapper(const FMulticastScriptDeleg
 }
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_104_DELEGATE \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_104_DELEGATE \
 static inline void FOnEventStopped_DelegateWrapper(const FMulticastScriptDelegate& OnEventStopped) \
 { \
 	OnEventStopped.ProcessMulticastDelegate<UObject>(NULL); \
 }
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_SPARSE_DATA
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_SPARSE_DATA
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execSetProgrammerSoundName); \
 	DECLARE_FUNCTION(execGetTimelinePosition); \
@@ -96,7 +96,7 @@ static inline void FOnEventStopped_DelegateWrapper(const FMulticastScriptDelegat
 	DECLARE_FUNCTION(execSetEvent);
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execSetProgrammerSoundName); \
 	DECLARE_FUNCTION(execGetTimelinePosition); \
@@ -118,7 +118,7 @@ static inline void FOnEventStopped_DelegateWrapper(const FMulticastScriptDelegat
 	DECLARE_FUNCTION(execSetEvent);
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS_NO_PURE_DECLS \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUFMODAudioComponent(); \
 	friend struct Z_Construct_UClass_UFMODAudioComponent_Statics; \
@@ -127,7 +127,7 @@ public: \
 	DECLARE_SERIALIZER(UFMODAudioComponent)
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS \
 private: \
 	static void StaticRegisterNativesUFMODAudioComponent(); \
 	friend struct Z_Construct_UClass_UFMODAudioComponent_Statics; \
@@ -136,7 +136,7 @@ public: \
 	DECLARE_SERIALIZER(UFMODAudioComponent)
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_STANDARD_CONSTRUCTORS \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UFMODAudioComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UFMODAudioComponent) \
@@ -149,7 +149,7 @@ private: \
 public:
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_ENHANCED_CONSTRUCTORS \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UFMODAudioComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -162,28 +162,28 @@ public: \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UFMODAudioComponent)
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_PRIVATE_PROPERTY_OFFSET
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_130_PROLOG
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_GENERATED_BODY_LEGACY \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_PRIVATE_PROPERTY_OFFSET
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_130_PROLOG
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_PRIVATE_PROPERTY_OFFSET \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_SPARSE_DATA \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_STANDARD_CONSTRUCTORS \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_PRIVATE_PROPERTY_OFFSET \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_SPARSE_DATA \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_GENERATED_BODY \
+#define FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_PRIVATE_PROPERTY_OFFSET \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_SPARSE_DATA \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS_NO_PURE_DECLS \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS_NO_PURE_DECLS \
-	HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_ENHANCED_CONSTRUCTORS \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_PRIVATE_PROPERTY_OFFSET \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_SPARSE_DATA \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_RPC_WRAPPERS_NO_PURE_DECLS \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_INCLASS_NO_PURE_DECLS \
+	FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h_133_ENHANCED_CONSTRUCTORS \
 static_assert(false, "Unknown access specifier for GENERATED_BODY() macro in class FMODAudioComponent."); \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -191,7 +191,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> FMODSTUDIO_API UClass* StaticClass<class UFMODAudioComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID HostProject_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h
+#define CURRENT_FILE_ID FastArenaShooter_Plugins_FMODStudio_Source_FMODStudio_Classes_FMODAudioComponent_h
 
 
 #define FOREACH_ENUM_EFMODEVENTPROPERTY(op) \
