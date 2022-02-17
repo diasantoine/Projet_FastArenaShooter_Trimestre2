@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "FastArenaShooter/FastArenaShooterProjectile.h"
+#include "OtherScript/FastArenaShooterProjectile.h"
 #ifdef _MSC_VER
 #pragma warning (push)
 #pragma warning (disable : 4883)
