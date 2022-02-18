@@ -3,3 +3,7 @@
 
 #include "GameModeFastArenaFPS.h"
 
+void AGameModeFastArenaFPS::OnConstruction(const FTransform& Transform)
+{
+	
+}

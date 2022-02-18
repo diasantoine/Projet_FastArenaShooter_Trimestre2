@@ -11,11 +11,13 @@ struct FdataStruct
 {
 	GENERATED_BODY()
 	UPROPERTY(EditDefaultsOnly,VisibleAnywhere,Category = "Stat Character")
-	float _speed;
+	float _speed = 1;
 	UPROPERTY(EditDefaultsOnly,VisibleAnywhere,Category = "Stat Character")
-	float _height;
+	float _height = 1;
 	UPROPERTY(EditDefaultsOnly,VisibleAnywhere,Category = "Stat Character")
-	float _acceleration;
+	float _accelerationMultiplier = 1.2f;
+	UPROPERTY(EditDefaultsOnly,VisibleAnywhere,Category = "Stat Character")
+	float _acceleration = 1;
 	
 };
 
@@ -33,18 +35,21 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void MovementPlayer(FVector _direction);
+	void AccelerationVelocity();
+	void ResetAccelerationVelocity();
+	void ShootWeapon(bool _specialFire);
 
 	UPROPERTY(EditDefaultsOnly,VisibleAnywhere,Category = "Stat Character")
-	FdataStruct _fDataStruct;
+	FdataStruct* _fDataStruct;
 
 private:
+	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
+
+	FTimerHandle ManagerTime;
 
 };

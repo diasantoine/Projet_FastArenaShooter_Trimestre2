@@ -38,15 +38,47 @@ void AMyCharacterController::Tick(float DeltaTime)
 void AMyCharacterController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	ResetAccelerationVelocity();
 }
 
 void AMyCharacterController::MovementPlayer(FVector _direction)
 {
-	_direction = FVector(_direction.X * GetActorForwardVector().Z * _fDataStruct._speed * _fDataStruct._acceleration,
-		_direction.Y * _fDataStruct._height * _fDataStruct._acceleration,
-		_direction.Z * GetActorRightVector().X * _fDataStruct._speed * _fDataStruct._acceleration) * GetWorld()->GetDeltaSeconds();
+	if (!GetWorldTimerManager().TimerExists(ManagerTime))
+	{
+		GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::AccelerationVelocity,0.5f,true,0.5f);
+	}
+	_direction = FVector(_direction.X * GetActorForwardVector().Z * _fDataStruct->_speed * _fDataStruct->_acceleration,
+		_direction.Y * _fDataStruct->_height * _fDataStruct->_acceleration,
+		_direction.Z * GetActorRightVector().X * _fDataStruct->_speed * _fDataStruct->_acceleration) * GetWorld()->GetDeltaSeconds();
 	this->GetCharacterMovement()->AddInputVector(_direction);
 }
+
+void AMyCharacterController::AccelerationVelocity()
+{
+	_fDataStruct->_acceleration *= _fDataStruct->_accelerationMultiplier;
+}
+
+void AMyCharacterController::ResetAccelerationVelocity()
+{
+	if (!this->GetCharacterMovement()->IsMovementInProgress() && _fDataStruct->_acceleration != 1)
+	{
+		_fDataStruct->_acceleration = 1;
+	}
+}
+
+void AMyCharacterController::ShootWeapon(bool _specialFire)
+{
+	if (_specialFire)
+	{
+		
+	}
+	else
+	{
+		
+	}
+}
+
+
+
 
 

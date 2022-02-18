@@ -16,6 +16,7 @@ class FASTARENASHOOTER_API AMyPlayerController : public APlayerController
 	GENERATED_BODY()
 
 	DECLARE_DELEGATE_OneParam(_axisValue, FVector);
+	DECLARE_DELEGATE_OneParam(_typeOfFire, bool);
 
 protected:
 	
