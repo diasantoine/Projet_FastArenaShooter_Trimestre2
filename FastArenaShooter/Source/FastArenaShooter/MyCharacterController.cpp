@@ -35,6 +35,7 @@ void AMyCharacterController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if (GetCharacterMovement()->IsMovingOnGround() && GetCharacterMovement()->Velocity == FVector(0,0,0))
 	{
+		UE_LOG(LogTemp,Warning,TEXT("testezez"))
 		if (!GetWorldTimerManager().TimerExists(ManagerTime))
 		{
 			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
@@ -43,7 +44,6 @@ void AMyCharacterController::Tick(float DeltaTime)
 	}
 	else
 	{
-		UE_LOG(LogTemp,Warning,TEXT("testezez"))
 		if (GetWorldTimerManager().TimerExists(ManagerTime))
 		{
 			GetWorldTimerManager().ClearTimer(ManagerTime);
