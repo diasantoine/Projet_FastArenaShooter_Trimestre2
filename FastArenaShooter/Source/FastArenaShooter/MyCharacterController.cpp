@@ -2,9 +2,7 @@
 
 
 #include "MyCharacterController.h"
-
 #include "TimerManager.h"
-#include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -35,22 +33,20 @@ void AMyCharacterController::BeginPlay()
 void AMyCharacterController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (GetCharacterMovement()->IsMovingOnGround())
+	if (GetCharacterMovement()->IsMovingOnGround() && GetCharacterMovement()->Velocity == FVector(0,0,0))
 	{
 		if (!GetWorldTimerManager().TimerExists(ManagerTime))
 		{
-			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::AccelerationVelocity,0.5f,true,0.5f);
-		}
-		if (!GetWorldTimerManager().TimerExists(ManagerTime))//TODO un moyen d'accélerer, toute les x en déplaçant et + 1 par saut
-		{//Todo reset cette accélération si on attend x sc sans bouger
-			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,0.5f,true,0.5f);
+			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
+				,true,_fDataStruct._timeBeforeDecceleration);
 		}
 	}
 	else
 	{
-		if (!GetWorldTimerManager().TimerExists(ManagerTime))
+		UE_LOG(LogTemp,Warning,TEXT("testezez"))
+		if (GetWorldTimerManager().TimerExists(ManagerTime))
 		{
-			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,0.5f,true,0.5f);
+			GetWorldTimerManager().ClearTimer(ManagerTime);
 		}
 	}
 
@@ -61,7 +57,6 @@ void AMyCharacterController::SetupPlayerInputComponent(UInputComponent* PlayerIn
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputPlayer();
-	ResetAccelerationVelocity();
 }
 
 
@@ -73,7 +68,7 @@ void AMyCharacterController::InputPlayer()
 	this->InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	this->InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	
-	this->InputComponent->BindAction("Jump", IE_Pressed, this,&ACharacter::Jump);
+	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AMyCharacterController::JumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&ACharacter::StopJumping);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,false);
 	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,true);
@@ -93,7 +88,8 @@ void AMyCharacterController::RightPlayer(float _value)
 
 void AMyCharacterController::JumpPlayer()
 {
-	MovementPlayer(1);
+	AccelerationVelocity();
+	Jump();
 }
 
 
@@ -106,11 +102,13 @@ void AMyCharacterController::MovementPlayer(float _jumpValue)
 
 void AMyCharacterController::AccelerationVelocity()
 {
-	GetCharacterMovement()->MaxWalkSpeed  *= _fDataStruct._accelerationMultiplier;
+	GetCharacterMovement()->MaxWalkSpeed  *= _fDataStruct._acceleration;
+	//GetCharacterMovement()->Velocity *= _fDataStruct._acceleration;
 }
 
 void AMyCharacterController::ResetAccelerationVelocity()
 {
+	UE_LOG(LogTemp,Warning,TEXT("test"))
 	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._speed;
 	if (GetWorldTimerManager().TimerExists(ManagerTime))
 	{

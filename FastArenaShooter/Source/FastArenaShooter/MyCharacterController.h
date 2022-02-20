@@ -17,10 +17,9 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _weight = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
-	float _accelerationMultiplier = 1.2f;
+	float _acceleration = 1.2f;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
-	float _acceleration = 1;
-	
+	float _timeBeforeDecceleration = 0.5f;
 };
 
 UCLASS()

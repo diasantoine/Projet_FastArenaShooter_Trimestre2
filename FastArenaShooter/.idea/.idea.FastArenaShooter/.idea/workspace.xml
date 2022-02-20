@@ -6,10 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38666696-592d-47ea-934a-e6edaf70ab6f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0002.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0003.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0001.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0001.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0003.dll" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0003.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0003.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0004.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0004.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0004.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0004.pdb" afterDir="false" />
@@ -17,30 +16,17 @@
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0005.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0005.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0006.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0006.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0006.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0006.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0007.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0007.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0008.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0008.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0008.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0008.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0009.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0009.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0010.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0010.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0011.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0011.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0012.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0012.pdb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_MyCharacterController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_MyCharacterController.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/Build/SourceFileCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/SourceFileCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/ActionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/ActionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/FastArenaShooterEditor/Development/ActionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/FastArenaShooterEditor/Development/ActionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/FastArenaShooterEditor/Development/FastArenaShooterEditor.uhtmanifest" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/FastArenaShooterEditor/Development/FastArenaShooterEditor.uhtmanifest" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Development/ActionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Development/ActionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Development/FastArenaShooter/UE4Editor-FastArenaShooter.exp" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Development/FastArenaShooter/UE4Editor-FastArenaShooter.exp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Development/FastArenaShooter/UE4Editor-FastArenaShooter.suppressed.exp" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Development/FastArenaShooter/UE4Editor-FastArenaShooter.suppressed.exp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Inc/FastArenaShooter/FastArenaShooter.init.gen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Inc/FastArenaShooter/FastArenaShooter.init.gen.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Inc/FastArenaShooter/Timestamp" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Inc/FastArenaShooter/Timestamp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Intermediate/CachedAssetRegistry.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Intermediate/CachedAssetRegistry.bin" afterDir="false" />
@@ -56,18 +42,6 @@
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0005.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0005.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0006.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0006.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0006.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0006.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0007.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0007.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0007.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0007.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0008.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0008.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0008.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0008.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0009.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0009.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0010.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0010.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0011.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0011.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0012.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio-0012.pdb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudio.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0001.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0001.dll" afterDir="false" />
@@ -82,27 +56,20 @@
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0005.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0005.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0006.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0006.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0006.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0006.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0007.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0007.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0007.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0007.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0008.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0008.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0008.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0008.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0009.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0009.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0010.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0010.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0011.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0011.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0012.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor-0012.pdb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor-FMODStudioEditor.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor.modules" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Binaries/Win64/UE4Editor.modules" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Intermediate/Build/Win64/UE4Editor/Inc/FMODStudio/Timestamp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Intermediate/Build/Win64/UE4Editor/Inc/FMODStudio/Timestamp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/FMODStudio/Intermediate/Build/Win64/UE4Editor/Inc/FMODStudioEditor/Timestamp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/FMODStudio/Intermediate/Build/Win64/UE4Editor/Inc/FMODStudioEditor/Timestamp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Saved/AutoScreenshot.png" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/AutoScreenshot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Config/CrashReportClient/UE4CC-Windows-1320A070459EAF053EAFD69E49BF422D/CrashReportClient.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Config/CrashReportClient/UE4CC-Windows-7A69140F48B9FF1E157481A7EF759648/CrashReportClient.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Config/CrashReportClient/UE4CC-Windows-964AAC6E4CE2D8B75497C1BD7A7B9BC9/CrashReportClient.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Config/CrashReportClient/UE4CC-Windows-A96E542848ECCA1E24C5D1AA9AF47593/CrashReportClient.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Config/CrashReportClient/UE4CC-Windows-FBE6386E4F15D19036733FAFC15F71F5/CrashReportClient.ini" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Saved/Config/Windows/EditorPerProjectUserSettings.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/Config/Windows/EditorPerProjectUserSettings.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Saved/Config/Windows/Engine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/Config/Windows/Engine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Saved/Logs/FastArenaShooter-backup-2022.02.11-15.46.30.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Config/WorldState/3563015428.json" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/Config/WorldState/3563015428.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saved/Logs/FastArenaShooter-backup-2022.02.11-15.56.16.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Saved/Logs/FastArenaShooter.log" beforeDir="false" afterPath="$PROJECT_DIR$/Saved/Logs/FastArenaShooter.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyCharacterController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyCharacterController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyCharacterController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyCharacterController.h" afterDir="false" />
@@ -377,6 +344,7 @@
       <workItem from="1645205121050" duration="1152000" />
       <workItem from="1645206739664" duration="4486000" />
       <workItem from="1645278889619" duration="6746000" />
+      <workItem from="1645356361591" duration="3422000" />
     </task>
     <servers />
   </component>
