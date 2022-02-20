@@ -27,6 +27,7 @@ void AMyCharacterController::BeginPlay()
 	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._speed;
 	GetCharacterMovement()->JumpZVelocity = _fDataStruct._height;
 	GetCharacterMovement()->GravityScale *= _fDataStruct._weight;
+	GetCharacterMovement()->BrakingFrictionFactor = _fDataStruct._deceleration;
 }
 
 // Called every frame
@@ -102,7 +103,8 @@ void AMyCharacterController::MovementPlayer(float _jumpValue)
 
 void AMyCharacterController::AccelerationVelocity()
 {
-	GetCharacterMovement()->MaxWalkSpeed  *= _fDataStruct._acceleration;
+	GetCharacterMovement()->MaxWalkSpeed  = FMath::Clamp(GetCharacterMovement()->MaxWalkSpeed * _fDataStruct._acceleration,_fDataStruct._speed,
+		_fDataStruct._maxSpeed);
 	//GetCharacterMovement()->Velocity *= _fDataStruct._acceleration;
 }
 

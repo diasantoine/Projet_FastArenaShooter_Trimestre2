@@ -13,6 +13,8 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _speed = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	float _maxSpeed = 5000;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _height = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _weight = 1;
@@ -20,6 +22,8 @@ struct FdataStruct
 	float _acceleration = 1.2f;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _timeBeforeDecceleration = 0.5f;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	float _deceleration = 0.5f;
 };
 
 UCLASS()
