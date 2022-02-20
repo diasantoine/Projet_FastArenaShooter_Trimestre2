@@ -26,13 +26,33 @@ AMyCharacterController::AMyCharacterController()
 void AMyCharacterController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._speed;
+	GetCharacterMovement()->JumpZVelocity = _fDataStruct._height;
+	GetCharacterMovement()->GravityScale *= _fDataStruct._weight;
 }
 
 // Called every frame
 void AMyCharacterController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (GetCharacterMovement()->IsMovingOnGround())
+	{
+		if (!GetWorldTimerManager().TimerExists(ManagerTime))
+		{
+			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::AccelerationVelocity,0.5f,true,0.5f);
+		}
+		if (!GetWorldTimerManager().TimerExists(ManagerTime))//TODO un moyen d'accélerer, toute les x en déplaçant et + 1 par saut
+		{//Todo reset cette accélération si on attend x sc sans bouger
+			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,0.5f,true,0.5f);
+		}
+	}
+	else
+	{
+		if (!GetWorldTimerManager().TimerExists(ManagerTime))
+		{
+			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,0.5f,true,0.5f);
+		}
+	}
 
 }
 
@@ -49,19 +69,26 @@ void AMyCharacterController::InputPlayer()
 {
 	this->InputComponent->BindAxis("Forward",this,&AMyCharacterController::ForwardPlayer);
 	this->InputComponent->BindAxis("Right",this,&AMyCharacterController::RightPlayer);
-	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AMyCharacterController::JumpPlayer);
+
+	this->InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
+	this->InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+	
+	this->InputComponent->BindAction("Jump", IE_Pressed, this,&ACharacter::Jump);
+	this->InputComponent->BindAction("Jump", IE_Released, this,&ACharacter::StopJumping);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,false);
 	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,true);
 }
 
 void AMyCharacterController::ForwardPlayer(float _value)
 {
-	MovementPlayer(0);
+	//MovementPlayer(0);
+	AddMovementInput(GetActorForwardVector(),_value);
 }
 
 void AMyCharacterController::RightPlayer(float _value)
 {
-	MovementPlayer(0);
+	AddMovementInput(GetActorRightVector(),_value);
+	//MovementPlayer(0);
 }
 
 void AMyCharacterController::JumpPlayer()
@@ -72,35 +99,19 @@ void AMyCharacterController::JumpPlayer()
 
 void AMyCharacterController::MovementPlayer(float _jumpValue)
 {
-	FVector _direction = FVector(InputComponent->GetAxisValue("Forward"), InputComponent->GetAxisValue("Right"), _jumpValue);
-	if (!GetWorldTimerManager().TimerExists(ManagerTime))
-	{
-		GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::AccelerationVelocity,0.5f,true,0.5f);
-	}
-	UE_LOG(LogTemp,Warning,TEXT("%d %d %d"), _direction.X, _direction.Y, _direction.Z);
-	_direction = FVector(_direction.X * GetActorForwardVector().X * _fDataStruct._speed * _fDataStruct._acceleration,
-		_direction.Y * GetActorRightVector().Y * _fDataStruct._speed * _fDataStruct._acceleration,0) * GetWorld()->GetDeltaSeconds();
-	if (_jumpValue>0)
-	{
-		
-	}
-	AddControllerYawInput(1 * _fDataStruct._speedRotation * GetWorld()->GetDeltaSeconds());
-	//this->GetCharacterMovement()->AddInputVector(_direction);
-	//FaceRotation(FRotator(GetActorRotation().Pitch,GetActorRotation().Roll,GetActorRotation().Yaw * _fDataStruct._speedRotation), GetWorld()->GetDeltaSeconds());
-	AddMovementInput(_direction);
+	
 }
+
+
 
 void AMyCharacterController::AccelerationVelocity()
 {
-	_fDataStruct._acceleration *= _fDataStruct._accelerationMultiplier;
+	GetCharacterMovement()->MaxWalkSpeed  *= _fDataStruct._accelerationMultiplier;
 }
 
 void AMyCharacterController::ResetAccelerationVelocity()
 {
-	if (!this->GetCharacterMovement()->IsMovementInProgress() && _fDataStruct._acceleration != 1)
-	{
-		_fDataStruct._acceleration = 1;
-	}
+	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._speed;
 	if (GetWorldTimerManager().TimerExists(ManagerTime))
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTime);

@@ -13,9 +13,9 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _speed = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
-	float _speedRotation = 1;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _height = 1;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	float _weight = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _accelerationMultiplier = 1.2f;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
