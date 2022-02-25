@@ -95,22 +95,22 @@ void AMyCharacterController::PitchRotation(float _value)
 void AMyCharacterController::YawRotation(float _value)
 {
 	APawn::AddControllerYawInput(_value);
-	//Calculate current speed
-	FVector horizontalMovement = GetCharacterMovement()->Velocity;
-	horizontalMovement.Z = 0.0f;
-	float speed = horizontalMovement.Size();
-	
-	//Get the rotation of pawn
-	FRotator rotation = GetActorRotation();
-	FVector rotationVec = rotation.Vector();
-	
-	//Apply speed to rotation vector
-	rotationVec.X *= speed;
-	rotationVec.Y *= speed;
-	
-	//Set new movement velocity
-	GetCharacterMovement()->Velocity.X = rotationVec.X;
-	GetCharacterMovement()->Velocity.Y = rotationVec.Y;
+	// //Calculate current speed
+	// FVector horizontalMovement = GetCharacterMovement()->Velocity;
+	// horizontalMovement.Z = 0.0f;
+	// float speed = horizontalMovement.Size();
+	//
+	// //Get the rotation of pawn
+	// FRotator rotation = GetActorRotation();
+	// FVector rotationVec = rotation.Vector();
+	//
+	// //Apply speed to rotation vector
+	// rotationVec.X *= speed;
+	// //rotationVec.Y *= speed;
+	//
+	// //Set new movement velocity
+	// GetCharacterMovement()->Velocity.X = rotationVec.X;
+	// GetCharacterMovement()->Velocity.Y = rotationVec.Y;
 }
 
 
