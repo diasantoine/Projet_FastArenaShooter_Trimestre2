@@ -36,7 +36,6 @@ void AMyCharacterController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if (GetCharacterMovement()->IsMovingOnGround() && GetCharacterMovement()->Velocity == FVector(0,0,0))
 	{
-		UE_LOG(LogTemp,Warning,TEXT("testezez"))
 		if (!GetWorldTimerManager().TimerExists(ManagerTime))
 		{
 			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
@@ -66,8 +65,8 @@ void AMyCharacterController::InputPlayer()
 	this->InputComponent->BindAxis("Forward",this,&AMyCharacterController::ForwardPlayer);
 	this->InputComponent->BindAxis("Right",this,&AMyCharacterController::RightPlayer);
 
-	this->InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	this->InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+	this->InputComponent->BindAxis("Turn", this, &AMyCharacterController::YawRotation);
+	this->InputComponent->BindAxis("LookUp", this, &AMyCharacterController::PitchRotation);
 	
 	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AMyCharacterController::JumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&ACharacter::StopJumping);
@@ -77,29 +76,49 @@ void AMyCharacterController::InputPlayer()
 
 void AMyCharacterController::ForwardPlayer(float _value)
 {
-	//MovementPlayer(0);
 	AddMovementInput(GetActorForwardVector(),_value);
+	//GetCharacterMovement()->Velocity += GetActorForwardVector();
 }
 
 void AMyCharacterController::RightPlayer(float _value)
 {
 	AddMovementInput(GetActorRightVector(),_value);
-	//MovementPlayer(0);
+	//GetCharacterMovement()->Velocity.Y = GetActorRightVector().Y * _value * 200;
 }
+
+void AMyCharacterController::PitchRotation(float _value)
+{
+	//GetCharacterMovement()->Velocity *= GetActorForwardVector();
+	APawn::AddControllerPitchInput(_value);
+}
+
+void AMyCharacterController::YawRotation(float _value)
+{
+	APawn::AddControllerYawInput(_value);
+	//Calculate current speed
+	FVector horizontalMovement = GetCharacterMovement()->Velocity;
+	horizontalMovement.Z = 0.0f;
+	float speed = horizontalMovement.Size();
+	
+	//Get the rotation of pawn
+	FRotator rotation = GetActorRotation();
+	FVector rotationVec = rotation.Vector();
+	
+	//Apply speed to rotation vector
+	rotationVec.X *= speed;
+	rotationVec.Y *= speed;
+	
+	//Set new movement velocity
+	GetCharacterMovement()->Velocity.X = rotationVec.X;
+	GetCharacterMovement()->Velocity.Y = rotationVec.Y;
+}
+
 
 void AMyCharacterController::JumpPlayer()
 {
 	AccelerationVelocity();
 	Jump();
 }
-
-
-void AMyCharacterController::MovementPlayer(float _jumpValue)
-{
-	
-}
-
-
 
 void AMyCharacterController::AccelerationVelocity()
 {
@@ -110,7 +129,6 @@ void AMyCharacterController::AccelerationVelocity()
 
 void AMyCharacterController::ResetAccelerationVelocity()
 {
-	UE_LOG(LogTemp,Warning,TEXT("test"))
 	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._speed;
 	if (GetWorldTimerManager().TimerExists(ManagerTime))
 	{
