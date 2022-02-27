@@ -44,31 +44,11 @@ void AMyCharacterController::Tick(float DeltaTime)
 	}
 	else
 	{
-		if (!GetCharacterMovement()->IsMovingOnGround())
-		{
-			//Calculate current speed
-			FVector horizontalMovement = GetCharacterMovement()->Velocity;
-			horizontalMovement.Z = 0.0f;
-			float speed = horizontalMovement.Size();
-	
-			//Get the rotation of pawn
-			FRotator rotation = GetActorRotation();
-			FVector rotationVec = rotation.Vector();
-	
-			//Apply speed to rotation vector
-			rotationVec.X *= speed;
-			rotationVec.Y *= speed;
-	
-			//Set new movement velocity
-			GetCharacterMovement()->Velocity.X = rotationVec.X;
-			GetCharacterMovement()->Velocity.Y = rotationVec.Y;
-		}
 		if (GetWorldTimerManager().TimerExists(ManagerTime))
 		{
 			GetWorldTimerManager().ClearTimer(ManagerTime);
 		}
 	}
-
 }
 
 // Called to bind functionality to input
@@ -114,13 +94,61 @@ void AMyCharacterController::PitchRotation(float _value)
 void AMyCharacterController::YawRotation(float _value)
 {
 	APawn::AddControllerYawInput(_value);
+	if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
+	{
+		GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::JumpVelocityDirection,_timeBeforeCheckingAngleForBunny,
+			false,_timeBeforeCheckingAngleForBunny);
+	}	
+	if (!GetCharacterMovement()->IsMovingOnGround() && InputComponent->GetAxisValue("Right") != 0)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("dzdfzf"));
+		//Calculate current speed
+		FVector horizontalMovement = GetCharacterMovement()->Velocity;
+		horizontalMovement.Z = 0.0f;
+		float speed = horizontalMovement.Size();
+	
+		//Get the rotation of pawn
+		FRotator rotation = GetActorRotation();
+		FVector rotationVec = rotation.Vector();
+	
+		//Apply speed to rotation vector
+		rotationVec.X *= speed;
+		rotationVec.Y *= speed;
+	
+		//Set new movement velocity
+		GetCharacterMovement()->Velocity.X = rotationVec.X;
+		GetCharacterMovement()->Velocity.Y = rotationVec.Y;
+	}
+}
+
+void AMyCharacterController::JumpVelocityDirection()
+{
+	if (_oldForwardVector == FVector(0,0,0))
+	{
+		_oldForwardVector = GetActorForwardVector();
+	}
+	else
+	{
+		if (FVector::DotProduct(_oldForwardVector,GetActorForwardVector()) >= _fDataStruct._minimumAngleForBunny)
+		{
+			
+		}
+	}
 }
 
 
 void AMyCharacterController::JumpPlayer()
 {
-	AccelerationVelocity();
-	Jump();
+	if(GetCharacterMovement()->IsMovingOnGround())
+	{
+		AccelerationVelocity();
+		Jump();
+	}
+	else
+	{
+		GetWorldTimerManager().SetTimer(ManagerTimeJump,this,&AMyCharacterController::JumpWindow,_fDataStruct._jumpWindow,
+			false,_fDataStruct._jumpWindow);
+	}
 }
 
 void AMyCharacterController::AccelerationVelocity()
@@ -137,6 +165,16 @@ void AMyCharacterController::ResetAccelerationVelocity()
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTime);
 	}
+}
+
+void AMyCharacterController::JumpWindow()
+{
+	if (GetCharacterMovement()->IsMovingOnGround())
+	{
+		AccelerationVelocity();
+		Jump(); 
+	}
+	GetWorldTimerManager().ClearTimer(ManagerTimeJump);
 }
 
 void AMyCharacterController::ShootWeapon(bool _specialFire)

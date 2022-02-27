@@ -11,6 +11,8 @@ AMyWeaponBehaviour::AMyWeaponBehaviour()
 
 }
 
+
+
 // Called when the game starts or when spawned
 void AMyWeaponBehaviour::BeginPlay()
 {
