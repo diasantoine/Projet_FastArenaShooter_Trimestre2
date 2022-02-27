@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\FastArenaShooter.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{C7500D6F-6595-4686-9B59-392C7971F785}</UniqueIdentifier>
+      <UniqueIdentifier>{13899EA4-2A01-430F-8B77-6B597F410F40}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\FastArenaShooter.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{F430AEA8-C4E8-40FE-B4AC-F06AF6D37C88}</UniqueIdentifier>
+      <UniqueIdentifier>{3B885186-7298-405A-94D3-CB247BB9E5E9}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,16 +30,16 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Plugins">
-      <UniqueIdentifier>{09DBE4FF-379F-4E3C-A8FE-F2D6C810F0FA}</UniqueIdentifier>
+      <UniqueIdentifier>{129D6640-B35C-4520-9067-893B27ADDD9C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\FMODStudio">
-      <UniqueIdentifier>{CEA8CFAC-3D6D-4EF0-930A-B0BFEF2E17E9}</UniqueIdentifier>
+      <UniqueIdentifier>{D50E5358-10D5-469E-991F-E5D664B464DA}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\FMODStudio\Source">
-      <UniqueIdentifier>{CF404B4A-9EC9-463C-898E-CC204E47DA2C}</UniqueIdentifier>
+      <UniqueIdentifier>{A2AF15B8-7167-4F40-8EE4-FD75062313C4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudio">
-      <UniqueIdentifier>{A950639D-D442-4BF1-8519-27BDC37A899A}</UniqueIdentifier>
+      <UniqueIdentifier>{02ACB853-D76B-49FD-85EA-43B20199D353}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Plugins\FMODStudio\Source\FMODStudio\FMODStudio.Build.cs">
       <Filter>Plugins\FMODStudio\Source\FMODStudio</Filter>
@@ -51,7 +51,7 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudio</Filter>
     </None>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudio\Classes">
-      <UniqueIdentifier>{F57D1958-FD37-418F-BDDF-61D06380A01C}</UniqueIdentifier>
+      <UniqueIdentifier>{05A90A19-E441-4FC1-9916-0F92603ADD9F}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\FMODStudio\Source\FMODStudio\Classes\FMODAmbientSound.h">
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Classes</Filter>
@@ -90,7 +90,7 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Classes</Filter>
     </ClInclude>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudio\Private">
-      <UniqueIdentifier>{5BBCC12D-DCFF-4460-A49F-5E85F223F5AE}</UniqueIdentifier>
+      <UniqueIdentifier>{E77EB1B1-956E-48D9-9D6C-54DD02CA1022}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\FMODStudio\Source\FMODStudio\Private\FMODAmbientSound.cpp">
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Private</Filter>
@@ -168,7 +168,7 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Private</Filter>
     </ClCompile>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudio\Private\Sequencer">
-      <UniqueIdentifier>{A150F868-0617-4FAD-9686-4A0E2D28AF89}</UniqueIdentifier>
+      <UniqueIdentifier>{F3B892E0-BCDF-4F81-90A9-3D03A725E530}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\FMODStudio\Source\FMODStudio\Private\Sequencer\FMODEventControlSection.cpp">
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Private\Sequencer</Filter>
@@ -201,7 +201,7 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Private\Sequencer</Filter>
     </ClInclude>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudio\Public">
-      <UniqueIdentifier>{C6BE3745-8897-4701-BD83-3E0E6C7CF62A}</UniqueIdentifier>
+      <UniqueIdentifier>{5FA517B0-ADCE-496C-BA51-EF81FCCECE5F}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\FMODStudio\Source\FMODStudio\Public\FMODStudioModule.h">
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Public</Filter>
@@ -210,7 +210,7 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Public</Filter>
     </ClInclude>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudio\Public\FMOD">
-      <UniqueIdentifier>{BDAC58CF-172B-4765-9079-BE6C591C566C}</UniqueIdentifier>
+      <UniqueIdentifier>{C9D2CD30-9BE7-4381-98D5-43DE1E2C29A2}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod.h">
       <Filter>Plugins\FMODStudio\Source\FMODStudio\Public\FMOD</Filter>
@@ -252,19 +252,19 @@
       <Filter>Plugins\FMODStudio</Filter>
     </None>
     <Filter Include="Plugins\FMODStudio\Resources">
-      <UniqueIdentifier>{34E7300A-7DC3-46E2-A78D-638A999A0142}</UniqueIdentifier>
+      <UniqueIdentifier>{2A4C9DFF-329C-4C54-A928-7CEF921DF42A}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Plugins\FMODStudio\Resources\Icon128.png">
       <Filter>Plugins\FMODStudio\Resources</Filter>
     </None>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudioEditor">
-      <UniqueIdentifier>{629C469E-0C74-4B06-B8A7-A59D31C60D8F}</UniqueIdentifier>
+      <UniqueIdentifier>{59316BCC-F253-4A3B-A917-3ECB4695CEE6}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Plugins\FMODStudio\Source\FMODStudioEditor\FMODStudioEditor.Build.cs">
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor</Filter>
     </None>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudioEditor\Classes">
-      <UniqueIdentifier>{67CEECF7-A43A-4763-9ED8-80A1E369BBF5}</UniqueIdentifier>
+      <UniqueIdentifier>{149E8435-7BE6-4087-8FF7-914A97FE5205}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\FMODStudio\Source\FMODStudioEditor\Classes\FMODAmbientSoundActorFactory.h">
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor\Classes</Filter>
@@ -276,7 +276,7 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor\Classes</Filter>
     </ClInclude>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudioEditor\Private">
-      <UniqueIdentifier>{AC3F6296-C297-4DBD-BD16-59D4C3D0A7CA}</UniqueIdentifier>
+      <UniqueIdentifier>{EBEAD69F-B22D-497A-9520-5C96C9464177}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\FMODStudio\Source\FMODStudioEditor\Private\AssetTypeActions_FMODEvent.cpp">
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor\Private</Filter>
@@ -345,7 +345,7 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor\Private</Filter>
     </ClInclude>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudioEditor\Private\Sequencer">
-      <UniqueIdentifier>{678E5F21-DB81-487C-AB4B-00E3C2900048}</UniqueIdentifier>
+      <UniqueIdentifier>{986362E0-CAEA-4D99-AFFA-E5D490D69078}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\FMODStudio\Source\FMODStudioEditor\Private\Sequencer\FMODChannelEditors.cpp">
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor\Private\Sequencer</Filter>
@@ -372,13 +372,13 @@
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor\Private\Sequencer</Filter>
     </ClInclude>
     <Filter Include="Plugins\FMODStudio\Source\FMODStudioEditor\Public">
-      <UniqueIdentifier>{501BDE90-AC4E-4F74-9D67-975884277CC9}</UniqueIdentifier>
+      <UniqueIdentifier>{6C7634CB-533B-4866-851C-80A2215549F0}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\FMODStudio\Source\FMODStudioEditor\Public\FMODStudioEditorModule.h">
       <Filter>Plugins\FMODStudio\Source\FMODStudioEditor\Public</Filter>
     </ClInclude>
     <Filter Include="Source\FastArenaShooter">
-      <UniqueIdentifier>{19E0022B-CBA2-47AD-8957-BAACC52A75EB}</UniqueIdentifier>
+      <UniqueIdentifier>{14F3C0CF-CF50-467D-980C-4E122AB226BF}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\FastArenaShooter\FastArenaShooter.Build.cs">
       <Filter>Source\FastArenaShooter</Filter>
