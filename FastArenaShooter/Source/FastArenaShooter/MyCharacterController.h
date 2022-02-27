@@ -47,8 +47,9 @@ public:
 
 	void ForwardPlayer(float _value);
 	void RightPlayer(float _value);
+	void YawRotation(float _value);
+	void PitchRotation(float _value);
 	void JumpPlayer();
-	void MovementPlayer(float _jumpValue);
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _specialFire);
