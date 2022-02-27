@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Workspace" id="{f0c01445-ca03-412b-b596-4515989712fc}">
 		<property name="builtBanksOutputDirectory">
-			<value>D:/Ican/Cour ican/ICAN Mastere 1 GP/Projet_FastArenaShooter/Projet_FastArenaShooter_Trimestre2/FastArenaShooter/Content/MyContent/FMOD</value>
+			<value>A:/GitHubProjects/Projet_FastArenaShooter_Trimestre2/FastArenaShooter/Content/MyContent/FMOD</value>
 		</property>
 		<relationship name="masterEventFolder">
 			<destination>{b1bcd174-3584-43d2-849c-e64771af2cf8}</destination>
