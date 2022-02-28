@@ -75,4 +75,5 @@ private:
 	FTimerHandle ManagerTimeJump;
 	FTimerHandle ManagerTimeDotRotation;
 	bool _jumpButtonPressed = false;
+	bool _onBunny = false;
 };

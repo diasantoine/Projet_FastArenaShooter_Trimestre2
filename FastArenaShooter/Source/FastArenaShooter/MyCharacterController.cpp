@@ -34,12 +34,19 @@ void AMyCharacterController::BeginPlay()
 void AMyCharacterController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (GetCharacterMovement()->IsMovingOnGround() && GetCharacterMovement()->Velocity == FVector(0,0,0))
+	if (GetCharacterMovement()->IsMovingOnGround())
 	{
-		if (!GetWorldTimerManager().TimerExists(ManagerTime))
+		if (_onBunny)
 		{
-			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
-				,true,_fDataStruct._timeBeforeDecceleration);
+			_onBunny = false;
+		}
+		if (GetCharacterMovement()->Velocity == FVector(0,0,0))
+		{
+			if (!GetWorldTimerManager().TimerExists(ManagerTime))
+			{
+				GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
+					,true,_fDataStruct._timeBeforeDecceleration);
+			}
 		}
 	}
 	else
@@ -107,32 +114,30 @@ void AMyCharacterController::JumpVelocityDirection()
 	{
 		_oldForwardVector = GetActorForwardVector();
 	}
-	else
+	float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
+	if ((angle >= _fDataStruct._minimumAngleForBunny &&
+		!GetCharacterMovement()->IsMovingOnGround() && InputComponent->GetAxisValue("Right") != 0) || _onBunny)
 	{
-		float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-		if (angle >= _fDataStruct._minimumAngleForBunny &&
-			!GetCharacterMovement()->IsMovingOnGround() && InputComponent->GetAxisValue("Right") != 0)
-		{
-			UE_LOG(LogTemp,Warning,TEXT("dzdfzf"));
-			//Calculate current speed
-			FVector horizontalMovement = GetCharacterMovement()->Velocity;
-			horizontalMovement.Z = 0.0f;
-			float speed = horizontalMovement.Size();
+		_onBunny = true;
+		UE_LOG(LogTemp,Warning,TEXT("dzdfzf"));
+		//Calculate current speed
+		FVector horizontalMovement = GetCharacterMovement()->Velocity;
+		horizontalMovement.Z = 0.0f;
+		float speed = horizontalMovement.Size();
 	
-			//Get the rotation of pawn
-			FRotator rotation = GetActorRotation();
-			FVector rotationVec = rotation.Vector();
+		//Get the rotation of pawn
+		FRotator rotation = GetActorRotation();
+		FVector rotationVec = rotation.Vector();
 	
-			//Apply speed to rotation vector
-			rotationVec.X *= speed;
-			rotationVec.Y *= speed;
+		//Apply speed to rotation vector
+		rotationVec.X *= speed;
+		rotationVec.Y *= speed;
 	
-			//Set new movement velocity
-			GetCharacterMovement()->Velocity.X = rotationVec.X;
-			GetCharacterMovement()->Velocity.Y = rotationVec.Y;
-		}
-		_oldForwardVector = GetActorForwardVector();
+		//Set new movement velocity
+		GetCharacterMovement()->Velocity.X = rotationVec.X;
+		GetCharacterMovement()->Velocity.Y = rotationVec.Y;
 	}
+	_oldForwardVector = GetActorForwardVector();
 }
 
 
