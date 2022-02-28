@@ -13,5 +13,8 @@ UCLASS()
 class FASTARENASHOOTER_API AMyFirstWeapon : public AMyWeaponBehaviour
 {
 	GENERATED_BODY()
-	
+
+	void NormalFire() override;
+	void SpecialFire() override;
+
 };

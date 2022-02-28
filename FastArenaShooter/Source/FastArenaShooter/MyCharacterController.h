@@ -17,6 +17,10 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _height = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	float _jumpWindow = 0.5f;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	float _minimumAngleForBunny = 30.0f;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _weight = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _acceleration = 1.2f;
@@ -50,6 +54,8 @@ public:
 	void YawRotation(float _value);
 	void PitchRotation(float _value);
 	void JumpPlayer();
+	void JumpWindow();
+	void JumpVelocityDirection();
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _specialFire);
@@ -62,6 +68,11 @@ private:
 	virtual void OnConstruction(const FTransform& Transform) override;
 	void InputPlayer();
 
-	FTimerHandle ManagerTime;
+	float _timeBeforeCheckingAngleForBunny = 0.2f;
+	FVector _oldForwardVector;
 
+	FTimerHandle ManagerTime;
+	FTimerHandle ManagerTimeJump;
+	FTimerHandle ManagerTimeDotRotation;
+	bool _jumpButtonPressed = false;
 };
