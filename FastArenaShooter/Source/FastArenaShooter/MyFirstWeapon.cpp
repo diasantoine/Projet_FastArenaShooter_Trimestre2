@@ -22,7 +22,7 @@ void AMyFirstWeapon::NormalFire()
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 		// spawn the projectile at the muzzle
-		//World->SpawnActor(_dataWeapon._modelOfBullet[_typeOfWeapon], SpawnLocation, SpawnRotation, ActorSpawnParams);
+		World->SpawnActor<AMyBulletsBehaviour>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
 	}
 }
 
