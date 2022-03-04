@@ -1,0 +1,18 @@
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Classes\FMODEvent.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Classes\FMODAsset.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODAsset.generated.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODEvent.generated.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMODStudioModule.h
+D:\UnrealEnginee\UE_4.27\Engine\Source\Runtime\Core\Public\Modules/ModuleManager.h
+D:\UnrealEnginee\UE_4.27\Engine\Source\Runtime\Core\Public\Modules/ModuleInterface.h
+D:\UnrealEnginee\UE_4.27\Engine\Source\Runtime\Core\Public\Modules/Boilerplate/ModuleBoilerplate.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_studio.hpp
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_studio_common.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_common.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_codec.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_dsp.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_dsp_effects.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_output.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_studio.h
+D:\Ican\Cour ican\ICAN Mastere 1 GP\Projet_FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Plugins\FMODStudio\Source\FMODStudio\Public\FMOD\fmod.hpp
