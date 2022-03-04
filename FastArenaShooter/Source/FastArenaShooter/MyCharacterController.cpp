@@ -36,10 +36,6 @@ void AMyCharacterController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
-		if (_onBunny)
-		{
-			_onBunny = false;
-		}
 		if (GetCharacterMovement()->Velocity == FVector(0,0,0))
 		{
 			if (!GetWorldTimerManager().TimerExists(ManagerTime))
@@ -55,6 +51,11 @@ void AMyCharacterController::Tick(float DeltaTime)
 		{
 			GetWorldTimerManager().ClearTimer(ManagerTime);
 		}
+	}
+
+	if (_onBunny && GetInputAxisValue("Right") == 0)
+	{
+		_onBunny = false;
 	}
 }
 

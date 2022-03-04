@@ -60,6 +60,14 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 #endif
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp__height;
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__jumpWindow_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp__jumpWindow;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__minimumAngleForBunny_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp__minimumAngleForBunny;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__weight_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp__weight;
@@ -109,6 +117,20 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 #endif
 	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__height = { "_height", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FdataStruct, _height), METADATA_PARAMS(Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__height_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__height_MetaData)) };
 #if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__jumpWindow_MetaData[] = {
+		{ "Category", "Stat Character" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__jumpWindow = { "_jumpWindow", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FdataStruct, _jumpWindow), METADATA_PARAMS(Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__jumpWindow_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__jumpWindow_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__minimumAngleForBunny_MetaData[] = {
+		{ "Category", "Stat Character" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__minimumAngleForBunny = { "_minimumAngleForBunny", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FdataStruct, _minimumAngleForBunny), METADATA_PARAMS(Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__minimumAngleForBunny_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__minimumAngleForBunny_MetaData)) };
+#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__weight_MetaData[] = {
 		{ "Category", "Stat Character" },
 		{ "ModuleRelativePath", "MyCharacterController.h" },
@@ -140,6 +162,8 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__speed,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__maxSpeed,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__height,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__jumpWindow,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__minimumAngleForBunny,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__weight,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__acceleration,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FdataStruct_Statics::NewProp__timeBeforeDecceleration,
@@ -173,7 +197,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		}
 		return ReturnStruct;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FdataStruct_Hash() { return 2167350985U; }
+	uint32 Get_Z_Construct_UScriptStruct_FdataStruct_Hash() { return 131070679U; }
 	void AMyCharacterController::StaticRegisterNativesAMyCharacterController()
 	{
 	}

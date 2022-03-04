@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeMyFirstWeapon() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMyFirstWeapon, 1673810248);
+	IMPLEMENT_CLASS(AMyFirstWeapon, 3372598370);
 	template<> FASTARENASHOOTER_API UClass* StaticClass<AMyFirstWeapon>()
 	{
 		return AMyFirstWeapon::StaticClass();
