@@ -82,19 +82,25 @@ void AMyCharacterController::InputPlayer()
 	this->InputComponent->BindAction("Jump", IE_Released, this,&ACharacter::StopJumping);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,false);
 	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,true);
+
+	if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
+	{
+		GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::BunnyHop,_timeBeforeCheckingAngleForBunny,
+			false,_timeBeforeCheckingAngleForBunny);
+	}	
 }
 
 void AMyCharacterController::ForwardPlayer(float _value)
 {
 	//AddMovementInput(GetActorForwardVector(),_value);
-	JumpVelocityDirection();
+	MovementPlayer();
 	//GetCharacterMovement()->Velocity += GetActorForwardVector();
 }
 
 void AMyCharacterController::RightPlayer(float _value)
 {
 	//AddMovementInput(GetActorRightVector(),_value);
-	JumpVelocityDirection();
+	MovementPlayer();
 	//GetCharacterMovement()->Velocity.Y = GetActorRightVector().Y * _value * 200;
 }
 
@@ -107,45 +113,26 @@ void AMyCharacterController::PitchRotation(float _value)
 void AMyCharacterController::YawRotation(float _value)
 {
 	APawn::AddControllerYawInput(_value);
-	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
-	// {
-	// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::JumpVelocityDirection,_timeBeforeCheckingAngleForBunny,
-	// 		false,_timeBeforeCheckingAngleForBunny);
-	// }	
 }
 
-void AMyCharacterController::JumpVelocityDirection()
+void AMyCharacterController::MovementPlayer()
 {
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
 		FVector _forwardDirection = GetActorForwardVector() * InputComponent->GetAxisValue("Forward");
 		FVector _rightMovement = GetActorRightVector() * InputComponent->GetAxisValue("Right");
 		FVector _directionPlayer =  (_forwardDirection + _rightMovement).GetSafeNormal();
-		GetCharacterMovement()->Velocity = _directionPlayer * GetCharacterMovement()->MaxWalkSpeed + GetCharacterMovement()->Velocity.Z;
-		// 	FRotator rotation = GetActorRotation();
-		// 	FVector rotationVec = rotation.Vector();
+		GetCharacterMovement()->Velocity = _directionPlayer * GetCharacterMovement()->MaxWalkSpeed + FVector(0,0,GetCharacterMovement()->Velocity.Z);
+		
 		// GetCharacterMovement()->Velocity = FVector(InputComponent->GetAxisValue("Forward") * _fDataStruct._speed 
 		// 	, InputComponent->GetAxisValue("Right") * _fDataStruct._speed,GetCharacterMovement()->Velocity.Z) * rotationVec;
 	}else
 	{
-		if (InputComponent->GetAxisValue("Right") != 0)
-		{
-			FVector ConteneurCameraPositionForward = GetActorForwardVector();
-			FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
-			FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
-			GetCharacterMovement()->Velocity = FVector(Vector3_Deplacement_Player.X * GetCharacterMovement()->MaxWalkSpeed,
+		FVector ConteneurCameraPositionForward = GetActorForwardVector();
+		FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
+		FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
+		GetCharacterMovement()->Velocity = FVector(Vector3_Deplacement_Player.X * GetCharacterMovement()->MaxWalkSpeed,
 				Vector3_Deplacement_Player.Y * GetCharacterMovement()->MaxWalkSpeed,GetCharacterMovement()->Velocity.Z);
-		}else
-		{
-			FVector ConteneurCameraPositionForward = GetActorForwardVector();
-			FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
-			FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
-			GetCharacterMovement()->Velocity = FVector(GetCharacterMovement()->Velocity.X,
-				Vector3_Deplacement_Player.Y * GetCharacterMovement()->MaxWalkSpeed,GetCharacterMovement()->Velocity.Z);
-		}
-		
-		// GetCharacterMovement()->Velocity = FVector(GetActorForwardVector().X, InputComponent->GetAxisValue("Right"),0)
-		// * _fDataStruct._speed + FVector(0,0,GetCharacterMovement()->Velocity.Z);
 	}
 	
 	// if (_oldForwardVector == FVector(0,0,0))
@@ -179,13 +166,28 @@ void AMyCharacterController::JumpVelocityDirection()
 	// _oldForwardVector = GetActorForwardVector();
 }
 
+void AMyCharacterController::BunnyHop()
+{
+	if (_oldForwardVector == FVector(0,0,0))
+	{
+		_oldForwardVector = GetActorForwardVector();
+	}
+	_oldForwardVector = GetActorForwardVector();
+}
+
+
 
 void AMyCharacterController::JumpPlayer()
 {
 	if(GetCharacterMovement()->IsMovingOnGround())
 	{
-		AccelerationVelocity();
 		Jump();
+		float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
+		if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
+		{
+			UE_LOG(LogTemp,Warning,TEXT("%d"),angle);
+			AccelerationVelocity();
+		}
 	}
 	else
 	{

@@ -55,7 +55,8 @@ public:
 	void PitchRotation(float _value);
 	void JumpPlayer();
 	void JumpWindow();
-	void JumpVelocityDirection();
+	void BunnyHop();
+	void MovementPlayer();
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _specialFire);
