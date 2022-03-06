@@ -24,7 +24,7 @@ AMyCharacterController::AMyCharacterController()
 void AMyCharacterController::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._speed;
+	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundAcceleration;
 	GetCharacterMovement()->JumpZVelocity = _fDataStruct._height;
 	GetCharacterMovement()->GravityScale *= _fDataStruct._weight;
 	GetCharacterMovement()->BrakingFrictionFactor = _fDataStruct._deceleration;
@@ -34,6 +34,7 @@ void AMyCharacterController::BeginPlay()
 void AMyCharacterController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	MovementPlayer();
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
 		if (GetCharacterMovement()->Velocity == FVector(0,0,0))
@@ -93,14 +94,27 @@ void AMyCharacterController::InputPlayer()
 void AMyCharacterController::ForwardPlayer(float _value)
 {
 	//AddMovementInput(GetActorForwardVector(),_value);
-	MovementPlayer();
+	// else
+	// {
+	// 	float _normVelocity = GetCharacterMovement()->Velocity.Size();
+	// 	GetCharacterMovement()->Velocity.X = _normVelocity * GetActorForwardVector().X;
+	// 	GetCharacterMovement()->Velocity.Y = _normVelocity * GetActorForwardVector().Y;
+	// }
+	//GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * _value * GetCharacterMovement()->MaxWalkSpeed;
+	//MovementPlayer();
 	//GetCharacterMovement()->Velocity += GetActorForwardVector();
 }
 
 void AMyCharacterController::RightPlayer(float _value)
 {
 	//AddMovementInput(GetActorRightVector(),_value);
-	MovementPlayer();
+	// else
+	// {
+	// 	float _normVelocity = GetCharacterMovement()->Velocity.Size();
+	// 	GetCharacterMovement()->Velocity.X = _normVelocity * GetActorRightVector().X * _value;
+	// 	GetCharacterMovement()->Velocity.Y = _normVelocity * GetActorRightVector().Y * _value;
+	// }
+	//MovementPlayer();
 	//GetCharacterMovement()->Velocity.Y = GetActorRightVector().Y * _value * 200;
 }
 
@@ -117,23 +131,83 @@ void AMyCharacterController::YawRotation(float _value)
 
 void AMyCharacterController::MovementPlayer()
 {
+	FVector VelocityPlayer = GetCharacterMovement()->Velocity;
+	float accelVel; // Accelerated velocity in direction of movment
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
-		FVector _forwardDirection = GetActorForwardVector() * InputComponent->GetAxisValue("Forward");
-		FVector _rightMovement = GetActorRightVector() * InputComponent->GetAxisValue("Right");
-		FVector _directionPlayer =  (_forwardDirection + _rightMovement).GetSafeNormal();
-		GetCharacterMovement()->Velocity = _directionPlayer * GetCharacterMovement()->MaxWalkSpeed + FVector(0,0,GetCharacterMovement()->Velocity.Z);
-		
-		// GetCharacterMovement()->Velocity = FVector(InputComponent->GetAxisValue("Forward") * _fDataStruct._speed 
-		// 	, InputComponent->GetAxisValue("Right") * _fDataStruct._speed,GetCharacterMovement()->Velocity.Z) * rotationVec;
-	}else
-	{
-		FVector ConteneurCameraPositionForward = GetActorForwardVector();
-		FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
-		FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
-		GetCharacterMovement()->Velocity = FVector(Vector3_Deplacement_Player.X * GetCharacterMovement()->MaxWalkSpeed,
-				Vector3_Deplacement_Player.Y * GetCharacterMovement()->MaxWalkSpeed,GetCharacterMovement()->Velocity.Z);
+		float speed =VelocityPlayer.Size();
+		if (speed != 0) // To avoid divide by zero errors
+		{
+			float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
+			VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
+		}
+		accelVel = _fDataStruct._groundAcceleration * GetWorld()->GetDeltaSeconds();
 	}
+	else
+	{
+		accelVel = _fDataStruct._airAcceleration  * GetWorld()->GetDeltaSeconds();
+	}
+	float InputForward = InputComponent->GetAxisValue("Forward");
+	float InputRight = InputComponent->GetAxisValue("Right");
+ 	FVector AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
+	if (AccelDirection.Size() > 1)
+	{
+		AccelDirection.Normalize();
+	}
+	float projVel = FVector::DotProduct(VelocityPlayer, AccelDirection); // Vector projection of Current velocity onto accelDir.
+
+	// If necessary, truncate the accelerated velocity so the vector projection does not exceed max_velocity
+	if(projVel + accelVel >_fDataStruct._maxSpeed)
+		accelVel = _fDataStruct._maxSpeed - projVel;
+
+	//FVector2D Velocity2D = FVector2D(GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
+	GetCharacterMovement()->Velocity = VelocityPlayer + AccelDirection * accelVel;
+	// GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
+	// GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
+
+
+	// FVector ConteneurCameraPositionForward = GetActorForwardVector();
+	// FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
+	// FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
+	// GetCharacterMovement()->Velocity *= FVector(GetActorForwardVector().X,1,1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	// if (GetCharacterMovement()->IsMovingOnGround())
+	// {
+	// 	FVector _forwardDirection = GetActorForwardVector() * InputComponent->GetAxisValue("Forward");
+	// 	FVector _rightMovement = GetActorRightVector() * InputComponent->GetAxisValue("Right");
+	// 	FVector _directionPlayer =  (_forwardDirection + _rightMovement).GetSafeNormal();
+	// 	GetCharacterMovement()->Velocity = _directionPlayer * GetCharacterMovement()->MaxWalkSpeed + FVector(0,0,GetCharacterMovement()->Velocity.Z);
+	// 	
+	// 	// GetCharacterMovement()->Velocity = FVector(InputComponent->GetAxisValue("Forward") * _fDataStruct._groundAcceleration 
+	// 	// 	, InputComponent->GetAxisValue("Right") * _fDataStruct._groundAcceleration,GetCharacterMovement()->Velocity.Z) * rotationVec;
+	// }else
+	// {
+	// 	FVector ConteneurCameraPositionForward = GetActorForwardVector();
+	// 	FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
+	// 	FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
+	// 	GetCharacterMovement()->Velocity *= FVector(GetActorForwardVector().X,1,1);
+	// 	// GetCharacterMovement()->Velocity = FVector(Vector3_Deplacement_Player.X * GetCharacterMovement()->Velocity.X,
+	// 	// 		Vector3_Deplacement_Player.Y +  GetCharacterMovement()->Velocity.Y,GetCharacterMovement()->Velocity.Z);
+	// }
 	
 	// if (_oldForwardVector == FVector(0,0,0))
 	// {
@@ -182,12 +256,12 @@ void AMyCharacterController::JumpPlayer()
 	if(GetCharacterMovement()->IsMovingOnGround())
 	{
 		Jump();
-		float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-		if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
-		{
-			UE_LOG(LogTemp,Warning,TEXT("%d"),angle);
-			AccelerationVelocity();
-		}
+		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
+		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
+		// {
+		// 	UE_LOG(LogTemp,Warning,TEXT("%d"),angle);
+		// 	AccelerationVelocity();
+		// }
 	}
 	else
 	{
@@ -198,14 +272,14 @@ void AMyCharacterController::JumpPlayer()
 
 void AMyCharacterController::AccelerationVelocity()
 {
-	GetCharacterMovement()->MaxWalkSpeed  = FMath::Clamp(GetCharacterMovement()->MaxWalkSpeed * _fDataStruct._acceleration,_fDataStruct._speed,
+	GetCharacterMovement()->MaxWalkSpeed  = FMath::Clamp(GetCharacterMovement()->MaxWalkSpeed * _fDataStruct._airAcceleration,_fDataStruct._groundAcceleration,
 		_fDataStruct._maxSpeed);
-	//GetCharacterMovement()->Velocity *= _fDataStruct._acceleration;
+	//GetCharacterMovement()->Velocity *= _fDataStruct._airAcceleration;
 }
 
 void AMyCharacterController::ResetAccelerationVelocity()
 {
-	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._speed;
+	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundAcceleration;
 	if (GetWorldTimerManager().TimerExists(ManagerTime))
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTime);

@@ -11,7 +11,7 @@ struct FdataStruct
 {
 	GENERATED_BODY()
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
-	float _speed = 1;
+	float _groundAcceleration = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _maxSpeed = 5000;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
@@ -23,7 +23,7 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _weight = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
-	float _acceleration = 1.2f;
+	float _airAcceleration = 1.2f;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _timeBeforeDecceleration = 0.5f;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
