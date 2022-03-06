@@ -69,7 +69,7 @@ private:
 	virtual void OnConstruction(const FTransform& Transform) override;
 	void InputPlayer();
 
-	float _timeBeforeCheckingAngleForBunny = 0.2f;
+	float _timeBeforeBunnyStop = 0.2f;
 	FVector _oldForwardVector;
 
 	FTimerHandle ManagerTime;
