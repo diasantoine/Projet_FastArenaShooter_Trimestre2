@@ -6,6 +6,13 @@
 #include "GameFramework/Actor.h"
 #include "MyBulletsBehaviour.generated.h"
 
+USTRUCT()
+struct FBulletParameter
+{
+	GENERATED_BODY()
+	UPROPERTY(EditDefaultsOnly,Category = "Bullet Parameter")
+	UStaticMesh* _modelOfBullet;
+};
 UCLASS()
 class FASTARENASHOOTER_API AMyBulletsBehaviour : public AActor
 {
@@ -27,4 +34,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	FBulletParameter _BulletParameter;
 };

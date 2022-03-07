@@ -11,9 +11,9 @@
 UENUM()
 enum TypeOfWeapon
 {
-	_riffle,
-	_shotgun,
-	_rocketLauncher
+	Riffle,
+	Shotgun,
+	RocketLauncher
 };
 
 USTRUCT()
@@ -21,11 +21,17 @@ struct FdataWeapon
 {
 	GENERATED_BODY()
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
-	TMap<TEnumAsByte<TypeOfWeapon>,AMyBulletsBehaviour*> _modelOfBullet;
+	TSubclassOf<AMyBulletsBehaviour> _modelOfBullet;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
-	TMap<TEnumAsByte<TypeOfWeapon>,UStaticMesh*> _modelOfWeapon;
+	UStaticMesh* _modelOfWeapon;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	AActor* _gunOffset;
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	float _dmg;
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	float _speed;
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	float _impactPower;
 };
 
 
