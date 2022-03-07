@@ -151,11 +151,11 @@ void AMyCharacterController::MovementPlayer()
 	{
 		_onBunny = true;
 		accelVel = _fDataStruct._airAcceleration; // * GetWorld()->GetDeltaSeconds();
-		InputForward = 0;
+		InputForward = InputComponent->GetAxisValue("Forward");
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
 	}
 
- 	FVector AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
+	FVector AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
 	if (AccelDirection.Size() > 1)
 	{
 		AccelDirection.Normalize();
@@ -180,12 +180,22 @@ void AMyCharacterController::MovementPlayer()
 	}
 	if (!GetCharacterMovement()->IsMovingOnGround() || _onBunny)
 	{
-		GetCharacterMovement()->Velocity = VelocityPlayer + AccelDirection * accelVel;
+		if (InputComponent->GetAxisValue("Right") != 0)
+		{
+			FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
+			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
+			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
+		}
+		else
+		{
+			GetCharacterMovement()->Velocity = VelocityPlayer + AccelDirection * accelVel;
+		}
 	}
 	else
 	{
 		GetCharacterMovement()->Velocity = AccelDirection * accelVel;
 	}
+	UE_LOG(LogTemp,Warning,TEXT("%d"), _onBunny);
 	// GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 	// GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 
