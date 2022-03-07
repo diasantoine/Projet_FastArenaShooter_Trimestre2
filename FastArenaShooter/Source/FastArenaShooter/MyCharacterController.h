@@ -11,7 +11,7 @@ struct FdataStruct
 {
 	GENERATED_BODY()
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
-	float _groundAcceleration = 1;
+	float _groundSpeed = 1;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _maxSpeed = 5000;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
@@ -25,9 +25,13 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _airAcceleration = 1.2f;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	float _airSpeed = 200;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _timeBeforeDecceleration = 0.5f;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	float _deceleration = 0.5f;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	float _timeBeforeBunnyStop = 2.0f;
 };
 
 UCLASS()
@@ -55,7 +59,8 @@ public:
 	void PitchRotation(float _value);
 	void JumpPlayer();
 	void JumpWindow();
-	void BunnyHop();
+	void StopBunnyHop();
+	void VectorForwardContainer();
 	void MovementPlayer();
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
@@ -69,7 +74,8 @@ private:
 	virtual void OnConstruction(const FTransform& Transform) override;
 	void InputPlayer();
 
-	float _timeBeforeBunnyStop = 0.5f;
+	float _decelerationVelocity = 0;
+	float _bunnyVelocity = 0;
 	FVector _oldForwardVector;
 
 	FTimerHandle ManagerTime;

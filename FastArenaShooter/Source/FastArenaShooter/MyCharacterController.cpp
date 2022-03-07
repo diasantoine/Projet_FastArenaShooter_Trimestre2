@@ -24,7 +24,7 @@ AMyCharacterController::AMyCharacterController()
 void AMyCharacterController::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundAcceleration;
+	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundSpeed;
 	GetCharacterMovement()->JumpZVelocity = _fDataStruct._height;
 	GetCharacterMovement()->GravityScale *= _fDataStruct._weight;
 	GetCharacterMovement()->BrakingFrictionFactor = _fDataStruct._deceleration;
@@ -35,24 +35,24 @@ void AMyCharacterController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	MovementPlayer();
-	if (GetCharacterMovement()->IsMovingOnGround())
-	{
-		if (GetCharacterMovement()->Velocity == FVector(0,0,0))
-		{
-			if (!GetWorldTimerManager().TimerExists(ManagerTime))
-			{
-				GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
-					,true,_fDataStruct._timeBeforeDecceleration);
-			}
-		}
-	}
-	else
-	{
-		if (GetWorldTimerManager().TimerExists(ManagerTime))
-		{
-			GetWorldTimerManager().ClearTimer(ManagerTime);
-		}
-	}
+	// if (GetCharacterMovement()->IsMovingOnGround())
+	// {
+	// 	if (GetCharacterMovement()->Velocity == FVector(0,0,0))
+	// 	{
+	// 		if (!GetWorldTimerManager().TimerExists(ManagerTime))
+	// 		{
+	// 			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
+	// 				,true,_fDataStruct._timeBeforeDecceleration);
+	// 		}
+	// 	}
+	// }
+	// else
+	// {
+	// 	if (GetWorldTimerManager().TimerExists(ManagerTime))
+	// 	{
+	// 		GetWorldTimerManager().ClearTimer(ManagerTime);
+	// 	}
+	// }
 
 	// if (_onBunny)
 	// {
@@ -86,7 +86,7 @@ void AMyCharacterController::InputPlayer()
 
 	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 	// {
-	// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::BunnyHop,_timeBeforeBunnyStop,
+	// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::StopBunnyHop,_timeBeforeBunnyStop,
 	// 		false,_timeBeforeBunnyStop);
 	// }	
 }
@@ -133,23 +133,22 @@ void AMyCharacterController::MovementPlayer()
 {
 	FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	float accelVel; // Accelerated velocity in direction of movment
-	float InputForward = InputComponent->GetAxisValue("Forward");
-	float InputRight = InputComponent->GetAxisValue("Right");
+	float InputForward;
+	float InputRight;
 	if (GetCharacterMovement()->IsMovingOnGround() && !_onBunny)
 	{
-		float speed = VelocityPlayer.Size();
+		// float speed = VelocityPlayer.Size();
 		// if (speed != 0) // To avoid divide by zero errors
 		// {
 		// 	float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
 		// 	VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
 		// }
-		accelVel = _fDataStruct._groundAcceleration ;//* GetWorld()->GetDeltaSeconds();
+		accelVel = _fDataStruct._groundSpeed ;//* GetWorld()->GetDeltaSeconds();
 		InputForward = InputComponent->GetAxisValue("Forward");
 		InputRight = InputComponent->GetAxisValue("Right");
 	}
 	else
 	{
-		_onBunny = true;
 		accelVel = _fDataStruct._airAcceleration; // * GetWorld()->GetDeltaSeconds();
 		InputForward = InputComponent->GetAxisValue("Forward");
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
@@ -171,31 +170,63 @@ void AMyCharacterController::MovementPlayer()
 	{
 		if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 		{
-			GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::BunnyHop,_timeBeforeBunnyStop,
-				false,_timeBeforeBunnyStop);
+			GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::StopBunnyHop,_fDataStruct._timeBeforeBunnyStop,
+				false,_fDataStruct._timeBeforeBunnyStop);
 		}	
 	}else if (GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 	}
-	if (!GetCharacterMovement()->IsMovingOnGround() || _onBunny)
+	if (!GetCharacterMovement()->IsMovingOnGround())
 	{
-		if (InputComponent->GetAxisValue("Right") != 0)
+		_decelerationVelocity = 0;
+		if (_bunnyVelocity != 0)
 		{
+			_bunnyVelocity = 0;
+		}
+		if (/*InputComponent->GetAxisValue("Right") != 0 && */ _onBunny)
+		{
+			//UE_LOG(LogTemp,Warning,TEXT("test"))
 			FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
 			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 		}
 		else
 		{
-			GetCharacterMovement()->Velocity = VelocityPlayer + AccelDirection * accelVel;
+			GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+			GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
 		}
 	}
 	else
 	{
-		GetCharacterMovement()->Velocity = AccelDirection * accelVel;
+		if (_onBunny)
+		{
+			if (_bunnyVelocity == 0)
+			{
+				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
+			}
+			// float speed = VelocityPlayer.Size();
+			// if (speed != 0) // To avoid divide by zero errors
+			// {
+			// 	float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
+			// 	VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
+			// }
+			 _decelerationVelocity = _decelerationVelocity + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
+			float test =VelocityPlayer.Size();
+			UE_LOG(LogTemp,Warning,TEXT("%f"),test)
+			GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocity); //accelVel;
+		}
+		else
+		{
+			if (_bunnyVelocity != 0)
+			{
+				_bunnyVelocity = 0;
+			}
+			_decelerationVelocity = 0;
+			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
+		}
 	}
-	UE_LOG(LogTemp,Warning,TEXT("%d"), _onBunny);
+
 	// GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 	// GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 
@@ -231,8 +262,8 @@ void AMyCharacterController::MovementPlayer()
 	// 	FVector _directionPlayer =  (_forwardDirection + _rightMovement).GetSafeNormal();
 	// 	GetCharacterMovement()->Velocity = _directionPlayer * GetCharacterMovement()->MaxWalkSpeed + FVector(0,0,GetCharacterMovement()->Velocity.Z);
 	// 	
-	// 	// GetCharacterMovement()->Velocity = FVector(InputComponent->GetAxisValue("Forward") * _fDataStruct._groundAcceleration 
-	// 	// 	, InputComponent->GetAxisValue("Right") * _fDataStruct._groundAcceleration,GetCharacterMovement()->Velocity.Z) * rotationVec;
+	// 	// GetCharacterMovement()->Velocity = FVector(InputComponent->GetAxisValue("Forward") * _fDataStruct._groundSpeed 
+	// 	// 	, InputComponent->GetAxisValue("Right") * _fDataStruct._groundSpeed,GetCharacterMovement()->Velocity.Z) * rotationVec;
 	// }else
 	// {
 	// 	FVector ConteneurCameraPositionForward = GetActorForwardVector();
@@ -274,7 +305,7 @@ void AMyCharacterController::MovementPlayer()
 	// _oldForwardVector = GetActorForwardVector();
 }
 
-void AMyCharacterController::BunnyHop()
+void AMyCharacterController::StopBunnyHop()
 {
 	// if (_oldForwardVector == FVector(0,0,0))
 	// {
@@ -291,6 +322,17 @@ void AMyCharacterController::JumpPlayer()
 {
 	if(GetCharacterMovement()->IsMovingOnGround())
 	{
+		if (InputComponent->GetAxisValue("Right") != 0)
+		{
+			//float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
+			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -0.1f)
+			{
+				_onBunny = true;
+			}else if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= 0.1f)
+			{
+				_onBunny = true;
+			}
+		}
 		Jump();
 		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
 		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
@@ -308,14 +350,14 @@ void AMyCharacterController::JumpPlayer()
 
 void AMyCharacterController::AccelerationVelocity()
 {
-	GetCharacterMovement()->MaxWalkSpeed  = FMath::Clamp(GetCharacterMovement()->MaxWalkSpeed * _fDataStruct._airAcceleration,_fDataStruct._groundAcceleration,
+	GetCharacterMovement()->MaxWalkSpeed  = FMath::Clamp(GetCharacterMovement()->MaxWalkSpeed * _fDataStruct._airAcceleration,_fDataStruct._groundSpeed,
 		_fDataStruct._maxSpeed);
 	//GetCharacterMovement()->Velocity *= _fDataStruct._airAcceleration;
 }
 
 void AMyCharacterController::ResetAccelerationVelocity()
 {
-	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundAcceleration;
+	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundSpeed;
 	if (GetWorldTimerManager().TimerExists(ManagerTime))
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTime);
