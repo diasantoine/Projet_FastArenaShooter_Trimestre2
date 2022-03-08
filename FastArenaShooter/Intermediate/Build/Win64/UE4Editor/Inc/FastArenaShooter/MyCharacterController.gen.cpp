@@ -239,6 +239,16 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__fDataStruct_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FStructPropertyParams NewProp__fDataStruct;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__decelerationJump_MetaData[];
+#endif
+		static void NewProp__decelerationJump_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp__decelerationJump;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__jumpFollowDirection_MetaData[];
+#endif
+		static void NewProp__jumpFollowDirection_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp__jumpFollowDirection;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -261,8 +271,32 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 	};
 #endif
 	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__fDataStruct = { "_fDataStruct", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, _fDataStruct), Z_Construct_UScriptStruct_FdataStruct, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__fDataStruct_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__fDataStruct_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump_MetaData[] = {
+		{ "Category", "Stat Character" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+	};
+#endif
+	void Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump_SetBit(void* Obj)
+	{
+		((AMyCharacterController*)Obj)->_decelerationJump = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump = { "_decelerationJump", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(AMyCharacterController), &Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump_SetBit, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_MetaData[] = {
+		{ "Category", "Stat Character" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+	};
+#endif
+	void Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_SetBit(void* Obj)
+	{
+		((AMyCharacterController*)Obj)->_jumpFollowDirection = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection = { "_jumpFollowDirection", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(AMyCharacterController), &Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_SetBit, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyCharacterController_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__fDataStruct,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AMyCharacterController_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AMyCharacterController>::IsAbstract,
@@ -291,7 +325,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMyCharacterController, 440111531);
+	IMPLEMENT_CLASS(AMyCharacterController, 407221117);
 	template<> FASTARENASHOOTER_API UClass* StaticClass<AMyCharacterController>()
 	{
 		return AMyCharacterController::StaticClass();

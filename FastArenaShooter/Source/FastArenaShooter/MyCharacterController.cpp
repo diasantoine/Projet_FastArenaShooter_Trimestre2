@@ -131,7 +131,7 @@ void AMyCharacterController::YawRotation(float _value)
 
 void AMyCharacterController::MovementPlayer()
 {
-	FVector VelocityPlayer = GetCharacterMovement()->Velocity;
+FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	float accelVel; // Accelerated velocity in direction of movment
 	float InputForward;
 	float InputRight;
@@ -153,7 +153,11 @@ void AMyCharacterController::MovementPlayer()
 		InputForward = InputComponent->GetAxisValue("Forward");
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
 	}
-
+	if (InputForward == 0 && InputRight == 0)
+	{
+		_onBunny = false;
+		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
+	}
 	FVector AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
 	if (AccelDirection.Size() > 1)
 	{
@@ -179,7 +183,7 @@ void AMyCharacterController::MovementPlayer()
 	}
 	if (!GetCharacterMovement()->IsMovingOnGround())
 	{
-		_decelerationVelocity = 0;
+		_decelerationVelocityGround = 0;
 		if (_bunnyVelocity != 0)
 		{
 			_bunnyVelocity = 0;
@@ -193,8 +197,40 @@ void AMyCharacterController::MovementPlayer()
 		}
 		else
 		{
-			GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
-			GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+			if (_decelerationJump)
+			{
+				if (_bunnyVelocity == 0)
+				{
+					_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
+				}
+				_decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
+				if (_jumpFollowDirection)
+				{
+					GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround); //accelVel;
+					// GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+					// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+				}
+				else
+				{
+					GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround); //accelVel;
+					// GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+					// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+				}
+			}
+			else
+			{
+				if (_jumpFollowDirection)
+				{
+					GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+					GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+				}
+				else
+				{
+					GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+					GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+				}
+				
+			}
 		}
 	}
 	else
@@ -211,10 +247,10 @@ void AMyCharacterController::MovementPlayer()
 			// 	float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
 			// 	VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
 			// }
-			 _decelerationVelocity = _decelerationVelocity + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
-			float test =VelocityPlayer.Size();
-			UE_LOG(LogTemp,Warning,TEXT("%f"),test)
-			GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocity); //accelVel;
+			 _decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
+			// float test =VelocityPlayer.Size();
+			// UE_LOG(LogTemp,Warning,TEXT("%f"),test)
+			GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocityGround); //accelVel;
 		}
 		else
 		{
@@ -222,7 +258,7 @@ void AMyCharacterController::MovementPlayer()
 			{
 				_bunnyVelocity = 0;
 			}
-			_decelerationVelocity = 0;
+			_decelerationVelocityGround = 0;
 			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 		}
 	}
@@ -236,24 +272,7 @@ void AMyCharacterController::MovementPlayer()
 	// FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
 	// GetCharacterMovement()->Velocity *= FVector(GetActorForwardVector().X,1,1);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 	
 	// if (GetCharacterMovement()->IsMovingOnGround())
 	// {
@@ -332,6 +351,20 @@ void AMyCharacterController::JumpPlayer()
 			{
 				_onBunny = true;
 			}
+			else
+			{
+				if (_onBunny)
+				{
+					_onBunny = false;
+				}
+			}
+		}
+		else
+		{
+			if (_onBunny)
+			{
+				_onBunny = false;
+			}
 		}
 		Jump();
 		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
@@ -368,7 +401,7 @@ void AMyCharacterController::JumpWindow()
 {
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
-		AccelerationVelocity();
+		//AccelerationVelocity();
 		Jump(); 
 	}
 	GetWorldTimerManager().ClearTimer(ManagerTimeJump);

@@ -68,13 +68,18 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	FdataStruct _fDataStruct;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	bool _decelerationJump = false;
+	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	bool _jumpFollowDirection = false;
 
 private:
 	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
 	void InputPlayer();
 
-	float _decelerationVelocity = 0;
+	float _decelerationVelocityGround = 0;
+	float _decelerationVelocityAir = 0;
 	float _bunnyVelocity = 0;
 	FVector _oldForwardVector;
 
