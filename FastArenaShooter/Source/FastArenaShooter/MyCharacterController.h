@@ -45,6 +45,7 @@ class FASTARENASHOOTER_API AMyCharacterController : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AMyCharacterController();
+	void InitialiseWeapon();
 
 protected:
 	// Called when the game starts or when spawned
@@ -75,9 +76,17 @@ public:
 	bool _jumpFollowDirection = false;
 
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
-	TMap<TEnumAsByte<TypeOfWeapon>,TSubclassOf<AMyWeaponBehaviour>> _mapOfWeapon;
+	TMap<TEnumAsByte<TypeOfWeapon>,TSubclassOf<AMyWeaponBehaviour>> _weaponTypes;
+
+	
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
+	TMap<TSubclassOf<AMyWeaponBehaviour>, AMyWeaponBehaviour*> weapons;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
 	TEnumAsByte<TypeOfWeapon> _WeaponType;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite,Category = "Weapon Character")
+	USceneComponent* _socketWeapon;
+
 
 private:
 	virtual void Tick(float DeltaTime) override;
@@ -95,4 +104,6 @@ private:
 	FTimerHandle ManagerTimeDotRotation;
 	bool _jumpButtonPressed = false;
 	bool _onBunny = false;
+	bool _keepBunnySpeed = false;
+	AMyWeaponBehaviour* weaponBehaviourObject;
 };

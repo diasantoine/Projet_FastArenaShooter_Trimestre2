@@ -17,7 +17,21 @@ AMyCharacterController::AMyCharacterController()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+}
 
+void AMyCharacterController::InitialiseWeapon()
+{
+	for(const auto& Weapon : _weaponTypes)
+	{
+		if(!weapons.Contains(Weapon.Value))
+		{
+			// ici tu crées ton nouveau WeaponBehavior object à partir de la class (GetWorld()->Spawn ?)
+			AMyWeaponBehaviour* container = GetWorld()->SpawnActor<AMyWeaponBehaviour>(Weapon.Value,GetActorLocation(),GetActorRotation());
+			container->AttachToComponent(_socketWeapon,FAttachmentTransformRules::KeepRelativeTransform);
+			container->SetHidden(true);
+			weapons.Add(Weapon.Value,container); //Cast<AMyWeaponBehaviour>(GetWorld()->SpawnActor(Weapon.Value)->GetClass())); 
+		}
+	}
 }
 
 // Called when the game starts or when spawned
@@ -28,8 +42,12 @@ void AMyCharacterController::BeginPlay()
 	GetCharacterMovement()->JumpZVelocity = _fDataStruct._height;
 	GetCharacterMovement()->GravityScale *= _fDataStruct._weight;
 	GetCharacterMovement()->BrakingFrictionFactor = _fDataStruct._deceleration;
-	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _mapOfWeapon[_WeaponType];
-	//AMyWeaponBehaviour* weaponBehaviourObject = weapons[weaponBehaviourClass ];
+	TSubclassOf<USceneComponent> test;
+	_socketWeapon = Cast<USceneComponent>(GetComponentByClass(test));
+	InitialiseWeapon();
+	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[_WeaponType];
+	weaponBehaviourObject = weapons[weaponBehaviourClass];
+	weaponBehaviourObject->SetHidden(false);
 }
 
 // Called every frame
@@ -157,8 +175,8 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	}
 	if (InputForward == 0 && InputRight == 0)
 	{
-		_containerVelocityBunny = 0;
-		_onBunny = false;
+		//_containerVelocityBunny = 0;
+		//_onBunny = false;
 		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 	}
 	FVector AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
@@ -184,7 +202,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 	}
-	if (!GetCharacterMovement()->IsMovingOnGround())
+	if (!GetCharacterMovement()->IsMovingOnGround() || _onBunny)
 	{
 		_decelerationVelocityGround = 0;
 		if (_bunnyVelocity != 0)
@@ -193,7 +211,6 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 		}
 		if (/*InputComponent->GetAxisValue("Right") != 0 && */ _onBunny)
 		{
-			//UE_LOG(LogTemp,Warning,TEXT("test"))
 			FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
 			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
@@ -239,15 +256,16 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 				}
 				else
 				{
-					if (_containerVelocityBunny != 0)
+					if (_containerVelocityBunny == 0)
 					{
 						GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
 						GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
 					}
 					else
 					{
-						GetCharacterMovement()->Velocity.X = AccelDirection.X * _containerVelocityBunny;
-						GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _containerVelocityBunny;
+						UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+						// GetCharacterMovement()->Velocity.X = 1 * _containerVelocityBunny;
+						// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _containerVelocityBunny;
 					}
 				}
 			}
@@ -255,7 +273,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	}
 	else
 	{
-		if (_onBunny)
+		if (_keepBunnySpeed)
 		{
 			if (_bunnyVelocity == 0)
 			{
@@ -269,7 +287,6 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 			// }
 			 _decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
 			// float test =VelocityPlayer.Size();
-			// UE_LOG(LogTemp,Warning,TEXT("%f"),test)
 			GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocityGround); //accelVel;
 		}
 		else
@@ -354,6 +371,7 @@ void AMyCharacterController::StopBunnyHop()
 	// _oldForwardVector = GetActorForwardVector();
 	_containerVelocityBunny = 0;
 	_onBunny = false;
+	_keepBunnySpeed = false;
 	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 }
 
@@ -366,18 +384,21 @@ void AMyCharacterController::JumpPlayer()
 		if (InputComponent->GetAxisValue("Right") != 0)
 		{
 			//float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -0.1f)
+			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -0.05f)
 			{
 				_onBunny = true;
-			}else if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= 0.1f)
+				_keepBunnySpeed = true;
+				UE_LOG(LogTemp,Warning,TEXT("R"))
+			}else if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= 0.05f)
 			{
 				_onBunny = true;
+				_keepBunnySpeed = true;
+				UE_LOG(LogTemp,Warning,TEXT("L"))
 			}
 			else
 			{
 				if (_onBunny)
 				{
-					_containerVelocityBunny = 0;
 					_onBunny = false;
 				}
 			}
@@ -386,7 +407,6 @@ void AMyCharacterController::JumpPlayer()
 		{
 			if (_onBunny)
 			{
-				_containerVelocityBunny = 0;
 				_onBunny = false;
 			}
 		}
@@ -433,16 +453,20 @@ void AMyCharacterController::JumpWindow()
 
 void AMyCharacterController::ShootWeapon(bool _normalFire)
 {
-	if (_normalFire)
-	{
-		//_mapOfWeapon[_WeaponType]->Fire(true);
-		//Cast<AMyWeaponBehaviour>(_mapOfWeapon[_WeaponType]->GetClass())->Fire(true);
-	}
-	else
-	{
-		//_mapOfWeapon[_WeaponType]->Fire(false);
-		//Cast<AMyWeaponBehaviour>(_mapOfWeapon[_WeaponType]->GetClass())->Fire(false);
-	}
+	//InitialiseWeapon();
+	weaponBehaviourObject->Fire(_normalFire);
+	//_weaponTypes[_WeaponType].Fire(true);
+	//Cast<AMyWeaponBehaviour>(_weaponTypes[_WeaponType])->Fire(true);
+	// if (_normalFire)
+	// {
+	// 	//_weaponTypes[_WeaponType]->Fire(true);
+	// 	//Cast<AMyWeaponBehaviour>(_weaponTypes[_WeaponType]->GetClass())->Fire(true);
+	// }
+	// else
+	// {
+	// 	//_weaponTypes[_WeaponType]->Fire(false);
+	// 	//Cast<AMyWeaponBehaviour>(_weaponTypes[_WeaponType]->GetClass())->Fire(false);
+	// }
 }
 
 

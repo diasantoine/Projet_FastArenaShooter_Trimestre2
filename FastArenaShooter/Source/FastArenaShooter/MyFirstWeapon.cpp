@@ -13,6 +13,7 @@ void AMyFirstWeapon::NormalFire()
 	UWorld* const World = GetWorld();
 	if (World != nullptr)
 	{
+		UE_LOG(LogTemp,Warning,TEXT("test"));
 		const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
 		// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(_dataWeapon._gunOffset);

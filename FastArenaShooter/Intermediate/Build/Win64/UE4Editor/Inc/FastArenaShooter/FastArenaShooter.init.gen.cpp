@@ -21,7 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeFastArenaShooter_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x09328172,
+				0x7B0C59F6,
 				0x04DC282A,
 				METADATA_PARAMS(nullptr, 0)
 			};

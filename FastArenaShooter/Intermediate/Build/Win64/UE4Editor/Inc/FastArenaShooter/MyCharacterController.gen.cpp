@@ -21,6 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeMyCharacterController() {}
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	FASTARENASHOOTER_API UClass* Z_Construct_UClass_AMyWeaponBehaviour_NoRegister();
 	FASTARENASHOOTER_API UEnum* Z_Construct_UEnum_FastArenaShooter_TypeOfWeapon();
+	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
 // End Cross Module References
 class UScriptStruct* FdataStruct::StaticStruct()
 {
@@ -252,16 +253,26 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 #endif
 		static void NewProp__jumpFollowDirection_SetBit(void* Obj);
 		static const UE4CodeGen_Private::FBoolPropertyParams NewProp__jumpFollowDirection;
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp__mapOfWeapon_ValueProp;
-		static const UE4CodeGen_Private::FBytePropertyParams NewProp__mapOfWeapon_Key_KeyProp;
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp__weaponTypes_ValueProp;
+		static const UE4CodeGen_Private::FBytePropertyParams NewProp__weaponTypes_Key_KeyProp;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__mapOfWeapon_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__weaponTypes_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FMapPropertyParams NewProp__mapOfWeapon;
+		static const UE4CodeGen_Private::FMapPropertyParams NewProp__weaponTypes;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_weapons_ValueProp;
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp_weapons_Key_KeyProp;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_weapons_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FMapPropertyParams NewProp_weapons;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__WeaponType_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FBytePropertyParams NewProp__WeaponType;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__socketWeapon_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp__socketWeapon;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -306,15 +317,24 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		((AMyCharacterController*)Obj)->_jumpFollowDirection = 1;
 	}
 	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection = { "_jumpFollowDirection", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(AMyCharacterController), &Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_SetBit, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection_MetaData)) };
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon_ValueProp = { "_mapOfWeapon", nullptr, (EPropertyFlags)0x0004000000000001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, Z_Construct_UClass_AMyWeaponBehaviour_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon_Key_KeyProp = { "_mapOfWeapon_Key", nullptr, (EPropertyFlags)0x0000000000000001, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UEnum_FastArenaShooter_TypeOfWeapon, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes_ValueProp = { "_weaponTypes", nullptr, (EPropertyFlags)0x0004000000000001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, Z_Construct_UClass_AMyWeaponBehaviour_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes_Key_KeyProp = { "_weaponTypes_Key", nullptr, (EPropertyFlags)0x0000000000000001, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UEnum_FastArenaShooter_TypeOfWeapon, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes_MetaData[] = {
 		{ "Category", "Weapon Character" },
 		{ "ModuleRelativePath", "MyCharacterController.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FMapPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon = { "_mapOfWeapon", nullptr, (EPropertyFlags)0x0014000000010001, UE4CodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, _mapOfWeapon), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon_MetaData)) };
+	const UE4CodeGen_Private::FMapPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes = { "_weaponTypes", nullptr, (EPropertyFlags)0x0014000000010001, UE4CodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, _weaponTypes), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons_ValueProp = { "weapons", nullptr, (EPropertyFlags)0x0000000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, Z_Construct_UClass_AMyWeaponBehaviour_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons_Key_KeyProp = { "weapons_Key", nullptr, (EPropertyFlags)0x0004000000000001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UClass_AMyWeaponBehaviour_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons_MetaData[] = {
+		{ "Category", "Weapon Character" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FMapPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons = { "weapons", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, weapons), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp__WeaponType_MetaData[] = {
 		{ "Category", "Weapon Character" },
@@ -322,14 +342,26 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 	};
 #endif
 	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__WeaponType = { "_WeaponType", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, _WeaponType), Z_Construct_UEnum_FastArenaShooter_TypeOfWeapon, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__WeaponType_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__WeaponType_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon_MetaData[] = {
+		{ "Category", "Weapon Character" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon = { "_socketWeapon", nullptr, (EPropertyFlags)0x001000000009000d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, _socketWeapon), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyCharacterController_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__fDataStruct,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__jumpFollowDirection,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon_ValueProp,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon_Key_KeyProp,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__mapOfWeapon,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes_ValueProp,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes_Key_KeyProp,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__weaponTypes,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons_ValueProp,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons_Key_KeyProp,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__WeaponType,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AMyCharacterController_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AMyCharacterController>::IsAbstract,
@@ -358,7 +390,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMyCharacterController, 482952211);
+	IMPLEMENT_CLASS(AMyCharacterController, 696038869);
 	template<> FASTARENASHOOTER_API UClass* StaticClass<AMyCharacterController>()
 	{
 		return AMyCharacterController::StaticClass();
