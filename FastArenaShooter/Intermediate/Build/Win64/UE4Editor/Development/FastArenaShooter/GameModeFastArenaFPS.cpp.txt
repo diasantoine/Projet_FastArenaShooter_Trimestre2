@@ -1,7 +1,7 @@
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source\FastArenaShooter\GameModeFastArenaFPS.h
-G:\UnrealEngine\UE_4.27\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
-G:\UnrealEngine\UE_4.27\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
-G:\UnrealEngine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ServerStatReplicator.generated.h
-G:\UnrealEngine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameModeBase.generated.h
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\GameModeFastArenaFPS.generated.h
+D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
+D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source\FastArenaShooter\GameModeFastArenaFPS.h
+D:\Jeux\Unreal\UE_4.27\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
+D:\Jeux\Unreal\UE_4.27\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
+D:\Jeux\Unreal\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ServerStatReplicator.generated.h
+D:\Jeux\Unreal\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameModeBase.generated.h
+D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\GameModeFastArenaFPS.generated.h

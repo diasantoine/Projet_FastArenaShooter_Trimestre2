@@ -231,8 +231,8 @@
 /I Editor\Kismet\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\ClothingSystemRuntimeInterface
 /I Runtime\ClothingSystemRuntimeInterface\Public
-/I F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter
-/I F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source
+/I "D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter"
+/I "D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source"
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\AugmentedReality
 /I Runtime\AugmentedReality\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\MRMesh
@@ -260,18 +260,18 @@
 /I ThirdParty\PhysX3\APEX_1.4\shared\general\RenderDebug\public
 /I ThirdParty\PhysX3\APEX_1.4\shared\general\PairFilter\include
 /I ThirdParty\PhysX3\APEX_1.4\shared\internal\include
-/I G:\VisualStudio\VC\Tools\MSVC\14.29.30133\INCLUDE
+/I "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\INCLUDE"
 /I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
-/FI"F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\FastArenaShooterEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Yu"F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\FastArenaShooterEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Fp"F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\FastArenaShooterEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
-"F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\FastArenaShooterGameMode.gen.cpp"
-/FI"F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h"
-/Fo"F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\FastArenaShooterGameMode.gen.cpp.obj"
+/I "D:\4GD\Cours\Projet trim2\include\10.0.20348.0\ucrt"
+/I "D:\4GD\Cours\Projet trim2\include\10.0.20348.0\shared"
+/I "D:\4GD\Cours\Projet trim2\include\10.0.20348.0\um"
+/I "D:\4GD\Cours\Projet trim2\include\10.0.20348.0\winrt"
+/FI"D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\FastArenaShooterEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Yu"D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\FastArenaShooterEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Fp"D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\FastArenaShooterEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
+"D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\FastArenaShooterGameMode.gen.cpp"
+/FI"D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h"
+/Fo"D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\FastArenaShooterGameMode.gen.cpp.obj"
 /TP
 /GR-
 /W4
