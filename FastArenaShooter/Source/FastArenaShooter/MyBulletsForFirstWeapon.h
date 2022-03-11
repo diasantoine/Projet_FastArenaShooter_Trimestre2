@@ -6,6 +6,9 @@
 #include "MyBulletsBehaviour.h"
 #include "MyBulletsForFirstWeapon.generated.h"
 
+class USphereComponent;
+class UProjectileMovementComponent;
+
 /**
  * 
  */
@@ -13,6 +16,6 @@ UCLASS()
 class FASTARENASHOOTER_API AMyBulletsForFirstWeapon : public AMyBulletsBehaviour
 {
 	GENERATED_BODY()
-
-	
+public:
+	AMyBulletsForFirstWeapon();
 };

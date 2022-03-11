@@ -19,7 +19,7 @@ void EmptyLinkFunctionForGeneratedCodeMyWeaponBehaviour() {}
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	FASTARENASHOOTER_API UClass* Z_Construct_UClass_AMyBulletsBehaviour_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMesh_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 	FASTARENASHOOTER_API UClass* Z_Construct_UClass_AMyWeaponBehaviour_NoRegister();
 	FASTARENASHOOTER_API UClass* Z_Construct_UClass_AMyWeaponBehaviour();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
@@ -118,7 +118,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataWeapon
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__gunOffset_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp__gunOffset;
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp__gunOffset;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__dmg_MetaData[];
 #endif
@@ -163,7 +163,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataWeapon
 		{ "ModuleRelativePath", "MyWeaponBehaviour.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FdataWeapon_Statics::NewProp__gunOffset = { "_gunOffset", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FdataWeapon, _gunOffset), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(Z_Construct_UScriptStruct_FdataWeapon_Statics::NewProp__gunOffset_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FdataWeapon_Statics::NewProp__gunOffset_MetaData)) };
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FdataWeapon_Statics::NewProp__gunOffset = { "_gunOffset", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FdataWeapon, _gunOffset), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UScriptStruct_FdataWeapon_Statics::NewProp__gunOffset_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FdataWeapon_Statics::NewProp__gunOffset_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FdataWeapon_Statics::NewProp__dmg_MetaData[] = {
 		{ "Category", "Weapon Parameter" },
@@ -221,7 +221,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataWeapon
 		}
 		return ReturnStruct;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FdataWeapon_Hash() { return 714523803U; }
+	uint32 Get_Z_Construct_UScriptStruct_FdataWeapon_Hash() { return 4065282057U; }
 	void AMyWeaponBehaviour::StaticRegisterNativesAMyWeaponBehaviour()
 	{
 	}
@@ -263,14 +263,14 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataWeapon
 		{ "ModuleRelativePath", "MyWeaponBehaviour.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__dataWeapon = { "_dataWeapon", nullptr, (EPropertyFlags)0x0020080000010001, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyWeaponBehaviour, _dataWeapon), Z_Construct_UScriptStruct_FdataWeapon, METADATA_PARAMS(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__dataWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__dataWeapon_MetaData)) };
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__dataWeapon = { "_dataWeapon", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyWeaponBehaviour, _dataWeapon), Z_Construct_UScriptStruct_FdataWeapon, METADATA_PARAMS(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__dataWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__dataWeapon_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon_MetaData[] = {
 		{ "Category", "Weapon Parameter" },
 		{ "ModuleRelativePath", "MyWeaponBehaviour.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon = { "_typeOfWeapon", nullptr, (EPropertyFlags)0x0020080000010001, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyWeaponBehaviour, _typeOfWeapon), Z_Construct_UEnum_FastArenaShooter_TypeOfWeapon, METADATA_PARAMS(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon_MetaData)) };
+	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon = { "_typeOfWeapon", nullptr, (EPropertyFlags)0x0010000000010001, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyWeaponBehaviour, _typeOfWeapon), Z_Construct_UEnum_FastArenaShooter_TypeOfWeapon, METADATA_PARAMS(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyWeaponBehaviour_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__dataWeapon,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyWeaponBehaviour_Statics::NewProp__typeOfWeapon,
@@ -302,7 +302,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataWeapon
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMyWeaponBehaviour, 3764260585);
+	IMPLEMENT_CLASS(AMyWeaponBehaviour, 737549218);
 	template<> FASTARENASHOOTER_API UClass* StaticClass<AMyWeaponBehaviour>()
 	{
 		return AMyWeaponBehaviour::StaticClass();

@@ -25,7 +25,7 @@ struct FdataWeapon
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	UStaticMesh* _modelOfWeapon;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
-	AActor* _gunOffset;
+	FVector _gunOffset;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	float _dmg;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
@@ -43,8 +43,6 @@ class FASTARENASHOOTER_API AMyWeaponBehaviour : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AMyWeaponBehaviour();
-
-protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -60,7 +58,5 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon Parameter")
 	TEnumAsByte<TypeOfWeapon> _typeOfWeapon;
 
-public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 };

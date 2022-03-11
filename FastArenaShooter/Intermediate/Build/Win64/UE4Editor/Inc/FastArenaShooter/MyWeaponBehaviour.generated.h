@@ -65,11 +65,7 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AMyWeaponBehaviour)
 
 
-#define FastArenaShooter_Source_FastArenaShooter_MyWeaponBehaviour_h_41_PRIVATE_PROPERTY_OFFSET \
-	FORCEINLINE static uint32 __PPO___dataWeapon() { return STRUCT_OFFSET(AMyWeaponBehaviour, _dataWeapon); } \
-	FORCEINLINE static uint32 __PPO___typeOfWeapon() { return STRUCT_OFFSET(AMyWeaponBehaviour, _typeOfWeapon); }
-
-
+#define FastArenaShooter_Source_FastArenaShooter_MyWeaponBehaviour_h_41_PRIVATE_PROPERTY_OFFSET
 #define FastArenaShooter_Source_FastArenaShooter_MyWeaponBehaviour_h_38_PROLOG
 #define FastArenaShooter_Source_FastArenaShooter_MyWeaponBehaviour_h_41_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \

@@ -28,6 +28,8 @@ void AMyCharacterController::BeginPlay()
 	GetCharacterMovement()->JumpZVelocity = _fDataStruct._height;
 	GetCharacterMovement()->GravityScale *= _fDataStruct._weight;
 	GetCharacterMovement()->BrakingFrictionFactor = _fDataStruct._deceleration;
+	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _mapOfWeapon[_WeaponType];
+	//AMyWeaponBehaviour* weaponBehaviourObject = weapons[weaponBehaviourClass ];
 }
 
 // Called every frame
@@ -81,8 +83,8 @@ void AMyCharacterController::InputPlayer()
 	
 	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AMyCharacterController::JumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&ACharacter::StopJumping);
-	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,false);
-	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,true);
+	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,true);
+	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,false);
 
 	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 	// {
@@ -155,6 +157,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	}
 	if (InputForward == 0 && InputRight == 0)
 	{
+		_containerVelocityBunny = 0;
 		_onBunny = false;
 		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 	}
@@ -194,6 +197,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 			FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
 			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
+			_containerVelocityBunny = GetCharacterMovement()->Velocity.Size();
 		}
 		else
 		{
@@ -206,30 +210,46 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 				_decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
 				if (_jumpFollowDirection)
 				{
-					GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround); //accelVel;
-					// GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
-					// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+					//GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround); //accelVel;
+					// GetCharacterMovement()->Velocity.X = AccelDirection.X * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround);// * accelVel;
+					// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround);
+					FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
+					GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * FMath::Lerp(Velocity2D.Size(),_fDataStruct._airSpeed,_decelerationVelocityGround)
+					+ AccelDirection.X;
+					GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * FMath::Lerp(Velocity2D.Size(),_fDataStruct._airSpeed,_decelerationVelocityGround)
+					+ AccelDirection.Y;
 				}
 				else
 				{
-					GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround); //accelVel;
-					// GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
-					// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+					//GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._airSpeed,_decelerationVelocityGround); //accelVel;
+					FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
+					GetCharacterMovement()->Velocity.X = AccelDirection.X * FMath::Lerp(Velocity2D.Size(),_fDataStruct._airSpeed,_decelerationVelocityGround);
+					GetCharacterMovement()->Velocity.Y = AccelDirection.Y * FMath::Lerp(Velocity2D.Size(),_fDataStruct._airSpeed,_decelerationVelocityGround);
 				}
 			}
 			else
 			{
 				if (_jumpFollowDirection)
 				{
-					GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
-					GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+					FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
+					GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X;
+					GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y;
+					// GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+					// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
 				}
 				else
 				{
-					GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
-					GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+					if (_containerVelocityBunny != 0)
+					{
+						GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+						GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+					}
+					else
+					{
+						GetCharacterMovement()->Velocity.X = AccelDirection.X * _containerVelocityBunny;
+						GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _containerVelocityBunny;
+					}
 				}
-				
 			}
 		}
 	}
@@ -258,6 +278,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 			{
 				_bunnyVelocity = 0;
 			}
+			_containerVelocityBunny = 0;
 			_decelerationVelocityGround = 0;
 			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 		}
@@ -331,6 +352,7 @@ void AMyCharacterController::StopBunnyHop()
 	// 	_oldForwardVector = GetActorForwardVector();
 	// }
 	// _oldForwardVector = GetActorForwardVector();
+	_containerVelocityBunny = 0;
 	_onBunny = false;
 	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 }
@@ -355,6 +377,7 @@ void AMyCharacterController::JumpPlayer()
 			{
 				if (_onBunny)
 				{
+					_containerVelocityBunny = 0;
 					_onBunny = false;
 				}
 			}
@@ -363,6 +386,7 @@ void AMyCharacterController::JumpPlayer()
 		{
 			if (_onBunny)
 			{
+				_containerVelocityBunny = 0;
 				_onBunny = false;
 			}
 		}
@@ -407,15 +431,17 @@ void AMyCharacterController::JumpWindow()
 	GetWorldTimerManager().ClearTimer(ManagerTimeJump);
 }
 
-void AMyCharacterController::ShootWeapon(bool _specialFire)
+void AMyCharacterController::ShootWeapon(bool _normalFire)
 {
-	if (_specialFire)
+	if (_normalFire)
 	{
-		
+		//_mapOfWeapon[_WeaponType]->Fire(true);
+		//Cast<AMyWeaponBehaviour>(_mapOfWeapon[_WeaponType]->GetClass())->Fire(true);
 	}
 	else
 	{
-		
+		//_mapOfWeapon[_WeaponType]->Fire(false);
+		//Cast<AMyWeaponBehaviour>(_mapOfWeapon[_WeaponType]->GetClass())->Fire(false);
 	}
 }
 

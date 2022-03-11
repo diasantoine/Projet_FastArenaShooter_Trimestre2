@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MyWeaponBehaviour.h"
 #include "GameFramework/Character.h"
 #include "MyCharacterController.generated.h"
 
@@ -64,7 +65,7 @@ public:
 	void MovementPlayer();
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
-	void ShootWeapon(bool _specialFire);
+	void ShootWeapon(bool _normalFire);
 
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	FdataStruct _fDataStruct;
@@ -72,6 +73,11 @@ public:
 	bool _decelerationJump = false;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	bool _jumpFollowDirection = false;
+
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
+	TMap<TEnumAsByte<TypeOfWeapon>,TSubclassOf<AMyWeaponBehaviour>> _mapOfWeapon;
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
+	TEnumAsByte<TypeOfWeapon> _WeaponType;
 
 private:
 	virtual void Tick(float DeltaTime) override;
@@ -81,6 +87,7 @@ private:
 	float _decelerationVelocityGround = 0;
 	float _decelerationVelocityAir = 0;
 	float _bunnyVelocity = 0;
+	float _containerVelocityBunny = 0;
 	FVector _oldForwardVector;
 
 	FTimerHandle ManagerTime;
