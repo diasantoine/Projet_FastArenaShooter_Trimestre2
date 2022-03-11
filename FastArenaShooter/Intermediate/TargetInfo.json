@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "FastArenaShooter",
-			"Path": "A:\\GitHubProjects\\Projet_FastArenaShooter_Trimestre2\\FastArenaShooter\\Source\\FastArenaShooter.Target.cs",
+			"Path": "W:\\GitHub\\Projet_FastArenaShooter\\Projet_FastAreneShooter\\FastArenaShooter\\Source\\FastArenaShooter.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "FastArenaShooterEditor",
-			"Path": "A:\\GitHubProjects\\Projet_FastArenaShooter_Trimestre2\\FastArenaShooter\\Source\\FastArenaShooterEditor.Target.cs",
+			"Path": "W:\\GitHub\\Projet_FastArenaShooter\\Projet_FastAreneShooter\\FastArenaShooter\\Source\\FastArenaShooterEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]

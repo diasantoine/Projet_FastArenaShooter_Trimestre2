@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"A:\\GitHubProjects\\Projet_FastArenaShooter_Trimestre2\\FastArenaShooter\\Source\\FastArenaShooter\\FastArenaShooter.Build.cs",
-		"A:\\GitHubProjects\\Projet_FastArenaShooter_Trimestre2\\FastArenaShooter\\Source\\FastArenaShooter.Target.cs",
-		"A:\\GitHubProjects\\Projet_FastArenaShooter_Trimestre2\\FastArenaShooter\\Source\\FastArenaShooterEditor.Target.cs"
+		"W:\\GitHub\\Projet_FastArenaShooter\\Projet_FastAreneShooter\\FastArenaShooter\\Source\\FastArenaShooter\\FastArenaShooter.Build.cs",
+		"W:\\GitHub\\Projet_FastArenaShooter\\Projet_FastAreneShooter\\FastArenaShooter\\Source\\FastArenaShooter.Target.cs",
+		"W:\\GitHub\\Projet_FastArenaShooter\\Projet_FastAreneShooter\\FastArenaShooter\\Source\\FastArenaShooterEditor.Target.cs"
 	],
-	"EngineVersion": "4.27.2"
+	"EngineVersion": "4.27.1"
 }

@@ -1,2 +1,2 @@
-A:\GitHubProjects\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
-A:\GitHubProjects\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source\FastArenaShooter\FastArenaShooter.h
+W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
+W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Source\FastArenaShooter\FastArenaShooter.h

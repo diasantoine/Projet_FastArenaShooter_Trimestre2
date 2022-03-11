@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\FastArenaShooter.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{8F3F8FAF-9891-46A4-8E40-F54AC3ABD5FB}</UniqueIdentifier>
+      <UniqueIdentifier>{CE35371E-C111-464C-A668-DD499E2DCC17}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\FastArenaShooter.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{222C8C08-6D06-4E45-B1B3-7B506D86DD19}</UniqueIdentifier>
+      <UniqueIdentifier>{CD358756-2F4F-4204-A2B5-B7A287E85711}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\FastArenaShooter">
-      <UniqueIdentifier>{94101304-5659-4C74-872E-D4038F6756E3}</UniqueIdentifier>
+      <UniqueIdentifier>{5E068A2B-F441-49FC-84A7-EA9D5C59E44C}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\FastArenaShooter\FastArenaShooter.Build.cs">
       <Filter>Source\FastArenaShooter</Filter>
