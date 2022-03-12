@@ -22,6 +22,7 @@ void EmptyLinkFunctionForGeneratedCodeMyCharacterController() {}
 	FASTARENASHOOTER_API UClass* Z_Construct_UClass_AMyWeaponBehaviour_NoRegister();
 	FASTARENASHOOTER_API UEnum* Z_Construct_UEnum_FastArenaShooter_TypeOfWeapon();
 	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
 // End Cross Module References
 class UScriptStruct* FdataStruct::StaticStruct()
 {
@@ -273,6 +274,26 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp__socketWeapon_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp__socketWeapon;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Mesh1P_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Mesh1P;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FP_Gun_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FP_Gun;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FP_MuzzleLocation_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FP_MuzzleLocation;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VR_Gun_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_VR_Gun;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VR_MuzzleLocation_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_VR_MuzzleLocation;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -350,6 +371,56 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon = { "_socketWeapon", nullptr, (EPropertyFlags)0x001000000009000d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, _socketWeapon), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp_Mesh1P_MetaData[] = {
+		{ "Category", "Mesh" },
+		{ "Comment", "/** Pawn mesh: 1st person view (arms; seen only by self) */" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+		{ "ToolTip", "Pawn mesh: 1st person view (arms; seen only by self)" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_Mesh1P = { "Mesh1P", nullptr, (EPropertyFlags)0x00100000000b0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, Mesh1P), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_Mesh1P_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_Mesh1P_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_Gun_MetaData[] = {
+		{ "Category", "Mesh" },
+		{ "Comment", "/** Gun mesh: 1st person view (seen only by self) */" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+		{ "ToolTip", "Gun mesh: 1st person view (seen only by self)" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_Gun = { "FP_Gun", nullptr, (EPropertyFlags)0x00100000000b0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, FP_Gun), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_Gun_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_Gun_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_MuzzleLocation_MetaData[] = {
+		{ "Category", "Mesh" },
+		{ "Comment", "/** Location on gun mesh where projectiles should spawn. */" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+		{ "ToolTip", "Location on gun mesh where projectiles should spawn." },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_MuzzleLocation = { "FP_MuzzleLocation", nullptr, (EPropertyFlags)0x00100000000b0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, FP_MuzzleLocation), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_MuzzleLocation_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_MuzzleLocation_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_Gun_MetaData[] = {
+		{ "Category", "Mesh" },
+		{ "Comment", "/** Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun) */" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+		{ "ToolTip", "Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun)" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_Gun = { "VR_Gun", nullptr, (EPropertyFlags)0x00100000000b0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, VR_Gun), Z_Construct_UClass_USkeletalMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_Gun_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_Gun_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_MuzzleLocation_MetaData[] = {
+		{ "Category", "Mesh" },
+		{ "Comment", "/** Location on VR gun mesh where projectiles should spawn. */" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyCharacterController.h" },
+		{ "ToolTip", "Location on VR gun mesh where projectiles should spawn." },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_MuzzleLocation = { "VR_MuzzleLocation", nullptr, (EPropertyFlags)0x00100000000b0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMyCharacterController, VR_MuzzleLocation), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_MuzzleLocation_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_MuzzleLocation_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyCharacterController_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__fDataStruct,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__decelerationJump,
@@ -362,6 +433,11 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_weapons,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__WeaponType,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp__socketWeapon,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_Mesh1P,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_Gun,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_FP_MuzzleLocation,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_Gun,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacterController_Statics::NewProp_VR_MuzzleLocation,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AMyCharacterController_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AMyCharacterController>::IsAbstract,
@@ -390,7 +466,7 @@ static struct FScriptStruct_FastArenaShooter_StaticRegisterNativesFdataStruct
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMyCharacterController, 696038869);
+	IMPLEMENT_CLASS(AMyCharacterController, 1600882107);
 	template<> FASTARENASHOOTER_API UClass* StaticClass<AMyCharacterController>()
 	{
 		return AMyCharacterController::StaticClass();

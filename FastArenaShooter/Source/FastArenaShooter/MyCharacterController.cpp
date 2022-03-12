@@ -17,6 +17,25 @@ AMyCharacterController::AMyCharacterController()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
+	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
+	Mesh1P->SetOnlyOwnerSee(true);
+	Mesh1P->bCastDynamicShadow = false;
+	Mesh1P->CastShadow = false;
+	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
+	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
+
+	// Create a gun mesh component
+	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
+	FP_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
+	FP_Gun->bCastDynamicShadow = false;
+	FP_Gun->CastShadow = false;
+	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
+	FP_Gun->SetupAttachment(RootComponent);
+
+	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
+	FP_MuzzleLocation->SetupAttachment(FP_Gun);
+	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
 }
 
 void AMyCharacterController::InitialiseWeapon()
@@ -26,8 +45,10 @@ void AMyCharacterController::InitialiseWeapon()
 		if(!weapons.Contains(Weapon.Value))
 		{
 			// ici tu crées ton nouveau WeaponBehavior object à partir de la class (GetWorld()->Spawn ?)
-			AMyWeaponBehaviour* container = GetWorld()->SpawnActor<AMyWeaponBehaviour>(Weapon.Value,GetActorLocation(),GetActorRotation());
-			container->AttachToComponent(_socketWeapon,FAttachmentTransformRules::KeepRelativeTransform);
+			AMyWeaponBehaviour* container = GetWorld()->SpawnActor<AMyWeaponBehaviour>(Weapon.Value,GetActorLocation() + FVector(50,0,25),GetActorRotation());
+			container->AttachToComponent(FP_Gun,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+			//container->AttachToActor(this,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+			//container->AttachToComponent(_socketWeapon,FAttachmentTransformRules::KeepRelativeTransform);
 			container->SetHidden(true);
 			weapons.Add(Weapon.Value,container); //Cast<AMyWeaponBehaviour>(GetWorld()->SpawnActor(Weapon.Value)->GetClass())); 
 		}
@@ -42,8 +63,6 @@ void AMyCharacterController::BeginPlay()
 	GetCharacterMovement()->JumpZVelocity = _fDataStruct._height;
 	GetCharacterMovement()->GravityScale *= _fDataStruct._weight;
 	GetCharacterMovement()->BrakingFrictionFactor = _fDataStruct._deceleration;
-	TSubclassOf<USceneComponent> test;
-	_socketWeapon = Cast<USceneComponent>(GetComponentByClass(test));
 	InitialiseWeapon();
 	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[_WeaponType];
 	weaponBehaviourObject = weapons[weaponBehaviourClass];
@@ -173,12 +192,13 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 		InputForward = InputComponent->GetAxisValue("Forward");
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
 	}
-	if (InputForward == 0 && InputRight == 0)
-	{
-		//_containerVelocityBunny = 0;
-		//_onBunny = false;
-		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
-	}
+	// if (InputForward == 0 && InputRight == 0)
+	// {
+	// 	_containerVelocityBunny = 0;
+	// 	//_onBunny = false;
+	// 	//_keepBunnySpeed = false;
+	// 	//GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
+	// }
 	FVector AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
 	if (AccelDirection.Size() > 1)
 	{
@@ -191,7 +211,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 		accelVel = _fDataStruct._maxSpeed - projVel;
 
 	//FVector2D Velocity2D = FVector2D(GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
-	if (_onBunny && GetCharacterMovement()->IsMovingOnGround())
+	if (_keepBunnySpeed && GetCharacterMovement()->IsMovingOnGround())
 	{
 		if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 		{
@@ -202,7 +222,8 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 	}
-	if (!GetCharacterMovement()->IsMovingOnGround() || _onBunny)
+	
+	if (!GetCharacterMovement()->IsMovingOnGround() ||_onBunny)
 	{
 		_decelerationVelocityGround = 0;
 		if (_bunnyVelocity != 0)
@@ -275,6 +296,23 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	{
 		if (_keepBunnySpeed)
 		{
+			// if (_bunnyVelocity == 0)
+			// {
+			// 	_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
+			// }
+			// // float speed = VelocityPlayer.Size();
+			// // if (speed != 0) // To avoid divide by zero errors
+			// // {
+			// // 	float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
+			// // 	VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
+			// // }
+			//  _decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
+			// // float test =VelocityPlayer.Size();
+			// GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocityGround); //accelVel;
+			// UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+		}
+		else
+		{
 			if (_bunnyVelocity == 0)
 			{
 				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
@@ -285,19 +323,19 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 			// 	float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
 			// 	VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
 			// }
-			 _decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
+			_decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
 			// float test =VelocityPlayer.Size();
 			GetCharacterMovement()->Velocity = AccelDirection * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocityGround); //accelVel;
-		}
-		else
-		{
-			if (_bunnyVelocity != 0)
-			{
-				_bunnyVelocity = 0;
-			}
-			_containerVelocityBunny = 0;
-			_decelerationVelocityGround = 0;
-			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
+
+			
+			// UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			// if (_bunnyVelocity != 0)
+			// {
+			// 	_bunnyVelocity = 0;
+			// }
+			// _containerVelocityBunny = 0;
+			// _decelerationVelocityGround = 0;
+			// GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 		}
 	}
 
@@ -454,19 +492,7 @@ void AMyCharacterController::JumpWindow()
 void AMyCharacterController::ShootWeapon(bool _normalFire)
 {
 	//InitialiseWeapon();
-	weaponBehaviourObject->Fire(_normalFire);
-	//_weaponTypes[_WeaponType].Fire(true);
-	//Cast<AMyWeaponBehaviour>(_weaponTypes[_WeaponType])->Fire(true);
-	// if (_normalFire)
-	// {
-	// 	//_weaponTypes[_WeaponType]->Fire(true);
-	// 	//Cast<AMyWeaponBehaviour>(_weaponTypes[_WeaponType]->GetClass())->Fire(true);
-	// }
-	// else
-	// {
-	// 	//_weaponTypes[_WeaponType]->Fire(false);
-	// 	//Cast<AMyWeaponBehaviour>(_weaponTypes[_WeaponType]->GetClass())->Fire(false);
-	// }
+	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation);
 }
 
 

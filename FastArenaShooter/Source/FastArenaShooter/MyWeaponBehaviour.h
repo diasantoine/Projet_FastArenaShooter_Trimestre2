@@ -46,10 +46,10 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void Fire(bool _normalFire);
+	void Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation);
 
-	virtual void NormalFire();
-	virtual void SpecialFire();
+	virtual void NormalFire(USceneComponent* FP_MuzzleLocation);
+	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
