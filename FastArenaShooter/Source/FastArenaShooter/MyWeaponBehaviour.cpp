@@ -27,24 +27,24 @@ void AMyWeaponBehaviour::Tick(float DeltaTime)
 
 }
 
-void AMyWeaponBehaviour::Fire(bool _normalFire)
+void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation)
 {
 	if (_normalFire)
 	{
-		NormalFire();
+		NormalFire(FP_MuzzleLocation);
 	}
 	else
 	{
-		SpecialFire();
+		SpecialFire(FP_MuzzleLocation);
 	}
 }
 
-void AMyWeaponBehaviour::NormalFire()
+void AMyWeaponBehaviour::NormalFire(USceneComponent* FP_MuzzleLocation)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Normal FIre"));
 }
 
-void AMyWeaponBehaviour::SpecialFire()
+void AMyWeaponBehaviour::SpecialFire(USceneComponent* FP_MuzzleLocation)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Special FIre"));
 }

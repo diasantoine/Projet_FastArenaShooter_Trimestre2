@@ -1,7 +1,0 @@
-W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
-W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Source\FastArenaShooter\GameModeFastArenaFPS.h
-W:\Tacoma\UE_4.27\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
-W:\Tacoma\UE_4.27\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
-W:\Tacoma\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ServerStatReplicator.generated.h
-W:\Tacoma\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameModeBase.generated.h
-W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\GameModeFastArenaFPS.generated.h

@@ -1,5 +1,0 @@
-W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
-W:\Tacoma\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-W:\Tacoma\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
-W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Source\FastArenaShooter/MyBulletsBehaviour.h
-W:\GitHub\Projet_FastArenaShooter\Projet_FastAreneShooter\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\MyBulletsBehaviour.generated.h
