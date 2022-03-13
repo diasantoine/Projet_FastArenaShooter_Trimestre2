@@ -1,34 +1,40 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MyCharacterController.h"
+#include "FASCharacter.h"
 #include "TimerManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 
-void AMyCharacterController::OnConstruction(const FTransform& Transform)
+void AFASCharacter::OnConstruction(const FTransform& Transform)
 {
 	
 }
 
 
-AMyCharacterController::AMyCharacterController()
+AFASCharacter::AFASCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	TArray<USkeletalMeshComponent*> Components;
-	GetComponents<USkeletalMeshComponent>(Components);
-    if (Components.Num() > 0)
-    {
-    	Mesh1P = Components[0];
-    	Mesh1P->SetOnlyOwnerSee(true);
-    	Mesh1P->bCastDynamicShadow = false;
-    	Mesh1P->CastShadow = false;
-    	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
-    	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
-    }
+	
+	GetMesh()->SetOnlyOwnerSee(true);
+	GetMesh()->bCastDynamicShadow = false;
+	GetMesh()->CastShadow = false;
+	GetMesh()->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
+	GetMesh()->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
+	// TArray<USkeletalMeshComponent*> Components;
+	// GetComponents<USkeletalMeshComponent>(Components);
+    // if (Components.Num() > 0)
+    // {
+    // 	Mesh1P = Components[0];
+    // 	Mesh1P->SetOnlyOwnerSee(true);
+    // 	Mesh1P->bCastDynamicShadow = false;
+    // 	Mesh1P->CastShadow = false;
+    // 	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
+    // 	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
+    // }
 	//CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
 	
 
@@ -45,7 +51,7 @@ AMyCharacterController::AMyCharacterController()
 	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
 }
 
-void AMyCharacterController::InitialiseWeapon()
+void AFASCharacter::InitialiseWeapon()
 {
 	for(const auto& Weapon : _weaponTypes)
 	{
@@ -63,7 +69,7 @@ void AMyCharacterController::InitialiseWeapon()
 }
 
 // Called when the game starts or when spawned
-void AMyCharacterController::BeginPlay()
+void AFASCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundSpeed;
@@ -77,7 +83,7 @@ void AMyCharacterController::BeginPlay()
 }
 
 // Called every frame
-void AMyCharacterController::Tick(float DeltaTime)
+void AFASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	MovementPlayer();
@@ -87,7 +93,7 @@ void AMyCharacterController::Tick(float DeltaTime)
 	// 	{
 	// 		if (!GetWorldTimerManager().TimerExists(ManagerTime))
 	// 		{
-	// 			GetWorldTimerManager().SetTimer(ManagerTime,this,&AMyCharacterController::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
+	// 			GetWorldTimerManager().SetTimer(ManagerTime,this,&AFASCharacter::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
 	// 				,true,_fDataStruct._timeBeforeDecceleration);
 	// 		}
 	// 	}
@@ -110,34 +116,34 @@ void AMyCharacterController::Tick(float DeltaTime)
 }
 
 // Called to bind functionality to input
-void AMyCharacterController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AFASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputPlayer();
 }
 
 
-void AMyCharacterController::InputPlayer()
+void AFASCharacter::InputPlayer()
 {
-	this->InputComponent->BindAxis("Forward",this,&AMyCharacterController::ForwardPlayer);
-	this->InputComponent->BindAxis("Right",this,&AMyCharacterController::RightPlayer);
+	this->InputComponent->BindAxis("Forward",this,&AFASCharacter::ForwardPlayer);
+	this->InputComponent->BindAxis("Right",this,&AFASCharacter::RightPlayer);
 
-	this->InputComponent->BindAxis("Turn", this, &AMyCharacterController::YawRotation);
-	this->InputComponent->BindAxis("LookUp", this, &AMyCharacterController::PitchRotation);
+	this->InputComponent->BindAxis("Turn", this, &AFASCharacter::YawRotation);
+	this->InputComponent->BindAxis("LookUp", this, &AFASCharacter::PitchRotation);
 	
-	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AMyCharacterController::JumpPlayer);
+	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AFASCharacter::JumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&ACharacter::StopJumping);
-	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,true);
-	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AMyCharacterController::ShootWeapon,false);
+	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,true);
+	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
 
 	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 	// {
-	// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::StopBunnyHop,_timeBeforeBunnyStop,
+	// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AFASCharacter::StopBunnyHop,_timeBeforeBunnyStop,
 	// 		false,_timeBeforeBunnyStop);
 	// }	
 }
 
-void AMyCharacterController::ForwardPlayer(float _value)
+void AFASCharacter::ForwardPlayer(float _value)
 {
 	//AddMovementInput(GetActorForwardVector(),_value);
 	// else
@@ -151,7 +157,7 @@ void AMyCharacterController::ForwardPlayer(float _value)
 	//GetCharacterMovement()->Velocity += GetActorForwardVector();
 }
 
-void AMyCharacterController::RightPlayer(float _value)
+void AFASCharacter::RightPlayer(float _value)
 {
 	//AddMovementInput(GetActorRightVector(),_value);
 	// else
@@ -164,18 +170,18 @@ void AMyCharacterController::RightPlayer(float _value)
 	//GetCharacterMovement()->Velocity.Y = GetActorRightVector().Y * _value * 200;
 }
 
-void AMyCharacterController::PitchRotation(float _value)
+void AFASCharacter::PitchRotation(float _value)
 {
 	//GetCharacterMovement()->Velocity *= GetActorForwardVector();
 	APawn::AddControllerPitchInput(_value);
 }
 
-void AMyCharacterController::YawRotation(float _value)
+void AFASCharacter::YawRotation(float _value)
 {
 	APawn::AddControllerYawInput(_value);
 }
 
-void AMyCharacterController::MovementPlayer()
+void AFASCharacter::MovementPlayer()
 {
 FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	float accelVel; // Accelerated velocity in direction of movment
@@ -225,7 +231,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 		_onBunny = false;
 		if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 		{
-			GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AMyCharacterController::StopBunnyHop,_fDataStruct._timeBeforeBunnyStop,
+			GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AFASCharacter::StopBunnyHop,_fDataStruct._timeBeforeBunnyStop,
 				false,_fDataStruct._timeBeforeBunnyStop);
 		}	
 	}else if (GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
@@ -398,7 +404,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	// _oldForwardVector = GetActorForwardVector();
 }
 
-void AMyCharacterController::StopBunnyHop()
+void AFASCharacter::StopBunnyHop()
 {
 	// if (_oldForwardVector == FVector(0,0,0))
 	// {
@@ -416,7 +422,7 @@ void AMyCharacterController::StopBunnyHop()
 
 
 
-void AMyCharacterController::JumpPlayer()
+void AFASCharacter::JumpPlayer()
 {
 	if(GetCharacterMovement()->IsMovingOnGround())
 	{
@@ -459,19 +465,19 @@ void AMyCharacterController::JumpPlayer()
 	}
 	else
 	{
-		GetWorldTimerManager().SetTimer(ManagerTimeJump,this,&AMyCharacterController::JumpWindow,_fDataStruct._jumpWindow,
+		GetWorldTimerManager().SetTimer(ManagerTimeJump,this,&AFASCharacter::JumpWindow,_fDataStruct._jumpWindow,
 			false,_fDataStruct._jumpWindow);
 	}
 }
 
-void AMyCharacterController::AccelerationVelocity()
+void AFASCharacter::AccelerationVelocity()
 {
 	GetCharacterMovement()->MaxWalkSpeed  = FMath::Clamp(GetCharacterMovement()->MaxWalkSpeed * _fDataStruct._airAcceleration,_fDataStruct._groundSpeed,
 		_fDataStruct._maxSpeed);
 	//GetCharacterMovement()->Velocity *= _fDataStruct._airAcceleration;
 }
 
-void AMyCharacterController::ResetAccelerationVelocity()
+void AFASCharacter::ResetAccelerationVelocity()
 {
 	GetCharacterMovement()->MaxWalkSpeed = _fDataStruct._groundSpeed;
 	if (GetWorldTimerManager().TimerExists(ManagerTime))
@@ -480,7 +486,7 @@ void AMyCharacterController::ResetAccelerationVelocity()
 	}
 }
 
-void AMyCharacterController::JumpWindow()
+void AFASCharacter::JumpWindow()
 {
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
@@ -490,7 +496,7 @@ void AMyCharacterController::JumpWindow()
 	GetWorldTimerManager().ClearTimer(ManagerTimeJump);
 }
 
-void AMyCharacterController::ShootWeapon(bool _normalFire)
+void AFASCharacter::ShootWeapon(bool _normalFire)
 {
 	//InitialiseWeapon();
 	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation);

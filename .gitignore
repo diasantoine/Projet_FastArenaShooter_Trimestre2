@@ -133,6 +133,7 @@ FastArenaShooter/SourceArt/**/*.tga
 #Binaries/*
 #Plugins/*/Binaries/*
 FastArenaShooter/Binaries/*.pdb
+!FastArenaShooter/Binaries/*.dll
 
 # Builds
 FastArenaShooter/Build/*

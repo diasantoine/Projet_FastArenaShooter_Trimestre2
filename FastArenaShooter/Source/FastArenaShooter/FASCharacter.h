@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "MyWeaponBehaviour.h"
 #include "GameFramework/Character.h"
-#include "MyCharacterController.generated.h"
+#include "FASCharacter.generated.h"
 
 USTRUCT()
 struct FdataStruct
@@ -36,7 +36,7 @@ struct FdataStruct
 };
 
 UCLASS()
-class FASTARENASHOOTER_API AMyCharacterController : public ACharacter
+class FASTARENASHOOTER_API AFASCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -44,7 +44,7 @@ class FASTARENASHOOTER_API AMyCharacterController : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	AMyCharacterController();
+	AFASCharacter();
 	void InitialiseWeapon();
 
 protected:
@@ -87,9 +87,9 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite,Category = "Weapon Character")
 	USceneComponent* _socketWeapon;
 
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
-	USkeletalMeshComponent* Mesh1P;
+	// /** Pawn mesh: 1st person view (arms; seen only by self) */
+	// UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
+	// USkeletalMeshComponent* Mesh1P;
 
 	/** Gun mesh: 1st person view (seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
