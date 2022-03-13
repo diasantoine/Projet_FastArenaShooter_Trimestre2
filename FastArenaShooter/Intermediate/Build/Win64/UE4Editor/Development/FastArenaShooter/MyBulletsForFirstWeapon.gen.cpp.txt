@@ -1,7 +1,0 @@
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
-G:\UnrealEngine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-G:\UnrealEngine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source\FastArenaShooter/MyBulletsForFirstWeapon.h
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source\FastArenaShooter\MyBulletsBehaviour.h
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\MyBulletsBehaviour.generated.h
-F:\ICAN\PremiereAnneMastere\FastArenaShooter\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\MyBulletsForFirstWeapon.generated.h

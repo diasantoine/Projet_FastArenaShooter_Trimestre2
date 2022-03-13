@@ -1,8 +1,0 @@
-﻿<Properties StartupItem="Intermediate\ProjectFiles\UE4.vcxproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="DebugGame Editor|Win64" />
-  <MonoDevelop.Ide.Workbench />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-</Properties>
