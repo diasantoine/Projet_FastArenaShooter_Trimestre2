@@ -1,9 +1,0 @@
-D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Development\FastArenaShooter\Definitions.FastArenaShooter.h
-D:\Jeux\Unreal\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-D:\Jeux\Unreal\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
-D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Source\FastArenaShooter/FastArenaShooterGameMode.h
-D:\Jeux\Unreal\UE_4.27\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
-D:\Jeux\Unreal\UE_4.27\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
-D:\Jeux\Unreal\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ServerStatReplicator.generated.h
-D:\Jeux\Unreal\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameModeBase.generated.h
-D:\4GD\Cours\Projet trim2\Projet_FastArenaShooter_Trimestre2\FastArenaShooter\Intermediate\Build\Win64\UE4Editor\Inc\FastArenaShooter\FastArenaShooterGameMode.generated.h
