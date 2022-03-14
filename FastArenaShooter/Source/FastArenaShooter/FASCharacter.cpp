@@ -206,7 +206,14 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 		accelVel = _fDataStruct._airAcceleration; // * GetWorld()->GetDeltaSeconds();
 		InputForward = InputComponent->GetAxisValue("Forward");
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
-		AccelDirection = GetActorRightVector() * InputRight;
+		if (_onBunny)
+		{
+			AccelDirection = GetActorRightVector() * InputRight;
+		}
+		else
+		{
+			AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
+		}
 	}
 	if (InputForward == 0 && InputRight == 0)
 	{
@@ -296,6 +303,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 				{
 					if (_containerVelocityBunny == 0)
 					{
+						UE_LOG(LogTemp,Warning,TEXT("dzdfzf"));
 						GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
 						GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
 					}
@@ -383,7 +391,6 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	// 	&& InputComponent->GetAxisValue("Right") != 0)// || _onBunny)
 	// {
 	// 	_onBunny = true;
-	// 	UE_LOG(LogTemp,Warning,TEXT("dzdfzf"));
 	// 	//Calculate current speed
 	// 	FVector horizontalMovement = GetCharacterMovement()->Velocity;
 	// 	horizontalMovement.Z = 0.0f;
