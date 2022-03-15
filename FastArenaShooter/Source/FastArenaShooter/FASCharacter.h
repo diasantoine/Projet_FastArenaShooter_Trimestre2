@@ -59,10 +59,11 @@ public:
 	void RightPlayer(float _value);
 	void YawRotation(float _value);
 	void PitchRotation(float _value);
-	void JumpPlayer();
+	void ActivationJumpPlayer();
+	void DesactivationJumpPlayer();
+	void AutoJumpPlayer();
 	void JumpWindow();
 	void StopBunnyHop();
-	void VectorForwardContainer();
 	void MovementPlayer();
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
@@ -123,6 +124,7 @@ private:
 	FTimerHandle ManagerTimeDotRotation;
 	bool _jumpButtonPressed = false;
 	bool _onBunny = false;
+	bool _onJumpAuto = false;
 	bool _keepBunnySpeed = false;
 	AMyWeaponBehaviour* weaponBehaviourObject;
 };

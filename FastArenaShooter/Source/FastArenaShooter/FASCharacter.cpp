@@ -87,6 +87,10 @@ void AFASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	MovementPlayer();
+	if (_onJumpAuto)
+	{
+		AutoJumpPlayer();
+	}
 	// if (GetCharacterMovement()->IsMovingOnGround())
 	// {
 	// 	if (GetCharacterMovement()->Velocity == FVector(0,0,0))
@@ -127,12 +131,12 @@ void AFASCharacter::InputPlayer()
 {
 	this->InputComponent->BindAxis("Forward",this,&AFASCharacter::ForwardPlayer);
 	this->InputComponent->BindAxis("Right",this,&AFASCharacter::RightPlayer);
-
+	
 	this->InputComponent->BindAxis("Turn", this, &AFASCharacter::YawRotation);
 	this->InputComponent->BindAxis("LookUp", this, &AFASCharacter::PitchRotation);
 	
-	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AFASCharacter::JumpPlayer);
-	this->InputComponent->BindAction("Jump", IE_Released, this,&ACharacter::StopJumping);
+	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AFASCharacter::ActivationJumpPlayer);
+	this->InputComponent->BindAction("Jump", IE_Released, this,&AFASCharacter::DesactivationJumpPlayer);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,true);
 	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
 
@@ -141,33 +145,6 @@ void AFASCharacter::InputPlayer()
 	// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AFASCharacter::StopBunnyHop,_timeBeforeBunnyStop,
 	// 		false,_timeBeforeBunnyStop);
 	// }	
-}
-
-void AFASCharacter::ForwardPlayer(float _value)
-{
-	//AddMovementInput(GetActorForwardVector(),_value);
-	// else
-	// {
-	// 	float _normVelocity = GetCharacterMovement()->Velocity.Size();
-	// 	GetCharacterMovement()->Velocity.X = _normVelocity * GetActorForwardVector().X;
-	// 	GetCharacterMovement()->Velocity.Y = _normVelocity * GetActorForwardVector().Y;
-	// }
-	//GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * _value * GetCharacterMovement()->MaxWalkSpeed;
-	//MovementPlayer();
-	//GetCharacterMovement()->Velocity += GetActorForwardVector();
-}
-
-void AFASCharacter::RightPlayer(float _value)
-{
-	//AddMovementInput(GetActorRightVector(),_value);
-	// else
-	// {
-	// 	float _normVelocity = GetCharacterMovement()->Velocity.Size();
-	// 	GetCharacterMovement()->Velocity.X = _normVelocity * GetActorRightVector().X * _value;
-	// 	GetCharacterMovement()->Velocity.Y = _normVelocity * GetActorRightVector().Y * _value;
-	// }
-	//MovementPlayer();
-	//GetCharacterMovement()->Velocity.Y = GetActorRightVector().Y * _value * 200;
 }
 
 void AFASCharacter::PitchRotation(float _value)
@@ -181,9 +158,21 @@ void AFASCharacter::YawRotation(float _value)
 	APawn::AddControllerYawInput(_value);
 }
 
+void AFASCharacter::ForwardPlayer(float _value)
+{
+	
+}
+
+void AFASCharacter::RightPlayer(float _value)
+{
+	
+}
+
+
+
 void AFASCharacter::MovementPlayer()
 {
-FVector VelocityPlayer = GetCharacterMovement()->Velocity;
+	FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 	float accelVel; // Accelerated velocity in direction of movment
 	float InputForward;
 	float InputRight;
@@ -309,6 +298,8 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 					}
 					else
 					{
+						// GetCharacterMovement()->Velocity.X += accelVel;
+						// GetCharacterMovement()->Velocity.Y += accelVel;
 						// GetCharacterMovement()->Velocity.X = 1 * _containerVelocityBunny;
 						// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _containerVelocityBunny;
 					}
@@ -340,7 +331,7 @@ FVector VelocityPlayer = GetCharacterMovement()->Velocity;
 			{
 				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
 			}
-			//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
 			if (_bunnyVelocity != 0)
 			{
 				_bunnyVelocity = 0;
@@ -429,14 +420,36 @@ void AFASCharacter::StopBunnyHop()
 
 
 
-void AFASCharacter::JumpPlayer()
+void AFASCharacter::ActivationJumpPlayer()
+{
+	_onJumpAuto = true;
+}
+
+void AFASCharacter::DesactivationJumpPlayer()
+{
+	_onJumpAuto = false;
+	StopJumping();
+}
+
+
+void AFASCharacter::AutoJumpPlayer()
 {
 	if(GetCharacterMovement()->IsMovingOnGround())
+	{
+		Jump();
+		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
+		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
+		// {
+		// 	UE_LOG(LogTemp,Warning,TEXT("%d"),angle);
+		// 	AccelerationVelocity();
+		// }
+	}
+	else
 	{
 		if (InputComponent->GetAxisValue("Right") != 0)
 		{
 			//float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -0.05f)
+			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= 0.05f)
 			{
 				_onBunny = true;
 				_keepBunnySpeed = true;
@@ -462,20 +475,15 @@ void AFASCharacter::JumpPlayer()
 				_onBunny = false;
 			}
 		}
-		Jump();
-		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
-		// {
-		// 	UE_LOG(LogTemp,Warning,TEXT("%d"),angle);
-		// 	AccelerationVelocity();
-		// }
 	}
-	else
-	{
-		GetWorldTimerManager().SetTimer(ManagerTimeJump,this,&AFASCharacter::JumpWindow,_fDataStruct._jumpWindow,
-			false,_fDataStruct._jumpWindow);
-	}
+	// else
+	// {
+	// 	GetWorldTimerManager().SetTimer(ManagerTimeJump,this,&AFASCharacter::JumpWindow,_fDataStruct._jumpWindow,
+	// 		false,_fDataStruct._jumpWindow);
+	// }
 }
+
+
 
 void AFASCharacter::AccelerationVelocity()
 {
