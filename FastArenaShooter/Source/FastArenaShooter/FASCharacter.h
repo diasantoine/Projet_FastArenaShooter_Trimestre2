@@ -79,9 +79,6 @@ public:
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
 	TMap<TEnumAsByte<TypeOfWeapon>,TSubclassOf<AMyWeaponBehaviour>> _weaponTypes;
 
-	
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
-	TMap<TSubclassOf<AMyWeaponBehaviour>, AMyWeaponBehaviour*> weapons;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
 	TEnumAsByte<TypeOfWeapon> _WeaponType;
 
@@ -112,6 +109,8 @@ private:
 	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
 	void InputPlayer();
+
+	TMap<TSubclassOf<AMyWeaponBehaviour>, AMyWeaponBehaviour*> weapons;
 
 	float _decelerationVelocityGround = 0;
 	float _decelerationVelocityAir = 0;
