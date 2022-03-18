@@ -16,5 +16,4 @@ class FASTARENASHOOTER_API AWeaponShotGun : public AMyWeaponBehaviour
 
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation) override;
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation) override;
-	
 };

@@ -4,19 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "MyBulletsBehaviour.h"
-#include "MyBulletsForFirstWeapon.generated.h"
-
-class USphereComponent;
-class UProjectileMovementComponent;
+#include "ShotGunBullets.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API AMyBulletsForFirstWeapon : public AMyBulletsBehaviour
+class FASTARENASHOOTER_API AShotGunBullets : public AMyBulletsBehaviour
 {
 	GENERATED_BODY()
-public:
-	AMyBulletsForFirstWeapon();
+	AShotGunBullets();
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
 };

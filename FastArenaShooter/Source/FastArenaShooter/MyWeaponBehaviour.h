@@ -23,7 +23,11 @@ struct FdataWeapon
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	TSubclassOf<AMyBulletsBehaviour> _modelOfBullet;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	float _ballSize;
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	FVector _gunOffset;
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	float _numberOfBallShoot;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	float _dmg;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")

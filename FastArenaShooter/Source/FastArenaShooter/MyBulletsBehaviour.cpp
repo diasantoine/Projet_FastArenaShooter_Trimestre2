@@ -25,3 +25,9 @@ void AMyBulletsBehaviour::Tick(float DeltaTime)
 
 }
 
+void AMyBulletsBehaviour::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	
+}
+
+
