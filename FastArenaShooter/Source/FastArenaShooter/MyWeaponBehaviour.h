@@ -23,8 +23,6 @@ struct FdataWeapon
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	TSubclassOf<AMyBulletsBehaviour> _modelOfBullet;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
-	UStaticMesh* _modelOfWeapon;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	FVector _gunOffset;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	float _dmg;
