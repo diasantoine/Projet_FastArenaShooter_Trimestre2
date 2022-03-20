@@ -248,7 +248,13 @@ void AFASCharacter::MovementPlayer()
 			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 			_containerVelocityBunny = GetCharacterMovement()->Velocity.Size();
-									UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			if (_WeaponType != Shotgun)
+			{
+				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
+				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+				weaponBehaviourObjectReload->Reload();
+			}
 		}
 		else
 		{
@@ -327,6 +333,12 @@ void AFASCharacter::MovementPlayer()
 		}
 		else
 		{
+			if (_WeaponType != Riffle)
+			{
+				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
+				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+				weaponBehaviourObjectReload->Reload();
+			}
 			if (_bunnyVelocity == 0)
 			{
 				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
@@ -341,6 +353,7 @@ void AFASCharacter::MovementPlayer()
 			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 		}
 	}
+	GetCharacterMovement()->Velocity = FMath::Clamp(GetCharacterMovement()->Velocity.Size(),0.0f,_fDataStruct._maxSpeed) * GetCharacterMovement()->Velocity.GetSafeNormal();
 
 	// GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 	// GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
@@ -436,6 +449,12 @@ void AFASCharacter::AutoJumpPlayer()
 {
 	if(GetCharacterMovement()->IsMovingOnGround())
 	{
+		if (_WeaponType != RocketLauncher)
+		{
+			TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+			AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+			weaponBehaviourObjectReload->Reload();
+		}
 		Jump();
 		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
 		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)

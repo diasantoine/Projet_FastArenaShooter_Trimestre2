@@ -11,10 +11,11 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation)
 	if (World != nullptr)
 	{
 		int breakWhile = 0;
-		while (_dataWeapon._numberOfBallShoot && breakWhile < 40)
+		_numberOfBallLeft = _dataWeapon._magazineSize;
+		while (_dataWeapon._numberOfBallShoot && breakWhile < 100 && _numberOfBallLeft > 0)
 		{
 			breakWhile++;
-			UE_LOG(LogTemp,Warning,TEXT("test"));
+			_numberOfBallLeft--;
 			const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 			//	const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(_dataWeapon._gunOffset);
@@ -40,10 +41,11 @@ void AWeaponShotGun::SpecialFire(USceneComponent* FP_MuzzleLocation)
 	if (World != nullptr)
 	{
 		int breakWhile = 0;
-		while (_dataWeapon._numberOfBallShoot && breakWhile < 40)
+		_numberOfBallLeft = _dataWeapon._magazineSize;
+		while (_dataWeapon._numberOfBallShoot && breakWhile < 100 && _numberOfBallLeft > 0)
 		{
 			breakWhile++;
-			UE_LOG(LogTemp,Warning,TEXT("test"));
+			_numberOfBallLeft--;
 			const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 			//	const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(_dataWeapon._gunOffset);

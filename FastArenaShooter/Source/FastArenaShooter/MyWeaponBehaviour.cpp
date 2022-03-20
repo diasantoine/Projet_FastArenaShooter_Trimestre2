@@ -39,6 +39,24 @@ void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocatio
 	}
 }
 
+void AMyWeaponBehaviour::Reload()
+{
+	switch (_typeOfWeapon)
+	{
+	case Riffle:
+	default:
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		break;
+	case Shotgun:
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		break;
+	case RocketLauncher:
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		break;
+	}
+}
+
+
 void AMyWeaponBehaviour::NormalFire(USceneComponent* FP_MuzzleLocation)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Normal FIre"));

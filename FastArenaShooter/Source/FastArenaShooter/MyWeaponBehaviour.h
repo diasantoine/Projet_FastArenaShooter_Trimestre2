@@ -25,7 +25,7 @@ struct FdataWeapon
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	float _ballSize;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
-	float _magazineSize;
+	int _magazineSize;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	FVector _gunOffset;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
@@ -54,6 +54,7 @@ public:
 
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation);
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
+	void Reload();
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
@@ -63,4 +64,7 @@ public:
 	TEnumAsByte<TypeOfWeapon> _typeOfWeapon;
 
 	virtual void Tick(float DeltaTime) override;
+	
+protected:
+	int _numberOfBallLeft = 0;
 };
