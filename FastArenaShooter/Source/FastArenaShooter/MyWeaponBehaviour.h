@@ -25,6 +25,8 @@ struct FdataWeapon
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	float _ballSize;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	float _magazineSize;
+	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	FVector _gunOffset;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	float _numberOfBallShoot;
