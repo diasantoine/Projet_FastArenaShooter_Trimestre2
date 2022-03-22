@@ -339,7 +339,7 @@ void AFASCharacter::MovementPlayer()
 			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 		}
 	}
-	//GetCharacterMovement()->Velocity = FMath::Clamp(GetCharacterMovement()->Velocity.Size(),0.0f,_fDataStruct._maxSpeed) * GetCharacterMovement()->Velocity.GetSafeNormal();
+	GetCharacterMovement()->Velocity = FMath::Clamp(GetCharacterMovement()->Velocity.Size(),0.0f,_fDataStruct._maxSpeed) * GetCharacterMovement()->Velocity.GetSafeNormal();
 
 	// GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 	// GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
