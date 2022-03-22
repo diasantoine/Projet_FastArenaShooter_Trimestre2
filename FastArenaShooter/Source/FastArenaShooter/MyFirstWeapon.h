@@ -13,7 +13,7 @@ UCLASS()
 class FASTARENASHOOTER_API AMyFirstWeapon : public AMyWeaponBehaviour
 {
 	GENERATED_BODY()
-
+	
 	void NormalFire(USceneComponent* FP_MuzzleLocation)override;
 	void SpecialFire(USceneComponent* FP_MuzzleLocation) override;
 

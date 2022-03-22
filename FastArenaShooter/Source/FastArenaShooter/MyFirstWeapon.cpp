@@ -3,22 +3,18 @@
 
 #include "MyFirstWeapon.h"
 
-void AMyWeaponBehaviour::OnConstruction(const FTransform& Transform)
-{
-	
-}
-
 void AMyFirstWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 {
 	UWorld* const World = GetWorld();
-	if (World != nullptr)
+	if (World != nullptr && _numberOfBallLeft > 0)
 	{
 		int breakWhile = 0;
-		_numberOfBallLeft = _dataWeapon._magazineSize;
-		while (_dataWeapon._numberOfBallShoot && breakWhile < 100 && _numberOfBallLeft > 0)
+		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
+		_numberOfBallLeft--;
+		while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 		{
 			breakWhile++;
-			_numberOfBallLeft--;
+			numberOfBallNeededToBeShoot--;
 			UE_LOG(LogTemp,Warning,TEXT("test"));
 			const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
@@ -42,14 +38,15 @@ void AMyFirstWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 void AMyFirstWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation)
 {
 	UWorld* const World = GetWorld();
-	if (World != nullptr)
+	if (World != nullptr && _numberOfBallLeft > 0)
 	{
 		int breakWhile = 0;
-		_numberOfBallLeft = _dataWeapon._magazineSize;
-		while (_dataWeapon._numberOfBallShoot && breakWhile < 100 && _numberOfBallLeft > 0)
+		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
+		_numberOfBallLeft--;
+		while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 		{
 			breakWhile++;
-			_numberOfBallLeft--;
+			numberOfBallNeededToBeShoot--;
 			const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 			const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(_dataWeapon._gunOffset);

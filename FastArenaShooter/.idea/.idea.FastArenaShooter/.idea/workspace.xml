@@ -6,22 +6,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38666696-592d-47ea-934a-e6edaf70ab6f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0461.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-5178.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-6131.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_MyAiController.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/MyContent/BP/Test.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/MyContent/BP/WBP_HUDMunition.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/HudMunition.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/HudMunition.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/UserWidgetMunition.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/UserWidgetMunition.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0004.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0008.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0461.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-5178.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-6131.dll" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FastArenaShooter.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/FastArenaShooter.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_FirstWeapon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_FirstWeapon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_WeaponShotGun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_WeaponShotGun.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyFirstWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyFirstWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyFirstWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyFirstWeapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyWeaponBehaviour.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyWeaponBehaviour.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyWeaponBehaviour.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyWeaponBehaviour.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/WeaponShotGun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/WeaponShotGun.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,6 +344,8 @@
       <workItem from="1647780840403" duration="2006000" />
       <workItem from="1647816049172" duration="2458000" />
       <workItem from="1647902582445" duration="1235000" />
+      <workItem from="1647973707107" duration="232000" />
+      <workItem from="1647975466495" duration="1657000" />
     </task>
     <servers />
   </component>

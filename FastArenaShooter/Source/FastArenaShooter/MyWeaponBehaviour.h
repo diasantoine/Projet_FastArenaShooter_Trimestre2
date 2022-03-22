@@ -43,20 +43,15 @@ UCLASS()
 class FASTARENASHOOTER_API AMyWeaponBehaviour : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
 	// Sets default values for this actor's properties
 	AMyWeaponBehaviour();
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+public:
 	void Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation);
-
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation);
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
 	void Reload();
-
-	virtual void OnConstruction(const FTransform& Transform) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon Parameter")
 	FdataWeapon _dataWeapon;
@@ -66,5 +61,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 protected:
-	int _numberOfBallLeft = 0;
+	int _numberOfBallLeft = _dataWeapon._magazineSize;;
 };
