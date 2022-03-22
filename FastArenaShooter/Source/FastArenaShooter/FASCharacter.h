@@ -39,9 +39,7 @@ UCLASS()
 class FASTARENASHOOTER_API AFASCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
 	DECLARE_DELEGATE_OneParam(_typeOfFire, bool);
-
 public:
 	// Sets default values for this character's properties
 	AFASCharacter();
@@ -68,6 +66,7 @@ public:
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _normalFire);
+	void ChangeWeapon(float _value);
 
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	FdataStruct _fDataStruct;

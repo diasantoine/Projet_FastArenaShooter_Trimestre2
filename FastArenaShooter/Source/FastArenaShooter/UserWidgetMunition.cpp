@@ -3,3 +3,15 @@
 
 #include "UserWidgetMunition.h"
 
+#include "Components/Image.h"
+
+void UUserWidgetMunition::NativeConstruct()
+{
+	
+}
+
+void UUserWidgetMunition::MunitionChanged()
+{
+	
+}
+
