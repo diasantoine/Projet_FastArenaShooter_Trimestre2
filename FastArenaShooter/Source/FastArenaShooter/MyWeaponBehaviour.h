@@ -25,7 +25,7 @@ struct FdataWeapon
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	float _ballSize;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
-	float _magazineSize;
+	int _magazineSize;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
 	FVector _gunOffset;
 	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
@@ -43,19 +43,15 @@ UCLASS()
 class FASTARENASHOOTER_API AMyWeaponBehaviour : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+public:
 	// Sets default values for this actor's properties
 	AMyWeaponBehaviour();
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 	void Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation);
-
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation);
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
-
-	virtual void OnConstruction(const FTransform& Transform) override;
+	void Reload();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon Parameter")
 	FdataWeapon _dataWeapon;
@@ -63,4 +59,7 @@ public:
 	TEnumAsByte<TypeOfWeapon> _typeOfWeapon;
 
 	virtual void Tick(float DeltaTime) override;
+	
+protected:
+	int _numberOfBallLeft = _dataWeapon._magazineSize;
 };

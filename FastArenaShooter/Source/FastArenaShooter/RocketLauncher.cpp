@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WeaponShotGun.h"
+#include "RocketLauncher.h"
 
-void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation)
+void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
@@ -34,7 +34,7 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation)
 	}
 }
 
-void AWeaponShotGun::SpecialFire(USceneComponent* FP_MuzzleLocation)
+void ARocketLauncher::SpecialFire(USceneComponent* FP_MuzzleLocation)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
@@ -62,4 +62,3 @@ void AWeaponShotGun::SpecialFire(USceneComponent* FP_MuzzleLocation)
 		}
 	}
 }
-

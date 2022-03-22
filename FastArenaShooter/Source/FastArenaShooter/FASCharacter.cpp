@@ -18,26 +18,11 @@ AFASCharacter::AFASCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	
 	GetMesh()->SetOnlyOwnerSee(true);
 	GetMesh()->bCastDynamicShadow = false;
 	GetMesh()->CastShadow = false;
 	GetMesh()->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
 	GetMesh()->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
-	// TArray<USkeletalMeshComponent*> Components;
-	// GetComponents<USkeletalMeshComponent>(Components);
-    // if (Components.Num() > 0)
-    // {
-    // 	Mesh1P = Components[0];
-    // 	Mesh1P->SetOnlyOwnerSee(true);
-    // 	Mesh1P->bCastDynamicShadow = false;
-    // 	Mesh1P->CastShadow = false;
-    // 	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
-    // 	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
-    // }
-	//CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
-	
-
 	// Create a gun mesh component
 	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
 	FP_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
@@ -45,7 +30,6 @@ AFASCharacter::AFASCharacter()
 	FP_Gun->CastShadow = false;
 	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	FP_Gun->SetupAttachment(RootComponent);
-
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
 	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
@@ -139,6 +123,7 @@ void AFASCharacter::InputPlayer()
 	this->InputComponent->BindAction("Jump", IE_Released, this,&AFASCharacter::DesactivationJumpPlayer);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,true);
 	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
+	this->InputComponent->BindAxis("WheelMouse",this,&AFASCharacter::ChangeWeapon);
 
 	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 	// {
@@ -204,12 +189,13 @@ void AFASCharacter::MovementPlayer()
 			AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
 		}
 	}
-	if (InputForward == 0 && InputRight == 0)
+	if (InputForward == 0 && InputRight == 0 && !_onJumpAuto)
 	{
+		
 		//_containerVelocityBunny = 0;
 		//_onBunny = false;
 		//_keepBunnySpeed = false;
-		//GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
+		StopBunnyHop();
 	}
 	if (AccelDirection.Size() > 1)
 	{
@@ -248,7 +234,13 @@ void AFASCharacter::MovementPlayer()
 			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 			_containerVelocityBunny = GetCharacterMovement()->Velocity.Size();
-									UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			if (_WeaponType != Shotgun)
+			{
+				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
+				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+				weaponBehaviourObjectReload->Reload();
+			}
 		}
 		else
 		{
@@ -327,6 +319,12 @@ void AFASCharacter::MovementPlayer()
 		}
 		else
 		{
+			if (_WeaponType != Riffle)
+			{
+				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
+				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+				weaponBehaviourObjectReload->Reload();
+			}
 			if (_bunnyVelocity == 0)
 			{
 				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
@@ -341,6 +339,7 @@ void AFASCharacter::MovementPlayer()
 			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 		}
 	}
+	GetCharacterMovement()->Velocity = FMath::Clamp(GetCharacterMovement()->Velocity.Size(),0.0f,_fDataStruct._maxSpeed) * GetCharacterMovement()->Velocity.GetSafeNormal();
 
 	// GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 	// GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
@@ -436,6 +435,12 @@ void AFASCharacter::AutoJumpPlayer()
 {
 	if(GetCharacterMovement()->IsMovingOnGround())
 	{
+		if (_WeaponType != RocketLauncher)
+		{
+			TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+			AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+			weaponBehaviourObjectReload->Reload();
+		}
 		Jump();
 		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
 		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
@@ -516,6 +521,53 @@ void AFASCharacter::ShootWeapon(bool _normalFire)
 	//InitialiseWeapon();
 	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation);
 }
+
+void AFASCharacter::ChangeWeapon(float _value)
+{
+	weaponBehaviourObject->SetHidden(true);
+	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[_WeaponType];
+	if (_value > 0)
+	{
+		switch (_WeaponType)
+		{
+		case Riffle:
+			default:
+			_WeaponType = Shotgun;
+			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			break;
+		case Shotgun:
+			_WeaponType = RocketLauncher;
+			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			break;
+		case RocketLauncher:
+			_WeaponType = Riffle;
+			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			break;
+		}
+	}
+	else if(_value < 0)
+	{
+		switch (_WeaponType)
+		{
+		case Riffle:
+		_WeaponType = RocketLauncher;
+			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			break;
+		case Shotgun:
+		default:
+			_WeaponType = Riffle;
+			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			break;
+		case RocketLauncher:
+			_WeaponType = Shotgun;
+			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			break;
+		}
+	}
+	weaponBehaviourObject = weapons[weaponBehaviourClass];
+	weaponBehaviourObject->SetHidden(false);
+}
+
 
 
 

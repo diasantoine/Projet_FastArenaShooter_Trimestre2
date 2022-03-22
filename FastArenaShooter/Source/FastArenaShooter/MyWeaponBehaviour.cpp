@@ -8,7 +8,6 @@ AMyWeaponBehaviour::AMyWeaponBehaviour()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 
@@ -17,7 +16,7 @@ AMyWeaponBehaviour::AMyWeaponBehaviour()
 void AMyWeaponBehaviour::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	_numberOfBallLeft = _dataWeapon._magazineSize;
 }
 
 // Called every frame
@@ -38,6 +37,24 @@ void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocatio
 		SpecialFire(FP_MuzzleLocation);
 	}
 }
+
+void AMyWeaponBehaviour::Reload()
+{
+	switch (_typeOfWeapon)
+	{
+	case Riffle:
+	default:
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		break;
+	case Shotgun:
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		break;
+	case RocketLauncher:
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		break;
+	}
+}
+
 
 void AMyWeaponBehaviour::NormalFire(USceneComponent* FP_MuzzleLocation)
 {
