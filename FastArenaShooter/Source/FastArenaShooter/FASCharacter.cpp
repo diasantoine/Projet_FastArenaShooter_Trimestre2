@@ -46,7 +46,7 @@ void AFASCharacter::InitialiseWeapon()
 			container->AttachToComponent(FP_Gun,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 			//container->AttachToActor(this,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 			//container->AttachToComponent(_socketWeapon,FAttachmentTransformRules::KeepRelativeTransform);
-			container->SetHidden(true);
+			container->SetActorHiddenInGame(true);
 			weapons.Add(Weapon.Value,container); //Cast<AMyWeaponBehaviour>(GetWorld()->SpawnActor(Weapon.Value)->GetClass())); 
 		}
 	}
@@ -63,7 +63,7 @@ void AFASCharacter::BeginPlay()
 	InitialiseWeapon();
 	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[_WeaponType];
 	weaponBehaviourObject = weapons[weaponBehaviourClass];
-	weaponBehaviourObject->SetHidden(false);
+	weaponBehaviourObject->SetActorHiddenInGame(false);
 }
 
 // Called every frame
@@ -75,32 +75,17 @@ void AFASCharacter::Tick(float DeltaTime)
 	{
 		AutoJumpPlayer();
 	}
-	// if (GetCharacterMovement()->IsMovingOnGround())
-	// {
-	// 	if (GetCharacterMovement()->Velocity == FVector(0,0,0))
-	// 	{
-	// 		if (!GetWorldTimerManager().TimerExists(ManagerTime))
-	// 		{
-	// 			GetWorldTimerManager().SetTimer(ManagerTime,this,&AFASCharacter::ResetAccelerationVelocity,_fDataStruct._timeBeforeDecceleration
-	// 				,true,_fDataStruct._timeBeforeDecceleration);
-	// 		}
-	// 	}
-	// }
-	// else
-	// {
-	// 	if (GetWorldTimerManager().TimerExists(ManagerTime))
-	// 	{
-	// 		GetWorldTimerManager().ClearTimer(ManagerTime);
-	// 	}
-	// }
-
-	// if (_onBunny)
-	// {
-	// 	if (GetInputAxisValue("Right") == 0)
-	// 	{
-	// 		_onBunny = false;
-	// 	}
-	// }
+	if (_userWidgetMunition != nullptr && weapons.Num() > 0)
+	{
+		for (auto _weapon : weapons)
+		{
+			_userWidgetMunition->MunitionChanged(_weaponTypes.FindKey(_weapon.Key)->GetValue(),_weapon.Value->_numberOfBallLeft,_weapon.Value->_dataWeapon._magazineSize);
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp,Warning,TEXT("HUD null ou weapons vide"));
+	}
 }
 
 // Called to bind functionality to input
@@ -234,7 +219,7 @@ void AFASCharacter::MovementPlayer()
 			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 			_containerVelocityBunny = GetCharacterMovement()->Velocity.Size();
-			UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
 			if (_WeaponType != Shotgun)
 			{
 				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
@@ -284,7 +269,6 @@ void AFASCharacter::MovementPlayer()
 				{
 					if (_containerVelocityBunny == 0)
 					{
-						UE_LOG(LogTemp,Warning,TEXT("dzdfzf"));
 						GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
 						GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
 					}
@@ -329,7 +313,7 @@ void AFASCharacter::MovementPlayer()
 			{
 				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
 			}
-			UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+			//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
 			if (_bunnyVelocity != 0)
 			{
 				_bunnyVelocity = 0;
@@ -376,7 +360,7 @@ void AFASCharacter::MovementPlayer()
 	// 	_oldForwardVector = GetActorForwardVector();
 	// }
 	// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-	// if (//(angle >= _fDataStruct._minimumAngleForBunny &&
+	// if (//(angle >= _fDataStruct._AmountOfMovementForBunny &&
 	// 	!GetCharacterMovement()->IsMovingOnGround()
 	// 	&& InputComponent->GetAxisValue("Right") != 0)// || _onBunny)
 	// {
@@ -443,7 +427,7 @@ void AFASCharacter::AutoJumpPlayer()
 		}
 		Jump();
 		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._minimumAngleForBunny)
+		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._AmountOfMovementForBunny)
 		// {
 		// 	UE_LOG(LogTemp,Warning,TEXT("%d"),angle);
 		// 	AccelerationVelocity();
@@ -454,16 +438,14 @@ void AFASCharacter::AutoJumpPlayer()
 		if (InputComponent->GetAxisValue("Right") != 0)
 		{
 			//float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= 0.05f)
+			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -_fDataStruct._AmountOfMovementForBunny)
 			{
 				_onBunny = true;
 				_keepBunnySpeed = true;
-				UE_LOG(LogTemp,Warning,TEXT("R"))
-			}else if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= 0.05f)
+			}else if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
 			{
 				_onBunny = true;
 				_keepBunnySpeed = true;
-				UE_LOG(LogTemp,Warning,TEXT("L"))
 			}
 			else
 			{
@@ -524,8 +506,7 @@ void AFASCharacter::ShootWeapon(bool _normalFire)
 
 void AFASCharacter::ChangeWeapon(float _value)
 {
-	weaponBehaviourObject->SetHidden(true);
-	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[_WeaponType];
+	weaponBehaviourObject->SetActorHiddenInGame(true);
 	if (_value > 0)
 	{
 		switch (_WeaponType)
@@ -533,39 +514,42 @@ void AFASCharacter::ChangeWeapon(float _value)
 		case Riffle:
 			default:
 			_WeaponType = Shotgun;
-			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			UE_LOG(LogTemp,Warning,TEXT("ShotGun"));
 			break;
 		case Shotgun:
 			_WeaponType = RocketLauncher;
-			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			UE_LOG(LogTemp,Warning,TEXT("RocketLauncher"));
 			break;
 		case RocketLauncher:
 			_WeaponType = Riffle;
-			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			UE_LOG(LogTemp,Warning,TEXT("Riffle"));
 			break;
 		}
+		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];
+		weaponBehaviourObject->SetHidden(false);
 	}
 	else if(_value < 0)
 	{
 		switch (_WeaponType)
 		{
 		case Riffle:
-		_WeaponType = RocketLauncher;
-			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			_WeaponType = RocketLauncher;
+			UE_LOG(LogTemp,Warning,TEXT("RocketLauncher"));
 			break;
 		case Shotgun:
 		default:
 			_WeaponType = Riffle;
-			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			UE_LOG(LogTemp,Warning,TEXT("Riffle"));
 			break;
 		case RocketLauncher:
 			_WeaponType = Shotgun;
-			weaponBehaviourClass = _weaponTypes[_WeaponType];
+			UE_LOG(LogTemp,Warning,TEXT("ShotGun"));
+			//weaponBehaviourClass = _weaponTypes[_WeaponType];
 			break;
 		}
+		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];
+		weaponBehaviourObject->SetActorHiddenInGame(false);
 	}
-	weaponBehaviourObject = weapons[weaponBehaviourClass];
-	weaponBehaviourObject->SetHidden(false);
 }
 
 

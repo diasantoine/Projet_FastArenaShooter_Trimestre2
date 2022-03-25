@@ -10,7 +10,6 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 	{
 		int breakWhile = 0;
 		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
-		_numberOfBallLeft--;
 		while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 		{
 			breakWhile++;
@@ -31,6 +30,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 			AMyBulletsBehaviour* container = World->SpawnActor<AMyBulletsBehaviour>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
 			container->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
 		}
+		_numberOfBallLeft--;
 	}
 }
 
@@ -41,7 +41,6 @@ void ARocketLauncher::SpecialFire(USceneComponent* FP_MuzzleLocation)
 	{
 		int breakWhile = 0;
 		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
-		_numberOfBallLeft--;
 		while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 		{
 			breakWhile++;
@@ -60,5 +59,6 @@ void ARocketLauncher::SpecialFire(USceneComponent* FP_MuzzleLocation)
 			// spawn the projectile at the muzzle
 			World->SpawnActor<AMyBulletsBehaviour>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
 		}
+		_numberOfBallLeft--;
 	}
 }

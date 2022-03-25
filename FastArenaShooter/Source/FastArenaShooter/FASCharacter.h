@@ -4,34 +4,35 @@
 
 #include "CoreMinimal.h"
 #include "MyWeaponBehaviour.h"
+#include "UserWidgetMunition.h"
 #include "GameFramework/Character.h"
 #include "FASCharacter.generated.h"
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FdataStruct
 {
 	GENERATED_BODY()
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _groundSpeed = 1;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _maxSpeed = 5000;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _height = 1;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _jumpWindow = 0.5f;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
-	float _minimumAngleForBunny = 30.0f;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _AmountOfMovementForBunny = 0.05f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _weight = 1;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _airAcceleration = 1.2f;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _airSpeed = 200;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeDecceleration = 0.5f;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _deceleration = 0.5f;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeBunnyStop = 2.0f;
 };
 
@@ -68,7 +69,7 @@ public:
 	void ShootWeapon(bool _normalFire);
 	void ChangeWeapon(float _value);
 
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	FdataStruct _fDataStruct;
 	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
 	bool _decelerationJump = false;
@@ -83,6 +84,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite,Category = "Weapon Character")
 	USceneComponent* _socketWeapon;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Character")
+	UUserWidgetMunition* _userWidgetMunition;
 
 	// /** Pawn mesh: 1st person view (arms; seen only by self) */
 	// UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
@@ -103,6 +107,7 @@ public:
 	/** Location on VR gun mesh where projectiles should spawn. */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	USceneComponent* VR_MuzzleLocation;
+
 
 private:
 	virtual void Tick(float DeltaTime) override;

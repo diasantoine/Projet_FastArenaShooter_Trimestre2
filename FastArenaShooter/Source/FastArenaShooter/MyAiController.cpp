@@ -3,3 +3,7 @@
 
 #include "MyAiController.h"
 
+bool AMyAiController::RunBehaviorTree(UBehaviorTree* BTAsset)
+{
+	return true;
+}
