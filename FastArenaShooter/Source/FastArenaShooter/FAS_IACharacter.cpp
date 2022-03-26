@@ -3,6 +3,8 @@
 
 #include "FAS_IACharacter.h"
 
+#include "MyAiController.h"
+
 // Sets default values
 AFAS_IACharacter::AFAS_IACharacter()
 {
@@ -15,15 +17,22 @@ AFAS_IACharacter::AFAS_IACharacter()
 void AFAS_IACharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	if (Cast<AMyAiController>(AIControllerClass))
+	{
+		Cast<AMyAiController>(Controller)->RunBehaviorTree(_behaviorTree);
+	}
+	else
+	{
+		
+	}
 }
 
 // Called every frame
 void AFAS_IACharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
+
 
 // Called to bind functionality to input
 void AFAS_IACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

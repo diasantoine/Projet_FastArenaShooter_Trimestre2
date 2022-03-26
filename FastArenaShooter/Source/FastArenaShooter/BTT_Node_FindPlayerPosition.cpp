@@ -13,6 +13,11 @@ void UBTT_Node_FindPlayerPosition::OnGameplayTaskInitialized(UGameplayTask& Task
 	
 }
 
+EBTNodeResult::Type UBTT_Node_FindPlayerPosition::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+{
+	UE_LOG(LogTemp,Warning,TEXT("MARCHE?"));
+	return EBTNodeResult::Succeeded;
+}
 
 void UBTT_Node_FindPlayerPosition::OnGameplayTaskActivated(UGameplayTask& Task)
 {

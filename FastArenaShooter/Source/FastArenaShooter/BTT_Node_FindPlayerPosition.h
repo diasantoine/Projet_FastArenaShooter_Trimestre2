@@ -19,6 +19,7 @@ class FASTARENASHOOTER_API UBTT_Node_FindPlayerPosition : public UBTTaskNode
 protected:
 	virtual void OnNodeCreated() override;
 	virtual void OnGameplayTaskInitialized(UGameplayTask& Task) override;
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	virtual void OnGameplayTaskActivated(UGameplayTask& Task) override;
 	virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
 };
