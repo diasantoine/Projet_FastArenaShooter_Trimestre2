@@ -3,6 +3,9 @@
 
 #include "BTT_Node_FindPlayerPosition.h"
 
+#include "BehaviorTree/BlackboardComponent.h"
+#include "BehaviorTree/BlackboardData.h"
+
 void UBTT_Node_FindPlayerPosition::OnNodeCreated()
 {
 	
@@ -16,6 +19,8 @@ void UBTT_Node_FindPlayerPosition::OnGameplayTaskInitialized(UGameplayTask& Task
 EBTNodeResult::Type UBTT_Node_FindPlayerPosition::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	UE_LOG(LogTemp,Warning,TEXT("MARCHE?"));
+	OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName("PlayerPosition"),
+		Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsClass(FName("Player")))->GetActorLocation());
 	return EBTNodeResult::Succeeded;
 }
 

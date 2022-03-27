@@ -17,14 +17,6 @@ AFAS_IACharacter::AFAS_IACharacter()
 void AFAS_IACharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	if (Cast<AMyAiController>(AIControllerClass))
-	{
-		Cast<AMyAiController>(Controller)->RunBehaviorTree(_behaviorTree);
-	}
-	else
-	{
-		
-	}
 }
 
 // Called every frame
@@ -40,4 +32,24 @@ void AFAS_IACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
+bool AFAS_IACharacter::CanAttack()
+{
+	if (true)
+	{
+		return true;
+	}
+}
+
+void AFAS_IACharacter::AttackPlayer()
+{
+	if (CanAttack())
+	{
+		UE_LOG(LogTemp,Warning,TEXT("ATTAQUEEEEEEEEEEEE"));
+	}
+}
+
+
+
+
 

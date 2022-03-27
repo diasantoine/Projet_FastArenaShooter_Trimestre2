@@ -3,16 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FASCharacter.h"
-#include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BTT_Node_FindPlayerPosition.generated.h"
+#include "BTT_Node_MoveIAToLocation.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API UBTT_Node_FindPlayerPosition : public UBTTaskNode
+class FASTARENASHOOTER_API UBTT_Node_MoveIAToLocation : public UBTTaskNode
 {
 	GENERATED_BODY()
 protected:
@@ -21,5 +19,5 @@ protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	virtual void OnGameplayTaskActivated(UGameplayTask& Task) override;
 	virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
-private:
+	
 };

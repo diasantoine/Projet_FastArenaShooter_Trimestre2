@@ -29,4 +29,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
 	UBehaviorTree* _behaviorTree;
+
+	bool CanAttack();
+	void AttackPlayer();
 };

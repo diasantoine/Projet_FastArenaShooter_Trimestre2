@@ -13,4 +13,5 @@ UCLASS()
 class FASTARENASHOOTER_API AMyAiController : public AAIController
 {
 	GENERATED_BODY()
+	virtual void OnPossess(APawn* InPawn) override;
 };
