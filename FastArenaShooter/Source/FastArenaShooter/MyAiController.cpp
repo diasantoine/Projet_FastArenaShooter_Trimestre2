@@ -3,3 +3,20 @@
 
 #include "MyAiController.h"
 
+#include "FAS_IACharacter.h"
+#include "BehaviorTree/BlackboardComponent.h"
+
+void AMyAiController::OnPossess(APawn* InPawn)
+{
+	AFAS_IACharacter* AIEntity = Cast<AFAS_IACharacter>(InPawn);
+
+	if (AIEntity)
+	{
+		// if (AIEntity->_behaviorTree->BlackboardAsset)
+		// {
+		// 	Blackboard->InitializeBlackboard(*(AIEntity->_behaviorTree->BlackboardAsset));
+		// }
+		RunBehaviorTree(AIEntity->_behaviorTree);
+	}
+}
+
