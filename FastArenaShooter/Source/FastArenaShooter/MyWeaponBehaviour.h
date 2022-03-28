@@ -59,6 +59,7 @@ public:
 	TEnumAsByte<TypeOfWeapon> _typeOfWeapon;
 
 	virtual void Tick(float DeltaTime) override;
-	
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
 	int _numberOfBallLeft = _dataWeapon._magazineSize;
 };

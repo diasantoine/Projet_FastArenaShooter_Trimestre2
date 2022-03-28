@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "MyWeaponBehaviour.h"
 #include "UserWidgetMunition.h"
+#include "BehaviorTree/BehaviorTree.h"
 #include "GameFramework/Character.h"
 #include "FASCharacter.generated.h"
 
@@ -34,6 +35,8 @@ struct FdataStruct
 	float _deceleration = 0.5f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeBunnyStop = 2.0f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _hpMax = 200;
 };
 
 UCLASS()
@@ -68,19 +71,25 @@ public:
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _normalFire);
 	void ChangeWeapon(float _value);
+	void DamagePlayer(int DMG, AActor* Attaquant, float Power);
+	void CheckPlayerPosition();
+	void Respawn();
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	FdataStruct _fDataStruct;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	bool _decelerationJump = false;
-	UPROPERTY(EditDefaultsOnly,Category = "Stat Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	bool _jumpFollowDirection = false;
 
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Character")
 	TMap<TEnumAsByte<TypeOfWeapon>,TSubclassOf<AMyWeaponBehaviour>> _weaponTypes;
 
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Character")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Character")
 	TEnumAsByte<TypeOfWeapon> _WeaponType;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Character")
+	TMap<TSubclassOf<AMyWeaponBehaviour>, AMyWeaponBehaviour*> weapons;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite,Category = "Weapon Character")
 	USceneComponent* _socketWeapon;
@@ -93,29 +102,34 @@ public:
 	// USkeletalMeshComponent* Mesh1P;
 
 	/** Gun mesh: 1st person view (seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(VisibleDefaultsOnly,BlueprintReadOnly, Category = Mesh)
 	USkeletalMeshComponent* FP_Gun;
 
 	/** Location on gun mesh where projectiles should spawn. */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = Mesh)
 	USceneComponent* FP_MuzzleLocation;
 
 	/** Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(VisibleDefaultsOnly,BlueprintReadOnly, Category = Mesh)
 	USkeletalMeshComponent* VR_Gun;
 
 	/** Location on VR gun mesh where projectiles should spawn. */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(VisibleDefaultsOnly,BlueprintReadOnly, Category = Mesh)
 	USceneComponent* VR_MuzzleLocation;
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Stat Character")
+	FVector _maxCoordinateValue;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Stat Character")
+	FVector _minCoordinateValue;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Stat Character")
+	FVector _respawnPosition;
 
 private:
 	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
 	void InputPlayer();
-
-	TMap<TSubclassOf<AMyWeaponBehaviour>, AMyWeaponBehaviour*> weapons;
-
+	
 	float _decelerationVelocityGround = 0;
 	float _decelerationVelocityAir = 0;
 	float _bunnyVelocity = 0;
@@ -130,4 +144,6 @@ private:
 	bool _onJumpAuto = false;
 	bool _keepBunnySpeed = false;
 	AMyWeaponBehaviour* weaponBehaviourObject;
+
+	int _actualHP;
 };

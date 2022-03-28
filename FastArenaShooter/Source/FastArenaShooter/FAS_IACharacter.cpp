@@ -4,6 +4,7 @@
 #include "FAS_IACharacter.h"
 
 #include "MyAiController.h"
+#include "BehaviorTree/BlackboardData.h"
 
 // Sets default values
 AFAS_IACharacter::AFAS_IACharacter()
@@ -41,11 +42,11 @@ bool AFAS_IACharacter::CanAttack()
 	}
 }
 
-void AFAS_IACharacter::AttackPlayer()
+void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
 {
 	if (CanAttack())
 	{
-		UE_LOG(LogTemp,Warning,TEXT("ATTAQUEEEEEEEEEEEE"));
+		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	}
 }
 

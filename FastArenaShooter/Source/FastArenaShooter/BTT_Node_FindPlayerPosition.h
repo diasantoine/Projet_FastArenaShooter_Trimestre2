@@ -15,9 +15,6 @@ UCLASS()
 class FASTARENASHOOTER_API UBTT_Node_FindPlayerPosition : public UBTTaskNode
 {
 	GENERATED_BODY()
-public:
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Player")
-	TSubclassOf<AFASCharacter> _player;
 protected:
 	virtual void OnNodeCreated() override;
 	virtual void OnGameplayTaskInitialized(UGameplayTask& Task) override;

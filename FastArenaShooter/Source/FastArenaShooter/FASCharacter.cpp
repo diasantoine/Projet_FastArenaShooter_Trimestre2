@@ -64,12 +64,14 @@ void AFASCharacter::BeginPlay()
 	TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[_WeaponType];
 	weaponBehaviourObject = weapons[weaponBehaviourClass];
 	weaponBehaviourObject->SetActorHiddenInGame(false);
+	_actualHP = _fDataStruct._hpMax;
 }
 
 // Called every frame
 void AFASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	CheckPlayerPosition();
 	MovementPlayer();
 	if (_onJumpAuto)
 	{
@@ -137,6 +139,39 @@ void AFASCharacter::RightPlayer(float _value)
 {
 	
 }
+
+void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power)
+{
+	_actualHP -= DMG;
+	_actualHP = FMath::Clamp(_actualHP,0,_fDataStruct._hpMax);
+	if (_actualHP <= 0)
+	{
+		Respawn();
+	}
+}
+
+void AFASCharacter::CheckPlayerPosition()
+{
+	if (GetActorLocation().X > _maxCoordinateValue.X || GetActorLocation().X < _minCoordinateValue.X)
+	{
+		Respawn();
+	}else if (GetActorLocation().Y > _maxCoordinateValue.Y || GetActorLocation().Y < _minCoordinateValue.Y)
+	{
+		Respawn();
+	}else if (GetActorLocation().Z > _maxCoordinateValue.Z || GetActorLocation().Z < _minCoordinateValue.Z)
+	{
+		Respawn();
+	}
+}
+
+
+void AFASCharacter::Respawn()
+{
+	_actualHP = _fDataStruct._hpMax;
+	SetActorLocation(_respawnPosition);
+}
+
+
 
 
 

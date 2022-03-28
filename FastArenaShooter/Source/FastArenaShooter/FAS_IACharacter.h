@@ -3,9 +3,29 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FASCharacter.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "GameFramework/Character.h"
 #include "FAS_IACharacter.generated.h"
+
+
+
+USTRUCT(BlueprintType)
+struct FIAdataStruct
+{
+	GENERATED_BODY()
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _groundSpeed = 1;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _maxSpeed = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _hpMax = 200;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _dmg = 200;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _powerHit = 200;
+};
+
 
 UCLASS()
 class FASTARENASHOOTER_API AFAS_IACharacter : public ACharacter
@@ -30,6 +50,12 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
 	UBehaviorTree* _behaviorTree;
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Data IA")
+	FIAdataStruct _iaDataStruct;
+
 	bool CanAttack();
-	void AttackPlayer();
+	void AttackPlayer(AFASCharacter* _player);
+
+private:
+	int _actualHP;
 };
