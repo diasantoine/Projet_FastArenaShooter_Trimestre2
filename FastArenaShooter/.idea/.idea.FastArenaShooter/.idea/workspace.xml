@@ -6,24 +6,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38666696-592d-47ea-934a-e6edaf70ab6f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0001.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0003.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0005.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0296.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-2142.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/MyContent/BP/BTTask_BlueprintBase_New.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/FastArenaShooterEditor.target" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/FastArenaShooterEditor.target" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BB_IA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BB_IA.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_FASCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_FASCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_FAS_IACharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_FAS_IACharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BT_IA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BT_IA.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FastArenaShooter.sln" beforeDir="false" afterPath="$PROJECT_DIR$/FastArenaShooter.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_AttackPlayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_AttackPlayer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_MoveIAToLocation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_MoveIAToLocation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/FASCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/FASCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/FASCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/FASCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyWeaponBehaviour.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyWeaponBehaviour.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -357,6 +356,8 @@
       <workItem from="1648368016128" duration="7355000" />
       <workItem from="1648419717892" duration="3404000" />
       <workItem from="1648454340090" duration="8896000" />
+      <workItem from="1648472391312" duration="4599000" />
+      <workItem from="1648477220563" duration="2881000" />
     </task>
     <servers />
   </component>

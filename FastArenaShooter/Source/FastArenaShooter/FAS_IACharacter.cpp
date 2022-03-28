@@ -34,17 +34,19 @@ void AFAS_IACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
-bool AFAS_IACharacter::CanAttack()
+bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
 {
-	if (true)
+	float angle = FMath::Abs((acosf(FVector::DotProduct(_player->GetActorForwardVector(), GetActorForwardVector()))) * (180 / PI));
+	if (angle <= 90)
 	{
 		return true;
 	}
+	return false;
 }
 
 void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
 {
-	if (CanAttack())
+	if (CanAttack(player))
 	{
 		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	}

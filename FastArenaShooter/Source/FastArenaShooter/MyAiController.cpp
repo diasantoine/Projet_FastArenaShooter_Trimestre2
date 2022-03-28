@@ -8,6 +8,7 @@
 
 void AMyAiController::OnPossess(APawn* InPawn)
 {
+	Super::OnPossess(InPawn);
 	AFAS_IACharacter* AIEntity = Cast<AFAS_IACharacter>(InPawn);
 
 	if (AIEntity)

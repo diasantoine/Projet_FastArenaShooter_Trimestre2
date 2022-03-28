@@ -18,7 +18,6 @@ void UBTT_Node_MoveIAToLocation::OnGameplayTaskInitialized(UGameplayTask& Task)
 
 EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	UE_LOG(LogTemp,Warning,TEXT("IA"));
 	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToLocation(GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
 	return EBTNodeResult::Succeeded;
 }

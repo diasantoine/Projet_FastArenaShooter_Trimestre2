@@ -21,7 +21,6 @@ EBTNodeResult::Type UBTT_Node_FindPlayerPosition::ExecuteTask(UBehaviorTreeCompo
 {
 	//OwnerComp.GetBlackboardComponent()->SetValueAsClass(FName("Player"),GetWorld()->GetFirstPlayerController()->GetPawn()->GetClass());
 	
-	UE_LOG(LogTemp,Warning,TEXT("%s"),OwnerComp.GetBlackboardComponent()->GetValueAsClass(FName("Player")));
 	OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName("PlayerPosition"),
 					GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
 	return EBTNodeResult::Succeeded;

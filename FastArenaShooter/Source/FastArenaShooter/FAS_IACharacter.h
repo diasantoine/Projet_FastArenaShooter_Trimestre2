@@ -53,7 +53,7 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Data IA")
 	FIAdataStruct _iaDataStruct;
 
-	bool CanAttack();
+	bool CanAttack(AFASCharacter* _player);
 	void AttackPlayer(AFASCharacter* _player);
 
 private:
