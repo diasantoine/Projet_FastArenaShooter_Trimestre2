@@ -6,30 +6,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38666696-592d-47ea-934a-e6edaf70ab6f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_AttackPlayer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_AttackPlayer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_MoveIAToLocation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_MoveIAToLocation.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0001.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0005.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0007.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0105.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-2901.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-4270.dll" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BB_IA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BB_IA.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_FASCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_FASCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_FAS_IACharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_FAS_IACharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BT_IA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BT_IA.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_FindPlayerPosition.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/FAS_IACharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/MyAiController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -361,6 +343,7 @@
       <workItem from="1648224293940" duration="130000" />
       <workItem from="1648304790441" duration="2852000" />
       <workItem from="1648368016128" duration="7355000" />
+      <workItem from="1648419717892" duration="3404000" />
     </task>
     <servers />
   </component>
