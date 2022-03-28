@@ -1,0 +1,35 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "BTT_Node_MoveIAToLocation.h"
+
+#include "MyAiController.h"
+#include "BehaviorTree/BlackboardComponent.h"
+
+void UBTT_Node_MoveIAToLocation::OnNodeCreated()
+{
+	
+}
+
+void UBTT_Node_MoveIAToLocation::OnGameplayTaskInitialized(UGameplayTask& Task)
+{
+	
+}
+
+EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+{
+	UE_LOG(LogTemp,Warning,TEXT("IA"));
+	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToLocation(GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
+	return EBTNodeResult::Succeeded;
+}
+
+void UBTT_Node_MoveIAToLocation::OnGameplayTaskActivated(UGameplayTask& Task)
+{
+	
+}
+
+void UBTT_Node_MoveIAToLocation::OnGameplayTaskDeactivated(UGameplayTask& Task)
+{
+	
+}
+

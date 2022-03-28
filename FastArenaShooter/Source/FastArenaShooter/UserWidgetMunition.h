@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MyWeaponBehaviour.h"
 #include "Blueprint/UserWidget.h"
 #include "UserWidgetMunition.generated.h"
 
@@ -23,5 +24,13 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* _rocketLauncherMunitionImage;
 
-	void MunitionChanged();
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
+	FVector2D _sizeRiffleImage;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
+	FVector2D _sizeShotGunImage;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
+	FVector2D _sizeRocketLauncherImage;
+	
+	void MunitionChanged(TypeOfWeapon WhichWeapon,int MunitionLeft, int MaxMunition);
+	
 };

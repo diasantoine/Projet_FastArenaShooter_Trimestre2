@@ -44,13 +44,16 @@ void AMyWeaponBehaviour::Reload()
 	{
 	case Riffle:
 	default:
-		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		_numberOfBallLeft++;
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	case Shotgun:
-		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		_numberOfBallLeft++;
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	case RocketLauncher:
-		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft++,0,_dataWeapon._magazineSize);
+		_numberOfBallLeft++;
+		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	}
 }

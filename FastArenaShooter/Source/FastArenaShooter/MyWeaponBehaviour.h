@@ -16,25 +16,25 @@ enum TypeOfWeapon
 	RocketLauncher
 };
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FdataWeapon
 {
 	GENERATED_BODY()
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	TSubclassOf<AMyBulletsBehaviour> _modelOfBullet;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _ballSize;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	int _magazineSize;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	FVector _gunOffset;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _numberOfBallShoot;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _dmg;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _speed;
-	UPROPERTY(EditDefaultsOnly,Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _impactPower;
 };
 
@@ -53,13 +53,13 @@ public:
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
 	void Reload();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon Parameter")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	FdataWeapon _dataWeapon;
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon Parameter")
 	TEnumAsByte<TypeOfWeapon> _typeOfWeapon;
 
 	virtual void Tick(float DeltaTime) override;
-	
-protected:
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
 	int _numberOfBallLeft = _dataWeapon._magazineSize;
 };
