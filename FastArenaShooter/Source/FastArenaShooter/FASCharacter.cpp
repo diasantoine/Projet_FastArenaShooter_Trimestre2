@@ -4,6 +4,7 @@
 #include "FASCharacter.h"
 #include "TimerManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 
@@ -73,6 +74,7 @@ void AFASCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	CheckPlayerPosition();
 	MovementPlayer();
+	FP_Gun->SetRelativeRotation(UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation());
 	if (_onJumpAuto)
 	{
 		AutoJumpPlayer();

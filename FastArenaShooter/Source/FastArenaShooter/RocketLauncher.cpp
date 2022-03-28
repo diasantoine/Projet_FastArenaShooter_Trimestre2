@@ -3,6 +3,8 @@
 
 #include "RocketLauncher.h"
 
+#include "Kismet/GameplayStatics.h"
+
 void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 {
 	UWorld* const World = GetWorld();
@@ -14,7 +16,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 		{
 			breakWhile++;
 			numberOfBallNeededToBeShoot--;
-			const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
+			const FRotator SpawnRotation = UGameplayStatics::GetPlayerCameraManager(World,0)->GetCameraRotation();//GetActorRotation();//GetControlRotation();
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 			//	const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(_dataWeapon._gunOffset);
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
@@ -27,7 +29,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 			// spawn the projectile at the muzzle
-			AMyBulletsBehaviour* container = World->SpawnActor<AMyBulletsBehaviour>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			ABaseBullet* container = World->SpawnActor<ABaseBullet>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
 			container->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
 		}
 		_numberOfBallLeft--;
@@ -57,7 +59,7 @@ void ARocketLauncher::SpecialFire(USceneComponent* FP_MuzzleLocation)
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 			// spawn the projectile at the muzzle
-			World->SpawnActor<AMyBulletsBehaviour>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			World->SpawnActor<ABaseBullet>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
 		}
 		_numberOfBallLeft--;
 	}

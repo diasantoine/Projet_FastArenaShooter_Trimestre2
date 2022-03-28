@@ -55,7 +55,12 @@ public:
 
 	bool CanAttack(AFASCharacter* _player);
 	void AttackPlayer(AFASCharacter* _player);
+	void DamageIA(int DMG, AActor* Attaquant, float Power);
+	void IAMoving(AFASCharacter* _player);
 
-private:
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _isMoving;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Data IA")
 	int _actualHP;
 };

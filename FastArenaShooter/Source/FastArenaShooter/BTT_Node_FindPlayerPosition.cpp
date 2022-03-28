@@ -19,10 +19,8 @@ void UBTT_Node_FindPlayerPosition::OnGameplayTaskInitialized(UGameplayTask& Task
 
 EBTNodeResult::Type UBTT_Node_FindPlayerPosition::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	//OwnerComp.GetBlackboardComponent()->SetValueAsClass(FName("Player"),GetWorld()->GetFirstPlayerController()->GetPawn()->GetClass());
-	
-	OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName("PlayerPosition"),
-					GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
+	OwnerComp.GetBlackboardComponent()->SetValueAsClass(FName("Player"),GetWorld()->GetFirstPlayerController()->GetPawn()->GetClass());
+	OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName("PlayerPosition"),GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
 	return EBTNodeResult::Succeeded;
 }
 

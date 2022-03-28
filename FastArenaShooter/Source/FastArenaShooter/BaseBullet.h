@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyBulletsBehaviour.generated.h"
+#include "BaseBullet.generated.h"
 
 class USphereComponent;
 class UProjectileMovementComponent;
@@ -17,7 +17,7 @@ struct FBulletParameter
 	UStaticMesh* _modelOfBullet;
 };
 UCLASS()
-class FASTARENASHOOTER_API AMyBulletsBehaviour : public AActor
+class FASTARENASHOOTER_API ABaseBullet : public AActor
 {
 	GENERATED_BODY()
 protected:
@@ -30,7 +30,7 @@ protected:
 	UProjectileMovementComponent* ProjectileMovement;
 public:	
 	// Sets default values for this actor's properties
-	AMyBulletsBehaviour();
+	ABaseBullet();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

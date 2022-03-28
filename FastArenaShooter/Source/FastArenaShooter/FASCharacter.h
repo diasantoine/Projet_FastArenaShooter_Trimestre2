@@ -124,6 +124,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Stat Character")
 	FVector _respawnPosition;
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Stat Character")
+	int _actualHP;
 
 private:
 	virtual void Tick(float DeltaTime) override;
@@ -144,6 +147,4 @@ private:
 	bool _onJumpAuto = false;
 	bool _keepBunnySpeed = false;
 	AMyWeaponBehaviour* weaponBehaviourObject;
-
-	int _actualHP;
 };

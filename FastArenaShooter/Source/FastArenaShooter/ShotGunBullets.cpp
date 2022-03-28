@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ShotGunBullets.h"
+
+#include "FAS_IACharacter.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
@@ -23,16 +25,26 @@ AShotGunBullets::AShotGunBullets()
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
 	ProjectileMovement->UpdatedComponent = CollisionComp;
-	FVector _angle = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(this->GetActorForwardVector(),120).GetSafeNormal();
-	ProjectileMovement->InitialSpeed = 3000.f;
-	ProjectileMovement->Velocity *= _angle;
-	ProjectileMovement->MaxSpeed = 3000.f;
+//	FVector _angle = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(this->GetActorForwardVector(),120).GetSafeNormal();
+	ProjectileMovement->InitialSpeed = 3000.F;
+//	ProjectileMovement->Velocity *= _angle;
+	ProjectileMovement->MaxSpeed =  3000.F;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
 }
+
+void AShotGunBullets::BeginPlay()
+{
+	Super::BeginPlay();
+	FVector _angle = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(this->GetActorForwardVector(),30).GetSafeNormal();
+	ProjectileMovement->InitialSpeed = _dataBullet._speed;
+	ProjectileMovement->Velocity *= _angle;
+	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
+}
+
 
 
 void AShotGunBullets::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -43,6 +55,11 @@ void AShotGunBullets::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 		if (OtherComp->IsSimulatingPhysics())
 		{
 			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		}
+		AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor->GetClass());
+		if (_containerIA != nullptr)
+		{
+			_containerIA->DamageIA(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);
 		}
 		Destroy();
 	}

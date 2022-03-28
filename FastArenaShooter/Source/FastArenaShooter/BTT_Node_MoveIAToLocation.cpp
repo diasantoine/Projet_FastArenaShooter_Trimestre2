@@ -3,6 +3,7 @@
 
 #include "BTT_Node_MoveIAToLocation.h"
 
+#include "FAS_IACharacter.h"
 #include "MyAiController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
@@ -18,7 +19,8 @@ void UBTT_Node_MoveIAToLocation::OnGameplayTaskInitialized(UGameplayTask& Task)
 
 EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToLocation(GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
+	Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->_isMoving = true;
+//	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn());
 	return EBTNodeResult::Succeeded;
 }
 

@@ -24,6 +24,10 @@ void AFAS_IACharacter::BeginPlay()
 void AFAS_IACharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (_isMoving)
+	{
+		IAMoving(Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+	}
 }
 
 
@@ -37,7 +41,8 @@ void AFAS_IACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
 {
 	float angle = FMath::Abs((acosf(FVector::DotProduct(_player->GetActorForwardVector(), GetActorForwardVector()))) * (180 / PI));
-	if (angle <= 90)
+	UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),GetActorLocation()));
+	if (angle >= 120 && angle <= 180 && FVector::Distance(_player->GetActorLocation(),GetActorLocation()) < 100)
 	{
 		return true;
 	}
@@ -51,6 +56,26 @@ void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
 		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	}
 }
+
+void AFAS_IACharacter::DamageIA(int DMG, AActor* Attaquant, float Power)
+{
+	_actualHP -= DMG;
+	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
+	if (_actualHP <= 0)
+	{
+		Destroy();
+	}
+}
+
+
+void AFAS_IACharacter::IAMoving(AFASCharacter* _player)
+{
+	if (_player != nullptr)
+	{
+		Cast<AMyAiController>(GetController())->MoveToActor(_player,-1,false);
+	}
+}
+
 
 
 

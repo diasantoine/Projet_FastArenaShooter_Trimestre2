@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyBulletsBehaviour.h"
+#include "BaseBullet.h"
 #include "Rocket.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API ARocket : public AMyBulletsBehaviour
+class FASTARENASHOOTER_API ARocket : public ABaseBullet
 {
 	GENERATED_BODY()
 	ARocket();

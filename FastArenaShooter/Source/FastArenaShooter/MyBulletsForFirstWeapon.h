@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyBulletsBehaviour.h"
+#include "BaseBullet.h"
 #include "MyBulletsForFirstWeapon.generated.h"
 
 class USphereComponent;
@@ -13,7 +13,7 @@ class UProjectileMovementComponent;
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API AMyBulletsForFirstWeapon : public AMyBulletsBehaviour
+class FASTARENASHOOTER_API AMyBulletsForFirstWeapon : public ABaseBullet
 {
 	GENERATED_BODY()
 public:
