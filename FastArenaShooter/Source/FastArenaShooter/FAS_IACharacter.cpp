@@ -5,6 +5,7 @@
 
 #include "MyAiController.h"
 #include "BehaviorTree/BlackboardData.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -28,10 +29,14 @@ void AFAS_IACharacter::BeginPlay()
 void AFAS_IACharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (_isMoving)
+	if (!GetCharacterMovement()->IsMovingOnGround())
 	{
-		IAMoving(Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+		GetCharacterMovement()->Velocity += FVector(0,0,GetWorld()->GetGravityZ()) * DeltaTime;
 	}
+	// if (_isMoving)
+	// {
+	// 	IAMoving(Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+	// }
 }
 
 
@@ -90,7 +95,8 @@ void AFAS_IACharacter::IAJump(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
-		Cast<AMyAiController>(GetController())->StopMovement();
+		//Cast<AMyAiController>(GetController())->StopMovement();
+		//GetMesh()->SetSimulatePhysics(true);
 		Jump();
 	}
 }
