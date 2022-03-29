@@ -66,6 +66,7 @@ void AFASCharacter::BeginPlay()
 	weaponBehaviourObject = weapons[weaponBehaviourClass];
 	weaponBehaviourObject->SetActorHiddenInGame(false);
 	_actualHP = _fDataStruct._hpMax;
+	_userWidgetMunition->SwapWeapon(_WeaponType);
 }
 
 // Called every frame
@@ -609,6 +610,7 @@ void AFASCharacter::ChangeWeapon(float _value)
 		}
 		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];
 		weaponBehaviourObject->SetActorHiddenInGame(false);
+		_userWidgetMunition->SwapWeapon(_WeaponType);
 	}
 }
 
