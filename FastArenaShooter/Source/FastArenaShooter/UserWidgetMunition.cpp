@@ -27,3 +27,9 @@ void UUserWidgetMunition::MunitionChanged(TypeOfWeapon WhichWeapon,int MunitionL
 	}
 }
 
+void UUserWidgetMunition::HPChange(int HPLeft, int HPMax)
+{
+	_HPImage->Brush.ImageSize.X = _sizeHPImage.X * HPLeft / HPMax;
+}
+
+

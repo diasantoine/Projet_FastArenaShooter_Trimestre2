@@ -39,7 +39,7 @@ AShotGunBullets::AShotGunBullets()
 void AShotGunBullets::BeginPlay()
 {
 	Super::BeginPlay();
-	FVector _angle = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(this->GetActorForwardVector(),30).GetSafeNormal();
+	FVector _angle = 	FMath::VRandCone(ProjectileMovement->Velocity.GetSafeNormal(),60);//UKismetMathLibrary::RandomUnitVectorInConeInRadians(this->GetActorForwardVector(),30);
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
 	ProjectileMovement->Velocity *= _angle;
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
@@ -56,7 +56,7 @@ void AShotGunBullets::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 		{
 			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 		}
-		AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor->GetClass());
+		AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
 		if (_containerIA != nullptr)
 		{
 			_containerIA->DamageIA(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);

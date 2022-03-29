@@ -5,6 +5,7 @@
 
 #include "MyAiController.h"
 #include "BehaviorTree/BlackboardData.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AFAS_IACharacter::AFAS_IACharacter()
@@ -18,6 +19,9 @@ AFAS_IACharacter::AFAS_IACharacter()
 void AFAS_IACharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	_actualHP = _iaDataStruct._hpMax;
+	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpHeight;
+	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 }
 
 // Called every frame
@@ -40,9 +44,13 @@ void AFAS_IACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
 {
-	float angle = FMath::Abs((acosf(FVector::DotProduct(_player->GetActorForwardVector(), GetActorForwardVector()))) * (180 / PI));
+	float AngleCosine = FVector::DotProduct(_player->GetActorLocation(),  GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
+	float AngleRadians = FMath::Acos(AngleCosine);
+	float angle = FMath::RadiansToDegrees(AngleRadians);
+	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
+	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
 	UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),GetActorLocation()));
-	if (angle >= 120 && angle <= 180 && FVector::Distance(_player->GetActorLocation(),GetActorLocation()) < 100)
+	if (angle <= _iaDataStruct._minimalAngleForAttack  &&FVector::Distance(_player->GetActorLocation(),GetActorLocation()) < _iaDataStruct._minimumDistanceForAttack)
 	{
 		return true;
 	}
@@ -51,10 +59,12 @@ bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
 
 void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
 {
-	if (CanAttack(player))
-	{
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-	}
+	// if (CanAttack(player))
+	// {
+	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+	// }
+	Cast<AMyAiController>(GetController())->StopMovement();
+	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 }
 
 void AFAS_IACharacter::DamageIA(int DMG, AActor* Attaquant, float Power)
@@ -72,9 +82,19 @@ void AFAS_IACharacter::IAMoving(AFASCharacter* _player)
 {
 	if (_player != nullptr)
 	{
-		Cast<AMyAiController>(GetController())->MoveToActor(_player,-1,false);
+		Cast<AMyAiController>(GetController())->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
 	}
 }
+
+void AFAS_IACharacter::IAJump(AFASCharacter* _player)
+{
+	if (_player!= nullptr)
+	{
+		Cast<AMyAiController>(GetController())->StopMovement();
+		Jump();
+	}
+}
+
 
 
 

@@ -19,11 +19,21 @@ struct FIAdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _maxSpeed = 5000;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _acceptanceRadius = 50;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _jumpHeight = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpMax = 200;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _dmg = 200;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _powerHit = 200;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _minimalAngleForAttack = 120;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _minimumDistanceForAttack = 100;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _minimumDistanceForJump = 100;
 };
 
 
@@ -57,9 +67,10 @@ public:
 	void AttackPlayer(AFASCharacter* _player);
 	void DamageIA(int DMG, AActor* Attaquant, float Power);
 	void IAMoving(AFASCharacter* _player);
+	void IAJump(AFASCharacter* _player);
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
-	bool _isMoving;
+	bool _isMoving = false;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Data IA")
 	int _actualHP;

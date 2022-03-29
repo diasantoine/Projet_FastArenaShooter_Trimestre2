@@ -26,23 +26,24 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation)
 			const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 
 			//Set Spawn Collision Handling Override
-			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+			// FActorSpawnParameters ActorSpawnParams;
+			// ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
 			// spawn the projectile at the muzzle
-			//todo create transform with scale
-			ABaseBullet* _bulletsShotgun = World->SpawnActorDeferred<ABaseBullet>(_dataWeapon._modelOfBullet,{SpawnRotation,SpawnLocation}, this,nullptr,
+			FTransform BulletTransform = {SpawnRotation,SpawnLocation};
+			BulletTransform.SetScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
+			ABaseBullet* _bulletsShotgun = World->SpawnActorDeferred<ABaseBullet>(_dataWeapon._modelOfBullet,BulletTransform, this,nullptr,
 				ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn);
 			if (_bulletsShotgun != nullptr)
 			{
-				_bulletsShotgun->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
+				//_bulletsShotgun->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
 				AShotGunBullets* _bulletClass = Cast<AShotGunBullets>(_bulletsShotgun);
 				if (_bulletClass != nullptr)
 					
 				{
 					_bulletClass->_dataBullet = _dataWeapon;
 				}
-				UGameplayStatics::FinishSpawningActor(_bulletsShotgun,{SpawnRotation,SpawnLocation});
+				UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 			}
 			// ABaseBullet* _bulletsShotgun = World->SpawnActor<ABaseBullet>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
 			// if (_bulletsShotgun != nullptr)

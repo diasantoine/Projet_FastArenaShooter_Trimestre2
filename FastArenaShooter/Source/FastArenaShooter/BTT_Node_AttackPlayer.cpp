@@ -22,7 +22,7 @@ EBTNodeResult::Type UBTT_Node_AttackPlayer::ExecuteTask(UBehaviorTreeComponent& 
 	auto test = OwnerComp.GetAIOwner();
 	if (Cast<AFAS_IACharacter>(	OwnerComp.GetAIOwner()->GetPawn()))
 	{
-		Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetCharacter())->AttackPlayer(
+		Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn())->AttackPlayer(
 			Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
 	}
 	

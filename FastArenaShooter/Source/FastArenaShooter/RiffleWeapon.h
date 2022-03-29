@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "MyWeaponBehaviour.h"
-#include "MyFirstWeapon.generated.h"
+#include "RiffleWeapon.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API AMyFirstWeapon : public AMyWeaponBehaviour
+class FASTARENASHOOTER_API ARiffleWeapon : public AMyWeaponBehaviour
 {
 	GENERATED_BODY()
 public:

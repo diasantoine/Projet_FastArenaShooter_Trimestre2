@@ -3,6 +3,7 @@
 
 #include "RocketLauncher.h"
 
+#include "Rocket.h"
 #include "Kismet/GameplayStatics.h"
 
 void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
@@ -25,12 +26,37 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 			const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 
 			//Set Spawn Collision Handling Override
-			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+			// FActorSpawnParameters ActorSpawnParams;
+			// ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
 			// spawn the projectile at the muzzle
-			ABaseBullet* container = World->SpawnActor<ABaseBullet>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			container->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
+			FTransform BulletTransform = {SpawnRotation,SpawnLocation};
+			BulletTransform.SetScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
+			ABaseBullet* _bulletsShotgun = World->SpawnActorDeferred<ABaseBullet>(_dataWeapon._modelOfBullet,BulletTransform, this,nullptr,
+				ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn);
+			if (_bulletsShotgun != nullptr)
+			{
+				//_bulletsShotgun->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
+				ARocket* _bulletClass = Cast<ARocket>(_bulletsShotgun);
+				if (_bulletClass != nullptr)
+					
+				{
+					_bulletClass->_dataBullet = _dataWeapon;
+				}
+				UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
+			}
+			// ABaseBullet* _bulletsShotgun = World->SpawnActor<ABaseBullet>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			// if (_bulletsShotgun != nullptr)
+			// {
+			// 	_bulletsShotgun->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
+			// 	AShotGunBullets* _bulletClass = Cast<AShotGunBullets>(_bulletsShotgun);
+			// 	if (_bulletClass != nullptr)
+			// 	{
+			// 		_bulletClass->_dataBullet._dmg = _dataWeapon._dmg;
+			// 		_bulletClass->_dataBullet._speed = _dataWeapon._speed;
+			// 		_bulletClass->_dataBullet._impactPower = _dataWeapon._impactPower;
+			// 	}
+			// }
 		}
 		_numberOfBallLeft--;
 	}

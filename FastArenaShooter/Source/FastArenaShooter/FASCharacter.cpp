@@ -72,9 +72,24 @@ void AFASCharacter::BeginPlay()
 void AFASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (_actualHP != _fDataStruct._hpMax)
+	{
+		_recoveryTime += DeltaTime;
+		if (_recoveryTime >= _fDataStruct._timeBeforeRecovery)
+		{
+			_actualHP += _fDataStruct._hpRecovery;
+			_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
+			_recoveryTime = 0;
+		}
+	}
+	else
+	{
+		_recoveryTime = 0;
+	}
 	CheckPlayerPosition();
 	MovementPlayer();
-	FP_Gun->SetRelativeRotation(UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation());
+	FP_Gun->SetRelativeRotation(FRotator(0,-90,
+		-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation().Pitch));
 	if (_onJumpAuto)
 	{
 		AutoJumpPlayer();
@@ -144,8 +159,10 @@ void AFASCharacter::RightPlayer(float _value)
 
 void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power)
 {
+	_recoveryTime = 0;
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_fDataStruct._hpMax);
+	_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
 	if (_actualHP <= 0)
 	{
 		Respawn();
@@ -170,6 +187,12 @@ void AFASCharacter::CheckPlayerPosition()
 void AFASCharacter::Respawn()
 {
 	_actualHP = _fDataStruct._hpMax;
+	_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
+	_containerVelocityBunny = 0;
+	_onBunny = false;
+	_keepBunnySpeed = false;
+	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
+	GetCharacterMovement()->Velocity = {0,0,0};
 	SetActorLocation(_respawnPosition);
 }
 

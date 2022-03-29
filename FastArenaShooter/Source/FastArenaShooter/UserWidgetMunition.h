@@ -23,6 +23,8 @@ public:
 	class UImage* _shotGunMunitionImage;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* _rocketLauncherMunitionImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* _HPImage;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
 	FVector2D _sizeRiffleImage;
@@ -30,7 +32,10 @@ public:
 	FVector2D _sizeShotGunImage;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
 	FVector2D _sizeRocketLauncherImage;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
+	FVector2D _sizeHPImage;
 	
 	void MunitionChanged(TypeOfWeapon WhichWeapon,int MunitionLeft, int MaxMunition);
+	void HPChange(int HPLeft, int HPMax);
 	
 };

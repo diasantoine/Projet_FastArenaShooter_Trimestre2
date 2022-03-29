@@ -37,6 +37,10 @@ struct FdataStruct
 	float _timeBeforeBunnyStop = 2.0f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpMax = 200;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeRecovery = 2.0f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _hpRecovery = 200;
 };
 
 UCLASS()
@@ -127,6 +131,9 @@ public:
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Stat Character")
 	int _actualHP;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Stat Character")
+	float _recoveryTime;
 
 private:
 	virtual void Tick(float DeltaTime) override;

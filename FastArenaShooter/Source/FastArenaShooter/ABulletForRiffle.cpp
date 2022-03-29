@@ -1,17 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MyBulletsForFirstWeapon.h"
+
+#include "ABulletForRiffle.h"
+
+#include "FAS_IACharacter.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 
-AMyBulletsForFirstWeapon::AMyBulletsForFirstWeapon()
+
+ABulletForRiffle::ABulletForRiffle()
 {
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	CollisionComp->InitSphereRadius(5.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
-	CollisionComp->OnComponentHit.AddDynamic(this, &AMyBulletsForFirstWeapon::OnHit);// set up a notification for when this component hits something blocking
+	CollisionComp->OnComponentHit.AddDynamic(this, &ABulletForRiffle::OnHit);// set up a notification for when this component hits something blocking
 
 	// Players can't walk on it
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
@@ -32,8 +36,15 @@ AMyBulletsForFirstWeapon::AMyBulletsForFirstWeapon()
 	InitialLifeSpan = 3.0f;
 }
 
+void ABulletForRiffle::BeginPlay()
+{
+	Super::BeginPlay();
+	ProjectileMovement->InitialSpeed = _dataBullet._speed;
+	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
+}
 
-void AMyBulletsForFirstWeapon::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+
+void ABulletForRiffle::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
@@ -41,6 +52,11 @@ void AMyBulletsForFirstWeapon::OnHit(UPrimitiveComponent* HitComp, AActor* Other
 		if (OtherComp->IsSimulatingPhysics())
 		{
 			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		}
+		AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
+		if (_containerIA != nullptr)
+		{
+			_containerIA->DamageIA(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);
 		}
 		Destroy();
 	}

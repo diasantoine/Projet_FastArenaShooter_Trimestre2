@@ -2,6 +2,8 @@
 
 
 #include "Rocket.h"
+
+#include "FAS_IACharacter.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 
@@ -31,6 +33,12 @@ ARocket::ARocket()
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
 }
+void ARocket::BeginPlay()
+{
+	Super::BeginPlay();
+	ProjectileMovement->InitialSpeed = _dataBullet._speed;
+	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
+}
 
 
 void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -41,6 +49,11 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 		if (OtherComp->IsSimulatingPhysics())
 		{
 			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		}
+		AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
+		if (_containerIA != nullptr)
+		{
+			_containerIA->DamageIA(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);
 		}
 		Destroy();
 	}
