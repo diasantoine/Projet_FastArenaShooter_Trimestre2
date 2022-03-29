@@ -25,6 +25,11 @@ public:
 	class UImage* _rocketLauncherMunitionImage;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* _HPImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* _WeaponTypeImage;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* _WeaponTypeText;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
 	FVector2D _sizeRiffleImage;
@@ -37,5 +42,6 @@ public:
 	
 	void MunitionChanged(TypeOfWeapon WhichWeapon,int MunitionLeft, int MaxMunition);
 	void HPChange(int HPLeft, int HPMax);
+	void SwapWeapon(TypeOfWeapon WhichWeapon);
 	
 };

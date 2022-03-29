@@ -44,16 +44,19 @@ void ARocket::BeginPlay()
 void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
+	if (OtherComp != nullptr)
 	{
 		if (OtherComp->IsSimulatingPhysics())
 		{
 			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 		}
-		AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
-		if (_containerIA != nullptr)
+		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
-			_containerIA->DamageIA(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);
+			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
+			if (_containerIA != nullptr)
+			{
+				_containerIA->DamageIA(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);
+			}
 		}
 		Destroy();
 	}
