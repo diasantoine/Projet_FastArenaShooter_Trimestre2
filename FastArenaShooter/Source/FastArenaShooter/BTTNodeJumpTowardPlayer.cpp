@@ -7,10 +7,6 @@
 #include "BehaviorTree/BlackboardComponent.h"
 
 
-void UBTTNodeJumpTowardPlayer::OnNodeCreated()
-{
-	
-}
 
 void UBTTNodeJumpTowardPlayer::OnGameplayTaskInitialized(UGameplayTask& Task)
 {

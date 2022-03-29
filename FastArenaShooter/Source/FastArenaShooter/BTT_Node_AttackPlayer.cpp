@@ -6,10 +6,6 @@
 #include "MyAiController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
-void UBTT_Node_AttackPlayer::OnNodeCreated()
-{
-	
-}
 
 void UBTT_Node_AttackPlayer::OnGameplayTaskInitialized(UGameplayTask& Task)
 {

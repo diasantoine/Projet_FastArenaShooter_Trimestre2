@@ -6,10 +6,6 @@
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
-void UBTT_Node_FindPlayerPosition::OnNodeCreated()
-{
-	
-}
 
 void UBTT_Node_FindPlayerPosition::OnGameplayTaskInitialized(UGameplayTask& Task)
 {

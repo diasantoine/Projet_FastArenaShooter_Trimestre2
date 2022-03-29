@@ -3,8 +3,4 @@
 
 #include "IABlackboardData.h"
 
-void UIABlackboardData::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
-{
-	
-}
 
