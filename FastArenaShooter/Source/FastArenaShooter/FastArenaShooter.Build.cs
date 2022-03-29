@@ -8,6 +8,9 @@ public class FastArenaShooter : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "AIModule", "UMG" });
+#if WITH_EDITOR
+		PublicDependencyModuleNames.AddRange(new string[] { "UMGEditor" });
+#endif
 	}
 }

@@ -7,11 +7,6 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-void UBTT_Node_MoveIAToLocation::OnNodeCreated()
-{
-	
-}
-
 void UBTT_Node_MoveIAToLocation::OnGameplayTaskInitialized(UGameplayTask& Task)
 {
 	

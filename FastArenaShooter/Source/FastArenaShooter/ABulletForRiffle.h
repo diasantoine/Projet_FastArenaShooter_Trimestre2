@@ -18,9 +18,9 @@ class FASTARENASHOOTER_API ABulletForRiffle : public ABaseBullet
 {
 	GENERATED_BODY()
 	virtual void BeginPlay() override;
+public:
 	ABulletForRiffle();
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
-public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Bullet Data")
 	FdataWeapon _dataBullet;
 };

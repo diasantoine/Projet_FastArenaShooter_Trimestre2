@@ -13,5 +13,4 @@ UCLASS()
 class FASTARENASHOOTER_API UIABlackboardData : public UBlackboardData
 {
 	GENERATED_BODY()
-	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 };

@@ -14,9 +14,9 @@ class FASTARENASHOOTER_API AShotGunBullets : public ABaseBullet
 {
 	GENERATED_BODY()
 	virtual void BeginPlay() override;
+public:
 	AShotGunBullets();
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
-public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Bullet Data")
 	FdataWeapon _dataBullet;
 };
