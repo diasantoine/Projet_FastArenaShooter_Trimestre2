@@ -28,7 +28,10 @@ void ASpawnerEntityIA::Tick(float DeltaTime)
 		{
 			FActorSpawnParameters ActorSpawnParams;
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-			GetWorld()->SpawnActor<AFAS_IACharacter>(IAParameter.Key,IAParameter.Value._spawner[0]->GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
+			for (AActor* Spawner :IAParameter.Value._spawner)
+			{
+				GetWorld()->SpawnActor<AFAS_IACharacter>(IAParameter.Key,Spawner->GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
+			}
 		}
 	}
 }
