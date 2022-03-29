@@ -4,7 +4,6 @@
 #include "MyAiController.h"
 
 #include "FAS_IACharacter.h"
-#include "BehaviorTree/BlackboardComponent.h"
 
 void AMyAiController::OnPossess(APawn* InPawn)
 {

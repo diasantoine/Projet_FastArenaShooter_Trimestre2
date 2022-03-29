@@ -5,7 +5,6 @@
 
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "BehaviorTree/BlackboardData.h"
 
 void UBTT_Node_FindPlayerPosition::OnNodeCreated()
 {

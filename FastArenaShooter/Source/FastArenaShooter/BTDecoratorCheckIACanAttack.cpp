@@ -5,8 +5,6 @@
 
 #include "AIController.h"
 #include "FAS_IACharacter.h"
-#include "MyAiController.h"
-
 
 bool UBTDecoratorCheckIACanAttack::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {

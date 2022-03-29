@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "FASCharacter.h"
-#include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTT_Node_FindPlayerPosition.generated.h"
 

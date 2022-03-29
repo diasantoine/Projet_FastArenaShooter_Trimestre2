@@ -2,9 +2,7 @@
 
 
 #include "FAS_IACharacter.h"
-
 #include "MyAiController.h"
-#include "BehaviorTree/BlackboardData.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 

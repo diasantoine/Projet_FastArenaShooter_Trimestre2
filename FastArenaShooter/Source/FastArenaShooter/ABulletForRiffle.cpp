@@ -3,7 +3,6 @@
 
 
 #include "ABulletForRiffle.h"
-
 #include "FAS_IACharacter.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
