@@ -44,4 +44,9 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	TArray<FWaweIA> _waweIA;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	TSubclassOf<AFAS_IACharacter> _iaToSpawn;
+	FTimerHandle _timerManager;
+	void RapidSpawnIA();
 };

@@ -15,24 +15,32 @@ ASpawnerEntityIA::ASpawnerEntityIA()
 void ASpawnerEntityIA::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	GetWorldTimerManager().SetTimer(_timerManager,this,&ASpawnerEntityIA::RapidSpawnIA,5,true,0);
 }
 
 // Called every frame
 void ASpawnerEntityIA::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	for (FWaweIA WaweIA : _waweIA)
-	{
-		for (auto IAParameter : WaweIA._waweParameter)
-		{
-			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-			for (AActor* Spawner :IAParameter.Value._spawner)
-			{
-				GetWorld()->SpawnActor<AFAS_IACharacter>(IAParameter.Key,Spawner->GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
-			}
-		}
-	}
+	// for (FWaweIA WaweIA : _waweIA)
+	// {
+	// 	for (auto IAParameter : WaweIA._waweParameter)
+	// 	{
+	// 		FActorSpawnParameters ActorSpawnParams;
+	// 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	// 		for (AActor* Spawner :IAParameter.Value._spawner)
+	// 		{
+	// 			GetWorld()->SpawnActor<AFAS_IACharacter>(IAParameter.Key,Spawner->GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
+	// 		}
+	// 	}
+	// }
 }
+
+void ASpawnerEntityIA::RapidSpawnIA()
+{
+	FActorSpawnParameters ActorSpawnParams;
+	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	GetWorld()->SpawnActor<AFAS_IACharacter>(_iaToSpawn,GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
+}
+
 
