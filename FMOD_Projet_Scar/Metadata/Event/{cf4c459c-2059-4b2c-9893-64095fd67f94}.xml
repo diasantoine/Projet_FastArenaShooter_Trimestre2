@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{cf4c459c-2059-4b2c-9893-64095fd67f94}">
 		<property name="name">
-			<value>ImpactBullet_Wood</value>
+			<value>ImpactBullet</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -30,6 +30,9 @@
 		</relationship>
 		<relationship name="timeline">
 			<destination>{10963e8e-67ec-44a1-b937-b92c3d2b3d1c}</destination>
+		</relationship>
+		<relationship name="parameters">
+			<destination>{88b28409-a02a-4bc7-8167-3186f57b6acd}</destination>
 		</relationship>
 		<relationship name="banks">
 			<destination>{6883e776-44d0-4923-af4c-1d58741f149c}</destination>
@@ -64,6 +67,11 @@
 		</relationship>
 	</object>
 	<object class="Timeline" id="{10963e8e-67ec-44a1-b937-b92c3d2b3d1c}" />
+	<object class="ParameterProxy" id="{88b28409-a02a-4bc7-8167-3186f57b6acd}">
+		<relationship name="preset">
+			<destination>{853cddd6-9f87-4860-a68f-d418448b4fed}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{0177ecd4-124d-4ea5-8360-bd19df20ece7}">
 		<relationship name="effectChain">
 			<destination>{20d86996-be29-4ad6-bbb4-027a321f97ef}</destination>

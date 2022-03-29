@@ -3,16 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyBulletsBehaviour.h"
+#include "BaseBullet.h"
+#include "MyWeaponBehaviour.h"
 #include "ShotGunBullets.generated.h"
-
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API AShotGunBullets : public AMyBulletsBehaviour
+class FASTARENASHOOTER_API AShotGunBullets : public ABaseBullet
 {
 	GENERATED_BODY()
+	virtual void BeginPlay() override;
 	AShotGunBullets();
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
+public:
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Bullet Data")
+	FdataWeapon _dataBullet;
 };

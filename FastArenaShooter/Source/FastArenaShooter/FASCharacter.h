@@ -14,21 +14,21 @@ struct FdataStruct
 {
 	GENERATED_BODY()
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _groundSpeed = 1;
+	float _groundSpeed = 800;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _maxSpeed = 5000;
+	float _maxSpeed = 1800;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _height = 1;
+	float _height = 600;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _jumpWindow = 0.5f;
+	float _jumpWindow = 0.25f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _AmountOfMovementForBunny = 0.05f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _weight = 1;
+	float _weight = 1.5f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _airAcceleration = 1.2f;
+	float _airAcceleration = 80.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _airSpeed = 200;
+	float _airSpeed = 800;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeDecceleration = 0.5f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
@@ -37,6 +37,10 @@ struct FdataStruct
 	float _timeBeforeBunnyStop = 2.0f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpMax = 200;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeRecovery = 2.0f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _hpRecovery = 5;
 };
 
 UCLASS()
@@ -124,6 +128,12 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Stat Character")
 	FVector _respawnPosition;
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Stat Character")
+	int _actualHP;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Stat Character")
+	float _recoveryTime;
 
 private:
 	virtual void Tick(float DeltaTime) override;
@@ -144,6 +154,4 @@ private:
 	bool _onJumpAuto = false;
 	bool _keepBunnySpeed = false;
 	AMyWeaponBehaviour* weaponBehaviourObject;
-
-	int _actualHP;
 };

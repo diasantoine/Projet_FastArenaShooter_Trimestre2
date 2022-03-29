@@ -2,7 +2,6 @@
 
 
 #include "UserWidgetMunition.h"
-
 #include "Components/Image.h"
 
 void UUserWidgetMunition::NativeConstruct()
@@ -26,4 +25,10 @@ void UUserWidgetMunition::MunitionChanged(TypeOfWeapon WhichWeapon,int MunitionL
 		break;
 	}
 }
+
+void UUserWidgetMunition::HPChange(int HPLeft, int HPMax)
+{
+	_HPImage->Brush.ImageSize.X = _sizeHPImage.X * HPLeft / HPMax;
+}
+
 

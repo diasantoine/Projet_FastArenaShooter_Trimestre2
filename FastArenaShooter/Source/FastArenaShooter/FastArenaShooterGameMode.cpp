@@ -2,7 +2,6 @@
 
 #include "FastArenaShooterGameMode.h"
 #include "FastArenaShooterHUD.h"
-#include "FastArenaShooterCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AFastArenaShooterGameMode::AFastArenaShooterGameMode()

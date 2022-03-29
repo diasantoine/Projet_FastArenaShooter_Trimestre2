@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyBulletsBehaviour.h"
+#include "BaseBullet.h"
 #include "GameFramework/Actor.h"
 #include "MyWeaponBehaviour.generated.h"
 
@@ -21,7 +21,7 @@ struct FdataWeapon
 {
 	GENERATED_BODY()
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
-	TSubclassOf<AMyBulletsBehaviour> _modelOfBullet;
+	TSubclassOf<ABaseBullet> _modelOfBullet;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _ballSize;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")

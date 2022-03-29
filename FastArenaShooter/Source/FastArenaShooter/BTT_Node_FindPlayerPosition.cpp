@@ -5,7 +5,6 @@
 
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "BehaviorTree/BlackboardData.h"
 
 void UBTT_Node_FindPlayerPosition::OnNodeCreated()
 {
@@ -19,11 +18,8 @@ void UBTT_Node_FindPlayerPosition::OnGameplayTaskInitialized(UGameplayTask& Task
 
 EBTNodeResult::Type UBTT_Node_FindPlayerPosition::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	//OwnerComp.GetBlackboardComponent()->SetValueAsClass(FName("Player"),GetWorld()->GetFirstPlayerController()->GetPawn()->GetClass());
-	
-	UE_LOG(LogTemp,Warning,TEXT("%s"),OwnerComp.GetBlackboardComponent()->GetValueAsClass(FName("Player")));
-	OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName("PlayerPosition"),
-					GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
+	OwnerComp.GetBlackboardComponent()->SetValueAsClass(FName("Player"),Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn())->StaticClass());
+	OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName("PlayerPosition"),GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
 	return EBTNodeResult::Succeeded;
 }
 
