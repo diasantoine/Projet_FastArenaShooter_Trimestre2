@@ -154,4 +154,6 @@ private:
 	bool _onJumpAuto = false;
 	bool _keepBunnySpeed = false;
 	AMyWeaponBehaviour* weaponBehaviourObject;
+
+	float _forwardSign = 1;
 };
