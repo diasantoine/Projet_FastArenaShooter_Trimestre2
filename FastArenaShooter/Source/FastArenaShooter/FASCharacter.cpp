@@ -192,6 +192,7 @@ void AFASCharacter::Respawn()
 	_containerVelocityBunny = 0;
 	_onBunny = false;
 	_keepBunnySpeed = false;
+	_forwardSign = 1;
 	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 	GetCharacterMovement()->Velocity = {0,0,0};
 	SetActorLocation(_respawnPosition);
@@ -235,7 +236,7 @@ void AFASCharacter::MovementPlayer()
 			AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
 		}
 	}
-	if (InputForward == 0 && InputRight == 0 && !_onJumpAuto)
+	if ((InputForward == 0 || InputRight == 0) && !_onJumpAuto)
 	{
 		
 		//_containerVelocityBunny = 0;
@@ -277,8 +278,8 @@ void AFASCharacter::MovementPlayer()
 		if (/*InputComponent->GetAxisValue("Right") != 0 && */ _onBunny)
 		{
 			FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
-			GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
-			GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
+			GetCharacterMovement()->Velocity.X = _forwardSign * GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
+			GetCharacterMovement()->Velocity.Y = _forwardSign * GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 			_containerVelocityBunny = GetCharacterMovement()->Velocity.Size();
 			//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
 			if (_WeaponType != Shotgun)
@@ -459,6 +460,7 @@ void AFASCharacter::StopBunnyHop()
 		_onBunny = false;
 		_keepBunnySpeed = false;
 	}
+	_forwardSign = 1;
 	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 }
 
@@ -493,9 +495,6 @@ void AFASCharacter::AutoJumpPlayer()
 		// 	UE_LOG(LogTemp,Warning,TEXT("%d"),angle);
 		// 	AccelerationVelocity();
 		// }
-	}
-	else
-	{
 		if (InputComponent->GetAxisValue("Right") != 0)
 		{
 			//float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
@@ -516,6 +515,18 @@ void AFASCharacter::AutoJumpPlayer()
 				}
 			}
 		}
+		else if (InputComponent->GetAxisValue("Forward") != 0)
+		{
+			if (InputComponent->GetAxisValue("Forward") > 0)
+			{
+				_forwardSign = 1;
+			}else
+			{
+				_forwardSign = -1;
+			}
+			_onBunny = true;
+			_keepBunnySpeed = true;
+		}
 		else
 		{
 			if (_onBunny)
@@ -523,6 +534,10 @@ void AFASCharacter::AutoJumpPlayer()
 				_onBunny = false;
 			}
 		}
+	}
+	else
+	{
+		
 	}
 	// else
 	// {
