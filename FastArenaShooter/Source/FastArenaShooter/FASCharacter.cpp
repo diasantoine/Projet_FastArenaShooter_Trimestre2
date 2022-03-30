@@ -229,14 +229,14 @@ void AFASCharacter::MovementPlayer()
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
 		if (_onBunny)
 		{
-			AccelDirection = GetActorRightVector() * InputRight;
+			AccelDirection = GetActorRightVector();// * InputRight;
 		}
 		else
 		{
 			AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
 		}
 	}
-	if ((InputForward == 0 || InputRight == 0) && !_onJumpAuto)
+	if (InputForward == 0 && InputRight == 0 && !_onJumpAuto)
 	{
 		
 		//_containerVelocityBunny = 0;
@@ -499,11 +499,24 @@ void AFASCharacter::AutoJumpPlayer()
 		{
 			//float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
 			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -_fDataStruct._AmountOfMovementForBunny)
+			//if (InputComponent->GetAxisValue("Turn") <= -_fDataStruct._AmountOfMovementForBunny)
 			{
 				_onBunny = true;
 				_keepBunnySpeed = true;
-			}else if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
+			}else //if (InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
+				if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
 			{
+				_onBunny = true;
+				_keepBunnySpeed = true;
+			}else if  (InputComponent->GetAxisValue("Forward") != 0)
+			{
+				if (InputComponent->GetAxisValue("Forward") > 0)
+				{
+					_forwardSign = 1;
+				}else
+				{
+					_forwardSign = -1;
+				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
 			}
@@ -537,7 +550,13 @@ void AFASCharacter::AutoJumpPlayer()
 	}
 	else
 	{
-		
+		if (InputComponent->GetAxisValue("Right") == 0 && InputComponent->GetAxisValue("Forward") == 0)
+		{
+			if (_onBunny)
+			{
+				_onBunny = false;
+			}
+		}
 	}
 	// else
 	// {
