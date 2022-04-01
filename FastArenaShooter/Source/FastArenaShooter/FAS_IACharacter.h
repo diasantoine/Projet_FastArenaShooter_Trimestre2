@@ -48,15 +48,15 @@ class FASTARENASHOOTER_API AFAS_IACharacter : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	AFAS_IACharacter();
+	//AFAS_IACharacter();
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	//virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	// // Called every frame
+	// virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -66,13 +66,12 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Data IA")
 	FIAdataStruct _iaDataStruct;
-
-	bool CanAttack(AFASCharacter* _player);
-	void AttackPlayer(AFASCharacter* _player);
-	void DamageIA(int DMG, AActor* Attaquant, float Power);
-	void IAMoving(AFASCharacter* _player);
-	void IAJumpAttack(AFASCharacter* _player);
-	void IAJumpNavMesh(FVector TargetPostion);
+	virtual bool CanAttack(AFASCharacter* _player);
+	virtual void AttackPlayer(AFASCharacter* _player);
+	virtual void DamageIA(int DMG, AActor* Attaquant, float Power);
+	virtual void IAMoving(AFASCharacter* _player);
+	virtual void IAJumpAttack(AFASCharacter* _player);
+	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump);
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _isMoving = false;
@@ -82,4 +81,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _isJumpingNav;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "IA")
+	bool _isInNeedToJump;
 };

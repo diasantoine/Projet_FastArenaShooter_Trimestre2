@@ -1,66 +1,53 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "FAS_IACharacter.h"
+#include "AITrashMob.h"
+
 #include "MyAiController.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Navigation/NavLinkProxy.h"
 
-// // Sets default values
-// AFAS_IACharacter::AFAS_IACharacter()
-// {
-//  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-// 	PrimaryActorTick.bCanEverTick = true;
-//
-// }
-//
-// // Called when the game starts or when spawned
-// void AFAS_IACharacter::BeginPlay()
-// {
-// 	Super::BeginPlay();
-// 	_actualHP = _iaDataStruct._hpMax;
-// 	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
-// 	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
-// }
-//
-// // Called every frame
-// void AFAS_IACharacter::Tick(float DeltaTime)
-// {
-// 	Super::Tick(DeltaTime);
-// 	if (!GetCharacterMovement()->IsMovingOnGround())
-// 	{
-// 		if (!_isJumpingNav)
-// 		{
-// 			GetCharacterMovement()->Velocity += FVector(0,0,GetWorld()->GetGravityZ()) * DeltaTime;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		if (_isJumpingNav)
-// 		{
-// 			_isJumpingNav = false;
-// 		}
-// 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
-// 		{
-// 			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
-// 		}
-// 	}
-// 	// if (_isMoving)
-// 	// {
-// 	// 	IAMoving(Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
-// 	// }
-// }
-//
-//
-
-// Called to bind functionality to input
-void AFAS_IACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+// Sets default values
+AAITrashMob::AAITrashMob()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 }
 
-bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
+// Called when the game starts or when spawned
+void AAITrashMob::BeginPlay()
+{
+	Super::BeginPlay();
+	_actualHP = _iaDataStruct._hpMax;
+	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
+	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+}
+
+// Called every frame
+void AAITrashMob::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (!GetCharacterMovement()->IsMovingOnGround())
+	{
+		if (!_isJumpingNav)
+		{
+			GetCharacterMovement()->Velocity += FVector(0,0,GetWorld()->GetGravityZ()) * DeltaTime;
+		}
+	}
+	else
+	{
+		if (_isJumpingNav)
+		{
+			_isJumpingNav = false;
+		}
+		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
+		{
+			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
+		}
+	}
+}
+
+
+bool AAITrashMob::CanAttack(AFASCharacter* _player)
 {
 	float AngleCosine = FVector::DotProduct(_player->GetActorLocation(),  GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
 	float AngleRadians = FMath::Acos(AngleCosine);
@@ -75,7 +62,7 @@ bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
 	return false;
 }
 
-void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
+void AAITrashMob::AttackPlayer(AFASCharacter* player)
 {
 	// if (CanAttack(player))
 	// {
@@ -85,7 +72,7 @@ void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 }
 
-void AFAS_IACharacter::DamageIA(int DMG, AActor* Attaquant, float Power)
+void AAITrashMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 {
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
@@ -96,7 +83,7 @@ void AFAS_IACharacter::DamageIA(int DMG, AActor* Attaquant, float Power)
 }
 
 
-void AFAS_IACharacter::IAMoving(AFASCharacter* _player)
+void AAITrashMob::IAMoving(AFASCharacter* _player)
 {
 	if (_player != nullptr)
 	{
@@ -108,7 +95,7 @@ void AFAS_IACharacter::IAMoving(AFASCharacter* _player)
 	}
 }
 
-void AFAS_IACharacter::IAJumpAttack(AFASCharacter* _player)
+void AAITrashMob::IAJumpAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
@@ -118,7 +105,7 @@ void AFAS_IACharacter::IAJumpAttack(AFASCharacter* _player)
 	}
 }
 
-void AFAS_IACharacter::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
+void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 {
 	FVector _direction = GetActorForwardVector() * 100 + GetActorLocation();
 	FHitResult out;
@@ -148,3 +135,9 @@ void AFAS_IACharacter::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
  //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
  //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
 }
+
+
+
+
+
+

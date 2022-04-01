@@ -16,7 +16,7 @@ void UBTTNodeJumpTowardPlayer::OnGameplayTaskInitialized(UGameplayTask& Task)
 EBTNodeResult::Type UBTTNodeJumpTowardPlayer::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	//Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->_isMoving = true;
-	AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
 	//Cast<AMyAiController>(OwnerComp.GetAIOwner())->StopMovement();
 	Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->
 	IAJumpAttack(_player);

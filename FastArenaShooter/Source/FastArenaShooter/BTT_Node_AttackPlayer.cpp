@@ -14,13 +14,12 @@ void UBTT_Node_AttackPlayer::OnGameplayTaskInitialized(UGameplayTask& Task)
 
 EBTNodeResult::Type UBTT_Node_AttackPlayer::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	auto test = OwnerComp.GetAIOwner();
-	if (Cast<AFAS_IACharacter>(	OwnerComp.GetAIOwner()->GetPawn()))
+	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
+	if (IA != nullptr)
 	{
-		Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn())->AttackPlayer(
-			Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+		AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
+		Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn())->AttackPlayer(_player);
 	}
-	
 	return EBTNodeResult::Succeeded;
 }
 
