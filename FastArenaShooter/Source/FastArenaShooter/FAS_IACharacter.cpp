@@ -19,7 +19,7 @@ void AFAS_IACharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	_actualHP = _iaDataStruct._hpMax;
-	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpHeight;
+	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 }
 
@@ -29,7 +29,21 @@ void AFAS_IACharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if (!GetCharacterMovement()->IsMovingOnGround())
 	{
-		GetCharacterMovement()->Velocity += FVector(0,0,GetWorld()->GetGravityZ()) * DeltaTime;
+		if (!_isJumpingNav)
+		{
+			GetCharacterMovement()->Velocity += FVector(0,0,GetWorld()->GetGravityZ()) * DeltaTime;
+		}
+	}
+	else
+	{
+		if (_isJumpingNav)
+		{
+			_isJumpingNav = false;
+		}
+		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
+		{
+			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
+		}
 	}
 	// if (_isMoving)
 	// {
@@ -86,10 +100,11 @@ void AFAS_IACharacter::IAMoving(AFASCharacter* _player)
 	if (_player != nullptr)
 	{
 		Cast<AMyAiController>(GetController())->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
+		IAJumpNavMesh(_player->GetActorLocation());
 	}
 }
 
-void AFAS_IACharacter::IAJump(AFASCharacter* _player)
+void AFAS_IACharacter::IAJumpAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
@@ -99,9 +114,32 @@ void AFAS_IACharacter::IAJump(AFASCharacter* _player)
 	}
 }
 
-
-
-
-
-
-
+void AFAS_IACharacter::IAJumpNavMesh(FVector TargetPostion)
+{
+	FVector _direction = GetActorForwardVector() * 250 + GetActorLocation();
+	FHitResult out;
+	FQuat rot = {0,0,0,0};
+	GetWorld()->SweepSingleByChannel(out,GetActorLocation(),_direction,rot,ECC_Visibility,FCollisionShape::MakeSphere(20),FCollisionQueryParams::DefaultQueryParam,
+		FCollisionResponseParams::DefaultResponseParam);
+	if (out.GetActor() != nullptr)
+	{
+		if (!Cast<AFASCharacter>(out.GetActor()))
+		{
+			FVector _destinationLocation;
+			_destinationLocation.X = TargetPostion.X - GetActorLocation().X;
+			_destinationLocation.Y = TargetPostion.Y - GetActorLocation().Y;
+			_destinationLocation.Z = TargetPostion.Z - (GetActorLocation().Z +  FMath::Square(_iaDataStruct._jumpNavMeshDuration) * -0.5 * 982);
+			_destinationLocation.X /= _iaDataStruct._jumpNavMeshDuration;
+			_destinationLocation.Y /=  _iaDataStruct._jumpNavMeshDuration;
+			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
+			ACharacter::LaunchCharacter(_destinationLocation,true,true);
+			_isJumpingNav = true;
+			//Jump();
+		}
+	}
+	// FVector _vectorDirection = TargetPostion - GetActorLocation();
+	// _vectorDirection = _vectorDirection.GetSafeNormal();
+ //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());
+ //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
+ //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
+}

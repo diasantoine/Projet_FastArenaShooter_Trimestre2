@@ -19,7 +19,7 @@ EBTNodeResult::Type UBTTNodeJumpTowardPlayer::ExecuteTask(UBehaviorTreeComponent
 	AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	//Cast<AMyAiController>(OwnerComp.GetAIOwner())->StopMovement();
 	Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->
-	IAJump(_player);
+	IAJumpAttack(_player);
 	//	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn());
 	return EBTNodeResult::Succeeded;
 }

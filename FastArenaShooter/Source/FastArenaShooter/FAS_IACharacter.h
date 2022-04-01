@@ -21,7 +21,11 @@ struct FIAdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _acceptanceRadius = 50;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _jumpHeight = 5000;
+	float _jumpAttackHeight = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _jumpNavMeshHeight = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _jumpNavMeshDuration = 2;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpMax = 200;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
@@ -67,11 +71,15 @@ public:
 	void AttackPlayer(AFASCharacter* _player);
 	void DamageIA(int DMG, AActor* Attaquant, float Power);
 	void IAMoving(AFASCharacter* _player);
-	void IAJump(AFASCharacter* _player);
+	void IAJumpAttack(AFASCharacter* _player);
+	void IAJumpNavMesh(FVector TargetPostion);
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _isMoving = false;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Data IA")
 	int _actualHP;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _isJumpingNav;
 };
