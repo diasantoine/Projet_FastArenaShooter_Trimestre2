@@ -20,6 +20,7 @@ void AAITrashMob::BeginPlay()
 	_actualHP = _iaDataStruct._hpMax;
 	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+	_IAController = Cast<AMyAiController>(GetController());
 }
 
 // Called every frame
@@ -68,7 +69,7 @@ void AAITrashMob::AttackPlayer(AFASCharacter* player)
 	// {
 	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	// }
-	Cast<AMyAiController>(GetController())->StopMovement();
+	_IAController->StopMovement();
 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 }
 
@@ -87,7 +88,7 @@ void AAITrashMob::IAMoving(AFASCharacter* _player)
 {
 	if (_player != nullptr)
 	{
-		Cast<AMyAiController>(GetController())->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
+		_IAController->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
 		if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f)
 		{
 			IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);

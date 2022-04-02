@@ -23,4 +23,9 @@ public:
 	virtual void IAMoving(AFASCharacter* _player)override;
 	virtual void IAJumpAttack(AFASCharacter* _player)override;
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump)override;
+
+	virtual void NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit) override;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Dash IA")
+	float _dashSpeed = 5000;
 };

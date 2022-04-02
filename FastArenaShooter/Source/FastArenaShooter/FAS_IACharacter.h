@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "FASCharacter.h"
+#include "MyAiController.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "GameFramework/Character.h"
 #include "FAS_IACharacter.generated.h"
@@ -84,4 +85,7 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "IA")
 	bool _isInNeedToJump;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	AMyAiController* _IAController;
 };

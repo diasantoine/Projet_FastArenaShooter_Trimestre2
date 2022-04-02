@@ -5,21 +5,18 @@
 #include "CoreMinimal.h"
 #include "BaseBullet.h"
 #include "MyWeaponBehaviour.h"
-#include "ABulletForRiffle.generated.h"
-
-class USphereComponent;
-class UProjectileMovementComponent;
+#include "IABullet.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API ABulletForRiffle : public ABaseBullet
+class FASTARENASHOOTER_API AIABullet : public ABaseBullet
 {
 	GENERATED_BODY()
 	virtual void BeginPlay() override;
 public:
-	ABulletForRiffle();
+	AIABullet();
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Bullet Data")

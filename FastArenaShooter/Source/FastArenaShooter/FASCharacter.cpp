@@ -127,7 +127,9 @@ void AFASCharacter::InputPlayer()
 	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&AFASCharacter::DesactivationJumpPlayer);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,true);
-	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
+	this->InputComponent->BindAction("SpecialFire",IE_Pressed,this,&AFASCharacter::ActivationJumpPlayer);
+	this->InputComponent->BindAction("SpecialFire",IE_Released,this,&AFASCharacter::DesactivationJumpPlayer);
+	//this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
 	this->InputComponent->BindAxis("WheelMouse",this,&AFASCharacter::ChangeWeapon);
 
 	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))

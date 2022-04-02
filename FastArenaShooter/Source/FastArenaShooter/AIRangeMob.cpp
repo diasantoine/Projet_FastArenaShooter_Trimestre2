@@ -11,6 +11,16 @@ AAIRangeMob::AAIRangeMob()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	// Create a gun mesh component
+	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
+	FP_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
+	FP_Gun->bCastDynamicShadow = false;
+	FP_Gun->CastShadow = false;
+	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
+	FP_Gun->SetupAttachment(RootComponent);
+	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
+	FP_MuzzleLocation->SetupAttachment(FP_Gun);
+	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
 }
 
 // Called when the game starts or when spawned
@@ -20,6 +30,10 @@ void AAIRangeMob::BeginPlay()
 	_actualHP = _iaDataStruct._hpMax;
 	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+	AMyWeaponBehaviour* container = GetWorld()->SpawnActor<AMyWeaponBehaviour>(_IAWeapon,GetActorLocation() + FVector(50,0,25),GetActorRotation());
+	container->AttachToComponent(FP_Gun,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	weaponBehaviourObject = container;
+	_IAController = Cast<AMyAiController>(GetController());
 }
 
 // Called every frame
@@ -68,8 +82,12 @@ void AAIRangeMob::AttackPlayer(AFASCharacter* player)
 	// {
 	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	// }
-	Cast<AMyAiController>(GetController())->StopMovement();
-	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+	_IAController->StopMovement();
+	if (weaponBehaviourObject != nullptr)
+	{
+		weaponBehaviourObject->Fire(true,FP_MuzzleLocation);
+	}
+	//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 }
 
 void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
@@ -87,7 +105,7 @@ void AAIRangeMob::IAMoving(AFASCharacter* _player)
 {
 	if (_player != nullptr)
 	{
-		Cast<AMyAiController>(GetController())->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
+		_IAController->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
 		if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f)
 		{
 			IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);

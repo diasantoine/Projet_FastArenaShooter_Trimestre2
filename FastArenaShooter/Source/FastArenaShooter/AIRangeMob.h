@@ -23,4 +23,18 @@ public:
 	virtual void IAMoving(AFASCharacter* _player)override;
 	virtual void IAJumpAttack(AFASCharacter* _player)override;
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump)override;
+	
+	/** Gun mesh: 1st person view (seen only by self) */
+	UPROPERTY(VisibleDefaultsOnly,BlueprintReadOnly, Category = Mesh)
+	USkeletalMeshComponent* FP_Gun;
+
+	/** Location on gun mesh where projectiles should spawn. */
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = Mesh)
+	USceneComponent* FP_MuzzleLocation;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Character")
+	TSubclassOf<AMyWeaponBehaviour> _IAWeapon;
+
+private:
+	AMyWeaponBehaviour* weaponBehaviourObject;
 };

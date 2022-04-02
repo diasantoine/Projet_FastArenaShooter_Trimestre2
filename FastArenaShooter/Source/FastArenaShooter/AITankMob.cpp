@@ -20,6 +20,7 @@ void AAITankMob::BeginPlay()
 	_actualHP = _iaDataStruct._hpMax;
 	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+	_IAController = Cast<AMyAiController>(GetController());
 }
 
 // Called every frame
@@ -64,12 +65,14 @@ bool AAITankMob::CanAttack(AFASCharacter* _player)
 
 void AAITankMob::AttackPlayer(AFASCharacter* player)
 {
-	// if (CanAttack(player))
-	// {
-	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-	// }
-	Cast<AMyAiController>(GetController())->StopMovement();
-	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+	if (player != nullptr)
+	{
+		_IAController->StopMovement();
+		FVector _direction = (player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+		_direction *= _dashSpeed;
+		ACharacter::LaunchCharacter(_direction,true,true);
+	}
+	//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 }
 
 void AAITankMob::DamageIA(int DMG, AActor* Attaquant, float Power)
@@ -87,7 +90,7 @@ void AAITankMob::IAMoving(AFASCharacter* _player)
 {
 	if (_player != nullptr)
 	{
-		Cast<AMyAiController>(GetController())->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
+		_IAController->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
 		if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f)
 		{
 			IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
@@ -135,6 +138,27 @@ void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
  //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
  //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
 }
+
+void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherComp != nullptr)
+	{
+		if (OtherComp->IsSimulatingPhysics())
+		{
+			OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+		}
+		if ((Other != nullptr) && (Other != this))
+		{
+			AFASCharacter* _containerIA = Cast<AFASCharacter>(Other);
+			if (_containerIA != nullptr)
+			{
+				_IAController->StopMovement();
+				_containerIA->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit);
+			}
+		}
+	}
+}
+
 
 
 
