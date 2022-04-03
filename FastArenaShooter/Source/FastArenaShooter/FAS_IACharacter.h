@@ -38,7 +38,7 @@ struct FIAdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _minimumDistanceForAttack = 100;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _minimumDistanceForJump = 100;
+	float _minimumDistanceForAttackSpecial = 100;
 };
 
 
@@ -71,7 +71,7 @@ public:
 	virtual void AttackPlayer(AFASCharacter* _player);
 	virtual void DamageIA(int DMG, AActor* Attaquant, float Power);
 	virtual void IAMoving(AFASCharacter* _player);
-	virtual void IAJumpAttack(AFASCharacter* _player);
+	virtual void IASpecialAttack(AFASCharacter* _player);
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump);
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
@@ -88,4 +88,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	AMyAiController* _IAController;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _moveBlocked = false;
 };

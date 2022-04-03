@@ -20,7 +20,7 @@ AAIRangeMob::AAIRangeMob()
 	FP_Gun->SetupAttachment(RootComponent);
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
-	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
+	FP_MuzzleLocation->SetRelativeLocation(FVector(0, 0, -10.6f));
 }
 
 // Called when the game starts or when spawned
@@ -82,12 +82,16 @@ void AAIRangeMob::AttackPlayer(AFASCharacter* player)
 	// {
 	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	// }
-	_IAController->StopMovement();
-	if (weaponBehaviourObject != nullptr)
+	if (player != nullptr)
 	{
-		weaponBehaviourObject->Fire(true,FP_MuzzleLocation);
+		_IAController->StopMovement();
+		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+		_moveBlocked = false;
 	}
-	//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+	// if (weaponBehaviourObject != nullptr)
+	// {
+	// 	weaponBehaviourObject->Fire(true,FP_MuzzleLocation);
+	// }
 }
 
 void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
@@ -113,13 +117,16 @@ void AAIRangeMob::IAMoving(AFASCharacter* _player)
 	}
 }
 
-void AAIRangeMob::IAJumpAttack(AFASCharacter* _player)
+void AAIRangeMob::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
-		//Cast<AMyAiController>(GetController())->StopMovement();
-		//GetMesh()->SetSimulatePhysics(true);
-		Jump();
+		_IAController->StopMovement();
+		_moveBlocked = false;
+		if (weaponBehaviourObject != nullptr)
+		{
+			weaponBehaviourObject->Fire(true,FP_MuzzleLocation);
+		}
 	}
 }
 

@@ -69,8 +69,12 @@ void AAITrashMob::AttackPlayer(AFASCharacter* player)
 	// {
 	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	// }
-	_IAController->StopMovement();
-	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+	if (player)
+	{
+		_IAController->StopMovement();
+		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+		_moveBlocked = false;
+	}
 }
 
 void AAITrashMob::DamageIA(int DMG, AActor* Attaquant, float Power)
@@ -96,13 +100,14 @@ void AAITrashMob::IAMoving(AFASCharacter* _player)
 	}
 }
 
-void AAITrashMob::IAJumpAttack(AFASCharacter* _player)
+void AAITrashMob::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
 		//Cast<AMyAiController>(GetController())->StopMovement();
 		//GetMesh()->SetSimulatePhysics(true);
 		Jump();
+		_moveBlocked = false;
 	}
 }
 

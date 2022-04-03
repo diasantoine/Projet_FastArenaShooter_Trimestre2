@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BTTNodeJumpTowardPlayer.generated.h"
+#include "BTTNodeSPecialAttack.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API UBTTNodeJumpTowardPlayer : public UBTTaskNode
+class FASTARENASHOOTER_API UBTTNodeSPecialAttack : public UBTTaskNode
 {
 	GENERATED_BODY()
 protected:

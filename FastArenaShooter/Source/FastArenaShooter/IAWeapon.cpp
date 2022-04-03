@@ -13,11 +13,11 @@ void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 	{
 		int breakWhile = 0;
 		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
-		while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
+		while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 )//&& _numberOfBallLeft > 0)
 		{
 			breakWhile++;
 			numberOfBallNeededToBeShoot--;
-			const FRotator SpawnRotation = UGameplayStatics::GetPlayerCameraManager(World,0)->GetCameraRotation();//GetActorRotation();//GetControlRotation();
+			const FRotator SpawnRotation = GetActorRotation();//GetActorRotation();//GetControlRotation();
 			FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
 			const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 			FTransform BulletTransform = {SpawnRotation,SpawnLocation};
@@ -28,14 +28,13 @@ void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 			{
 				AIABullet* _bulletClass = Cast<AIABullet>(_bulletsShotgun);
 				if (_bulletClass != nullptr)
-					
 				{
 					_bulletClass->_dataBullet = _dataWeapon;
 				}
 				UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 			}
 		}
-		_numberOfBallLeft--;
+		//_numberOfBallLeft--;
 	}
 }
 

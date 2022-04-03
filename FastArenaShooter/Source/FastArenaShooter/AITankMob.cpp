@@ -68,11 +68,9 @@ void AAITankMob::AttackPlayer(AFASCharacter* player)
 	if (player != nullptr)
 	{
 		_IAController->StopMovement();
-		FVector _direction = (player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
-		_direction *= _dashSpeed;
-		ACharacter::LaunchCharacter(_direction,true,true);
+		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+		_moveBlocked = false;
 	}
-	//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 }
 
 void AAITankMob::DamageIA(int DMG, AActor* Attaquant, float Power)
@@ -98,13 +96,15 @@ void AAITankMob::IAMoving(AFASCharacter* _player)
 	}
 }
 
-void AAITankMob::IAJumpAttack(AFASCharacter* _player)
+void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
-		//Cast<AMyAiController>(GetController())->StopMovement();
-		//GetMesh()->SetSimulatePhysics(true);
-		Jump();
+		_IAController->StopMovement();
+		FVector _direction = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+		_direction *= _dashSpeed;
+		ACharacter::LaunchCharacter(_direction,true,true);
+		_moveBlocked = false;
 	}
 }
 

@@ -21,7 +21,7 @@ public:
 	virtual void AttackPlayer(AFASCharacter* _player)override;
 	virtual void DamageIA(int DMG, AActor* Attaquant, float Power)override;
 	virtual void IAMoving(AFASCharacter* _player)override;
-	virtual void IAJumpAttack(AFASCharacter* _player)override;
+	virtual void IASpecialAttack(AFASCharacter* _player)override;
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump)override;
 
 	virtual void NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit) override;

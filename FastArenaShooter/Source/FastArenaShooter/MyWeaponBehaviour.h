@@ -13,7 +13,8 @@ enum TypeOfWeapon
 {
 	Riffle,
 	Shotgun,
-	RocketLauncher
+	RocketLauncher,
+	IA
 };
 
 USTRUCT(BlueprintType)
@@ -34,6 +35,8 @@ struct FdataWeapon
 	float _dmg;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _speed;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	float _cadenceTir;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _impactPower;
 };

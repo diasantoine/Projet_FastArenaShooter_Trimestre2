@@ -108,7 +108,7 @@ void AFAS_IACharacter::IAMoving(AFASCharacter* _player)
 	}
 }
 
-void AFAS_IACharacter::IAJumpAttack(AFASCharacter* _player)
+void AFAS_IACharacter::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
