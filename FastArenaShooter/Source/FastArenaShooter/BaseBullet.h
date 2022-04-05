@@ -9,13 +9,6 @@
 class USphereComponent;
 class UProjectileMovementComponent;
 
-USTRUCT()
-struct FBulletParameter
-{
-	GENERATED_BODY()
-	UPROPERTY(EditDefaultsOnly,Category = "Bullet Parameter")
-	UStaticMesh* _modelOfBullet;
-};
 UCLASS()
 class FASTARENASHOOTER_API ABaseBullet : public AActor
 {
@@ -34,8 +27,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	FBulletParameter _BulletParameter;
-
 	/** called when projectile hits something */
 	UFUNCTION()
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
@@ -44,6 +35,7 @@ public:
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
 
 protected:
 	// Called when the game starts or when spawned

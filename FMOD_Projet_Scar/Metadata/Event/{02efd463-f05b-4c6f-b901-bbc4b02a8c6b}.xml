@@ -264,7 +264,7 @@
 			<value>30</value>
 		</property>
 		<property name="HFDecayRatio">
-			<value>33</value>
+			<value>40.5</value>
 		</property>
 		<property name="highCut">
 			<value>4500</value>
