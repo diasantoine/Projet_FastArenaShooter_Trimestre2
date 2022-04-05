@@ -18,6 +18,7 @@ class FASTARENASHOOTER_API ARocket : public ABaseBullet
 public:
 	ARocket();
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Bullet Data")
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Bullet Data")
 	FdataWeapon _dataBullet;
 };

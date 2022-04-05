@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "FASCharacter.h"
+#include "MyAiController.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "GameFramework/Character.h"
 #include "FAS_IACharacter.generated.h"
@@ -21,7 +22,11 @@ struct FIAdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _acceptanceRadius = 50;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _jumpHeight = 5000;
+	float _jumpAttackHeight = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _jumpNavMeshHeight = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _jumpNavMeshDuration = 2;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpMax = 200;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
@@ -33,7 +38,7 @@ struct FIAdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _minimumDistanceForAttack = 100;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _minimumDistanceForJump = 100;
+	float _minimumDistanceForAttackSpecial = 100;
 };
 
 
@@ -44,15 +49,15 @@ class FASTARENASHOOTER_API AFAS_IACharacter : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	AFAS_IACharacter();
+	//AFAS_IACharacter();
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	//virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	// // Called every frame
+	// virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -62,16 +67,28 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Data IA")
 	FIAdataStruct _iaDataStruct;
-
-	bool CanAttack(AFASCharacter* _player);
-	void AttackPlayer(AFASCharacter* _player);
-	void DamageIA(int DMG, AActor* Attaquant, float Power);
-	void IAMoving(AFASCharacter* _player);
-	void IAJump(AFASCharacter* _player);
+	virtual bool CanAttack(AFASCharacter* _player);
+	virtual void AttackPlayer(AFASCharacter* _player);
+	virtual void DamageIA(int DMG, AActor* Attaquant, float Power);
+	virtual void IAMoving(AFASCharacter* _player);
+	virtual void IASpecialAttack(AFASCharacter* _player);
+	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump);
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _isMoving = false;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Data IA")
 	int _actualHP;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _isJumpingNav;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "IA")
+	bool _isInNeedToJump;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	AMyAiController* _IAController;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _onAbility = false;
 };

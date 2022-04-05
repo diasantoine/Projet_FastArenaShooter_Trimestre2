@@ -127,7 +127,10 @@ void AFASCharacter::InputPlayer()
 	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&AFASCharacter::DesactivationJumpPlayer);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,true);
-	this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
+	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Released, this, &AFASCharacter::StopShootWeapon,true);
+	this->InputComponent->BindAction("SpecialFire",IE_Pressed,this,&AFASCharacter::ActivationJumpPlayer);
+	this->InputComponent->BindAction("SpecialFire",IE_Released,this,&AFASCharacter::DesactivationJumpPlayer);
+	//this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
 	this->InputComponent->BindAxis("WheelMouse",this,&AFASCharacter::ChangeWeapon);
 
 	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
@@ -158,7 +161,7 @@ void AFASCharacter::RightPlayer(float _value)
 	
 }
 
-void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power)
+void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power, bool AddImpulse)
 {
 	_recoveryTime = 0;
 	_actualHP -= DMG;
@@ -167,6 +170,13 @@ void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power)
 	if (_actualHP <= 0)
 	{
 		Respawn();
+	}
+	else
+	{
+		if (AddImpulse)
+		{
+			GetCharacterMovement()->AddImpulse(Power * Attaquant->GetActorForwardVector(), true);
+		}
 	}
 }
 
@@ -229,14 +239,14 @@ void AFASCharacter::MovementPlayer()
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
 		if (_onBunny)
 		{
-			AccelDirection = GetActorRightVector() * InputRight;
+			AccelDirection = GetActorRightVector();// * InputRight;
 		}
 		else
 		{
 			AccelDirection =  GetActorForwardVector() * InputForward + GetActorRightVector() * InputRight;
 		}
 	}
-	if ((InputForward == 0 || InputRight == 0) && !_onJumpAuto)
+	if (InputForward == 0 && InputRight == 0 && !_onJumpAuto)
 	{
 		
 		//_containerVelocityBunny = 0;
@@ -499,11 +509,24 @@ void AFASCharacter::AutoJumpPlayer()
 		{
 			//float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
 			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -_fDataStruct._AmountOfMovementForBunny)
+			//if (InputComponent->GetAxisValue("Turn") <= -_fDataStruct._AmountOfMovementForBunny)
 			{
 				_onBunny = true;
 				_keepBunnySpeed = true;
-			}else if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
+			}else //if (InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
+				if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
 			{
+				_onBunny = true;
+				_keepBunnySpeed = true;
+			}else if  (InputComponent->GetAxisValue("Forward") != 0)
+			{
+				if (InputComponent->GetAxisValue("Forward") > 0)
+				{
+					_forwardSign = 1;
+				}else
+				{
+					_forwardSign = -1;
+				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
 			}
@@ -537,7 +560,13 @@ void AFASCharacter::AutoJumpPlayer()
 	}
 	else
 	{
-		
+		if (InputComponent->GetAxisValue("Right") == 0 && InputComponent->GetAxisValue("Forward") == 0)
+		{
+			if (_onBunny)
+			{
+				_onBunny = false;
+			}
+		}
 	}
 	// else
 	// {
@@ -579,6 +608,12 @@ void AFASCharacter::ShootWeapon(bool _normalFire)
 	//InitialiseWeapon();
 	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation);
 }
+
+void AFASCharacter::StopShootWeapon(bool _normalFire)
+{
+	weaponBehaviourObject->StopFire(_normalFire);
+}
+
 
 void AFASCharacter::ChangeWeapon(float _value)
 {

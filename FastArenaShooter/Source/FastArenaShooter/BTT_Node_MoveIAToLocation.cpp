@@ -14,18 +14,18 @@ void UBTT_Node_MoveIAToLocation::OnGameplayTaskInitialized(UGameplayTask& Task)
 
 EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	//Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->_isMoving = true;
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
-	if (IA != nullptr)
+	AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
+	if (IA != nullptr && _player != nullptr)
 	{
-		if (IA->GetCharacterMovement()->IsMovingOnGround())
+		if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAbility)
 		{
-			AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 			Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
 		}
+		return EBTNodeResult::Succeeded;
 	}
+	return EBTNodeResult::Failed;
 //	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn());
-	return EBTNodeResult::Succeeded;
 }
 
 void UBTT_Node_MoveIAToLocation::OnGameplayTaskActivated(UGameplayTask& Task)

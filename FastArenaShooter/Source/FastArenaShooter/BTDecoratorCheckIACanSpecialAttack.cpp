@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BTDecoratorCheckIACanJump.h"
+#include "BTDecoratorCheckIACanSpecialAttack.h"
 #include "AIController.h"
 #include "FAS_IACharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 
-bool UBTDecoratorCheckIACanJump::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
+bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
 	//Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn());
@@ -16,25 +16,26 @@ bool UBTDecoratorCheckIACanJump::CalculateRawConditionValue(UBehaviorTreeCompone
 	float AngleRadians = FMath::Acos(AngleCosine);
 	float angle = FMath::RadiansToDegrees(AngleRadians);
 	//UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()));
-	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForJump
-	&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround())
+	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
+	&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
+	&& !IA->_onAbility)
 	{
 		return true;
 	}
 	return false;
 }
-void UBTDecoratorCheckIACanJump::OnGameplayTaskInitialized(UGameplayTask& Task)
+void UBTDecoratorCheckIACanSpecialAttack::OnGameplayTaskInitialized(UGameplayTask& Task)
 {
 	Super::OnGameplayTaskInitialized(Task);
 }
 
 
-void UBTDecoratorCheckIACanJump::OnGameplayTaskActivated(UGameplayTask& Task)
+void UBTDecoratorCheckIACanSpecialAttack::OnGameplayTaskActivated(UGameplayTask& Task)
 {
 	Super::OnGameplayTaskActivated(Task);
 }
 
-void UBTDecoratorCheckIACanJump::OnGameplayTaskDeactivated(UGameplayTask& Task)
+void UBTDecoratorCheckIACanSpecialAttack::OnGameplayTaskDeactivated(UGameplayTask& Task)
 {
 	Super::OnGameplayTaskDeactivated(Task);
 }

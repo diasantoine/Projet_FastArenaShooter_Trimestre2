@@ -3,19 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BehaviorTree/BTTaskNode.h"
-#include "BTTNodeJumpTowardPlayer.generated.h"
+#include "BehaviorTree/BTDecorator.h"
+#include "BTDecoratorCheckIACanSpecialAttack.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API UBTTNodeJumpTowardPlayer : public UBTTaskNode
+class FASTARENASHOOTER_API UBTDecoratorCheckIACanSpecialAttack : public UBTDecorator
 {
 	GENERATED_BODY()
-protected:
+	virtual bool CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
 	virtual void OnGameplayTaskInitialized(UGameplayTask& Task) override;
-	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	virtual void OnGameplayTaskActivated(UGameplayTask& Task) override;
 	virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
 };
