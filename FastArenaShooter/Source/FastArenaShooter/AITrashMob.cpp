@@ -72,8 +72,7 @@ void AAITrashMob::AttackPlayer(AFASCharacter* player)
 	if (player)
 	{
 		_IAController->StopMovement();
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-		_moveBlocked = false;
+		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 }
 
@@ -107,7 +106,6 @@ void AAITrashMob::IASpecialAttack(AFASCharacter* _player)
 		//Cast<AMyAiController>(GetController())->StopMovement();
 		//GetMesh()->SetSimulatePhysics(true);
 		Jump();
-		_moveBlocked = false;
 	}
 }
 

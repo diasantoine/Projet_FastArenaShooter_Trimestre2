@@ -46,6 +46,11 @@ void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocatio
 			_ContinuFire = true;
 			FP_MuzzleLocationContinuFire = FP_MuzzleLocation;
 		}
+		else
+		{
+			_ContinuFire = false;
+			FP_MuzzleLocationContinuFire = nullptr;
+		}
 		NormalFire(FP_MuzzleLocation);
 	}
 	else
@@ -54,6 +59,10 @@ void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocatio
 		{
 			_ContinuFire = true;
 			FP_MuzzleLocationContinuFire = FP_MuzzleLocation;
+		}	else
+		{
+			_ContinuFire = false;
+			FP_MuzzleLocationContinuFire = nullptr;
 		}
 		SpecialFire(FP_MuzzleLocation);
 	}

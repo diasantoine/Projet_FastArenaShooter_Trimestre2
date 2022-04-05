@@ -68,8 +68,7 @@ void AAITankMob::AttackPlayer(AFASCharacter* player)
 	if (player != nullptr)
 	{
 		_IAController->StopMovement();
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-		_moveBlocked = false;
+		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 }
 
@@ -104,7 +103,6 @@ void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 		FVector _direction = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
 		_direction *= _dashSpeed;
 		ACharacter::LaunchCharacter(_direction,true,true);
-		_moveBlocked = false;
 	}
 }
 
@@ -153,7 +151,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 			if (_containerIA != nullptr)
 			{
 				_IAController->StopMovement();
-				_containerIA->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit);
+				_containerIA->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
 			}
 		}
 	}

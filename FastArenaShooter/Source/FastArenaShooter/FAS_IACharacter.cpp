@@ -82,7 +82,7 @@ void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
 	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
 	// }
 	Cast<AMyAiController>(GetController())->StopMovement();
-	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
+	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 }
 
 void AFAS_IACharacter::DamageIA(int DMG, AActor* Attaquant, float Power)

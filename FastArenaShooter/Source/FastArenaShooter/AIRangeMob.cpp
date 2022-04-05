@@ -85,8 +85,7 @@ void AAIRangeMob::AttackPlayer(AFASCharacter* player)
 	if (player != nullptr)
 	{
 		_IAController->StopMovement();
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-		_moveBlocked = false;
+		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 	// if (weaponBehaviourObject != nullptr)
 	// {
@@ -122,7 +121,6 @@ void AAIRangeMob::IASpecialAttack(AFASCharacter* _player)
 	if (_player!= nullptr)
 	{
 		_IAController->StopMovement();
-		_moveBlocked = false;
 		if (weaponBehaviourObject != nullptr)
 		{
 			weaponBehaviourObject->Fire(true,FP_MuzzleLocation);

@@ -90,5 +90,5 @@ public:
 	AMyAiController* _IAController;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
-	bool _moveBlocked = false;
+	bool _onAbility = false;
 };

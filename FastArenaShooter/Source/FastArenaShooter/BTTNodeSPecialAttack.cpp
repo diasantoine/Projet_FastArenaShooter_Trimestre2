@@ -20,12 +20,10 @@ EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& O
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	if (IA != nullptr && _player != nullptr)
 	{
-		IA->_moveBlocked = true;
-		Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->
-		IASpecialAttack(_player);
+		IA->_onAbility = true;
+		IA->IASpecialAttack(_player);
 		return EBTNodeResult::Succeeded;
 	}
-	IA->_moveBlocked = false;
 	return EBTNodeResult::Failed;
 	//Cast<AMyAiController>(OwnerComp.GetAIOwner())->StopMovement();
 	//	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn());

@@ -17,7 +17,8 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 	float angle = FMath::RadiansToDegrees(AngleRadians);
 	//UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()));
 	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
-	&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround())
+	&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
+	&& !IA->_onAbility)
 	{
 		return true;
 	}

@@ -127,7 +127,7 @@ void AFASCharacter::InputPlayer()
 	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&AFASCharacter::DesactivationJumpPlayer);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,true);
-	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Released, this, &AFASCharacter::ShootWeapon,true);
+	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Released, this, &AFASCharacter::StopShootWeapon,true);
 	this->InputComponent->BindAction("SpecialFire",IE_Pressed,this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("SpecialFire",IE_Released,this,&AFASCharacter::DesactivationJumpPlayer);
 	//this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
@@ -161,7 +161,7 @@ void AFASCharacter::RightPlayer(float _value)
 	
 }
 
-void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power)
+void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power, bool AddImpulse)
 {
 	_recoveryTime = 0;
 	_actualHP -= DMG;
@@ -170,6 +170,13 @@ void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power)
 	if (_actualHP <= 0)
 	{
 		Respawn();
+	}
+	else
+	{
+		if (AddImpulse)
+		{
+			GetCharacterMovement()->AddImpulse(Power * Attaquant->GetActorForwardVector(), true);
+		}
 	}
 }
 

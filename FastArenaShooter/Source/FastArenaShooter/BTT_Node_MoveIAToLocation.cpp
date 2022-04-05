@@ -18,7 +18,7 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 	AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
 	if (IA != nullptr && _player != nullptr)
 	{
-		if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_moveBlocked)
+		if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAbility)
 		{
 			Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
 		}

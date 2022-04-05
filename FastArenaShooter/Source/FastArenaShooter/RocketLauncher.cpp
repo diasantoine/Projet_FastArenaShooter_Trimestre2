@@ -61,8 +61,8 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 				// }
 			}
 			_timeBeforeNextShoot = _dataWeapon._cadenceTir;
+			_numberOfBallLeft--;
 		}
-		_numberOfBallLeft--;
 	}
 }
 

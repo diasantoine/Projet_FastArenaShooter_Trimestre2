@@ -56,7 +56,7 @@ void AIABullet::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimiti
 			AFASCharacter* _containerIA = Cast<AFASCharacter>(OtherActor);
 			if (_containerIA != nullptr)
 			{
-				_containerIA->DamagePlayer(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);
+				_containerIA->DamagePlayer(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower,false);
 			}
 		}
 		Destroy();
