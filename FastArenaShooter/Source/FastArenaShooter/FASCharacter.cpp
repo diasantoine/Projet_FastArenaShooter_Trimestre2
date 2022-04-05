@@ -127,6 +127,7 @@ void AFASCharacter::InputPlayer()
 	this->InputComponent->BindAction("Jump", IE_Pressed, this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("Jump", IE_Released, this,&AFASCharacter::DesactivationJumpPlayer);
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,true);
+	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Released, this, &AFASCharacter::ShootWeapon,true);
 	this->InputComponent->BindAction("SpecialFire",IE_Pressed,this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("SpecialFire",IE_Released,this,&AFASCharacter::DesactivationJumpPlayer);
 	//this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
@@ -600,6 +601,12 @@ void AFASCharacter::ShootWeapon(bool _normalFire)
 	//InitialiseWeapon();
 	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation);
 }
+
+void AFASCharacter::StopShootWeapon(bool _normalFire)
+{
+	weaponBehaviourObject->StopFire(_normalFire);
+}
+
 
 void AFASCharacter::ChangeWeapon(float _value)
 {

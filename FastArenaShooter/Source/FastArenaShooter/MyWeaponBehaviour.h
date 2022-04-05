@@ -39,6 +39,8 @@ struct FdataWeapon
 	float _cadenceTir;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _impactPower;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	bool _continuTir;
 };
 
 
@@ -52,6 +54,7 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	void Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation);
+	void StopFire(bool _normalFire);
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation);
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
 	void Reload();
@@ -65,4 +68,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
 	int _numberOfBallLeft = _dataWeapon._magazineSize;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
+	float _timeBeforeNextShoot = 0;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
+	bool _ContinuFire = false;
+
+	USceneComponent* FP_MuzzleLocationContinuFire;
 };

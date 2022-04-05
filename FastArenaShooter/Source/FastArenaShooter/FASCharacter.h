@@ -74,6 +74,7 @@ public:
 	void AccelerationVelocity();
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _normalFire);
+	void StopShootWeapon(bool _normalFire);
 	void ChangeWeapon(float _value);
 	void DamagePlayer(int DMG, AActor* Attaquant, float Power);
 	void CheckPlayerPosition();

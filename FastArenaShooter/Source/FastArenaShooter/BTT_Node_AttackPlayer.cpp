@@ -22,6 +22,7 @@ EBTNodeResult::Type UBTT_Node_AttackPlayer::ExecuteTask(UBehaviorTreeComponent& 
 		Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn())->AttackPlayer(_player);
 		return EBTNodeResult::Succeeded;
 	}
+	IA->_moveBlocked = false;
 	return EBTNodeResult::Failed;
 }
 

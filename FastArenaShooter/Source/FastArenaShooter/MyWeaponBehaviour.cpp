@@ -17,26 +17,66 @@ void AMyWeaponBehaviour::BeginPlay()
 {
 	Super::BeginPlay();
 	_numberOfBallLeft = _dataWeapon._magazineSize;
+	_timeBeforeNextShoot = 0;
 }
 
 // Called every frame
 void AMyWeaponBehaviour::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (_timeBeforeNextShoot > 0)
+	{
+		_timeBeforeNextShoot -= GetWorld()->GetDeltaSeconds();
+	}
+	if (_ContinuFire)
+	{
+		if (FP_MuzzleLocationContinuFire != nullptr)
+		{
+			NormalFire(FP_MuzzleLocationContinuFire);
+		}
+	}
 }
 
 void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation)
 {
 	if (_normalFire)
 	{
+		if (_dataWeapon._continuTir)
+		{
+			_ContinuFire = true;
+			FP_MuzzleLocationContinuFire = FP_MuzzleLocation;
+		}
 		NormalFire(FP_MuzzleLocation);
 	}
 	else
 	{
+		if (_dataWeapon._continuTir)
+		{
+			_ContinuFire = true;
+			FP_MuzzleLocationContinuFire = FP_MuzzleLocation;
+		}
 		SpecialFire(FP_MuzzleLocation);
 	}
 }
+
+void AMyWeaponBehaviour::StopFire(bool _normalFire)
+{
+	if (_normalFire)
+	{
+		if (_dataWeapon._continuTir)
+		{
+			_ContinuFire = false;
+		}
+	}
+	else
+	{
+		if (_dataWeapon._continuTir)
+		{
+			_ContinuFire = false;
+		}
+	}
+}
+
 
 void AMyWeaponBehaviour::Reload()
 {

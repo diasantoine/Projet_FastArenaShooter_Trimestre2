@@ -13,26 +13,30 @@ void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 	{
 		int breakWhile = 0;
 		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
-		while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 )//&& _numberOfBallLeft > 0)
+		if (_timeBeforeNextShoot <= 0)
 		{
-			breakWhile++;
-			numberOfBallNeededToBeShoot--;
-			const FRotator SpawnRotation = GetActorRotation();//GetActorRotation();//GetControlRotation();
-			FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
-			const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-			FTransform BulletTransform = {SpawnRotation,SpawnLocation};
-			BulletTransform.SetScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
-			ABaseBullet* _bulletsShotgun = World->SpawnActorDeferred<ABaseBullet>(_dataWeapon._modelOfBullet,BulletTransform, this,nullptr,
-				ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn);
-			if (_bulletsShotgun != nullptr)
-			{
-				AIABullet* _bulletClass = Cast<AIABullet>(_bulletsShotgun);
-				if (_bulletClass != nullptr)
+			while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 )//&& _numberOfBallLeft > 0)
 				{
-					_bulletClass->_dataBullet = _dataWeapon;
+					breakWhile++;
+					numberOfBallNeededToBeShoot--;
+					const FRotator SpawnRotation = GetActorRotation();//GetActorRotation();//GetControlRotation();
+					FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
+					const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
+					FTransform BulletTransform = {SpawnRotation,SpawnLocation};
+					BulletTransform.SetScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
+					ABaseBullet* _bulletsShotgun = World->SpawnActorDeferred<ABaseBullet>(_dataWeapon._modelOfBullet,BulletTransform, this,nullptr,
+						ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn);
+					if (_bulletsShotgun != nullptr)
+					{
+						AIABullet* _bulletClass = Cast<AIABullet>(_bulletsShotgun);
+						if (_bulletClass != nullptr)
+						{
+							_bulletClass->_dataBullet = _dataWeapon;
+						}
+						UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
+					}
 				}
-				UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
-			}
+			_timeBeforeNextShoot = _dataWeapon._cadenceTir;
 		}
 		//_numberOfBallLeft--;
 	}

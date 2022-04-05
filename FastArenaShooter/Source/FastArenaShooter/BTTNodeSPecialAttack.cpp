@@ -25,6 +25,7 @@ EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& O
 		IASpecialAttack(_player);
 		return EBTNodeResult::Succeeded;
 	}
+	IA->_moveBlocked = false;
 	return EBTNodeResult::Failed;
 	//Cast<AMyAiController>(OwnerComp.GetAIOwner())->StopMovement();
 	//	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn());

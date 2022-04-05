@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTDecorator.h"
-#include "BTDecoratorCheckIACanJump.generated.h"
+#include "BTDecoratorCheckIACanSpecialAttack.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FASTARENASHOOTER_API UBTDecoratorCheckIACanJump : public UBTDecorator
+class FASTARENASHOOTER_API UBTDecoratorCheckIACanSpecialAttack : public UBTDecorator
 {
 	GENERATED_BODY()
 	virtual bool CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
