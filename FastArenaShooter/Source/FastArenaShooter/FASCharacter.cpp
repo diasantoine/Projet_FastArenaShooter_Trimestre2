@@ -618,7 +618,7 @@ void AFASCharacter::StopShootWeapon(bool _normalFire)
 void AFASCharacter::ChangeWeapon(float _value)
 {
 	weaponBehaviourObject->SetActorHiddenInGame(true);
-	if (_value > 0)
+	if (_value < 0)
 	{
 		switch (_WeaponType)
 		{
@@ -638,8 +638,9 @@ void AFASCharacter::ChangeWeapon(float _value)
 		}
 		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];
 		weaponBehaviourObject->SetHidden(false);
+		_userWidgetMunition->SwapWeapon(_WeaponType);
 	}
-	else if(_value < 0)
+	else if(_value > 0)
 	{
 		switch (_WeaponType)
 		{

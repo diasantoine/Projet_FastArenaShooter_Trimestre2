@@ -147,7 +147,7 @@ void AAIRangeMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Y = TargetPostion.Y - GetActorLocation().Y;
 			_destinationLocation.Z = TargetPostion.Z - (GetActorLocation().Z +  FMath::Square(_iaDataStruct._jumpNavMeshDuration) * -0.5 * 982);
 			_destinationLocation.X /= _iaDataStruct._jumpNavMeshDuration;
-			_destinationLocation.Y /=  _iaDataStruct._jumpNavMeshDuration;
+			_destinationLocation.Y /=  _iaDataStruct._jumpNavMeshDuration;//todo lancer se code dés qu'on touche un proxy
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
