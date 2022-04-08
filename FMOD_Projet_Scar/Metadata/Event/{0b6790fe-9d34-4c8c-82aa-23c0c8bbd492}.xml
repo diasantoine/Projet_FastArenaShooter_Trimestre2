@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{0b6790fe-9d34-4c8c-82aa-23c0c8bbd492}">
+		<property name="color">
+			<value>Green</value>
+		</property>
 		<property name="name">
 			<value>Rifle_Start</value>
 		</property>

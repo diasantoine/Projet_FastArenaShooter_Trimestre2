@@ -3,6 +3,9 @@
 
 #include "MyWeaponBehaviour.h"
 
+#include "UserWidgetMunition.h"
+#include "Components/Image.h"
+
 // Sets default values
 AMyWeaponBehaviour::AMyWeaponBehaviour()
 {
@@ -87,20 +90,23 @@ void AMyWeaponBehaviour::StopFire(bool _normalFire)
 }
 
 
-void AMyWeaponBehaviour::Reload()
+void AMyWeaponBehaviour::Reload(UUserWidgetMunition* WidgetMunition)
 {
 	switch (_typeOfWeapon)
 	{
 	case Riffle:
 	default:
+		WidgetMunition->LedRiffleImage->SetOpacity(WidgetMunition->_opacityHigh);
 		_numberOfBallLeft++;
 		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	case Shotgun:
+		WidgetMunition->LedShotGunImage->SetOpacity(WidgetMunition->_opacityHigh);
 		_numberOfBallLeft++;
 		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	case RocketLauncher:
+		WidgetMunition->LedRocketLauncherImage->SetOpacity(WidgetMunition->_opacityHigh);
 		_numberOfBallLeft++;
 		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;

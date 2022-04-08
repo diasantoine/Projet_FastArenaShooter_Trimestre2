@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="EventFolder" id="{d9260819-ea72-475f-950f-b989e4d96335}">
+		<property name="color">
+			<value>Green</value>
+		</property>
 		<property name="name">
 			<value>RocketLauncher</value>
 		</property>
