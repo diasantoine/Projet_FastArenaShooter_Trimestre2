@@ -132,7 +132,6 @@ void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			//Jump();
 		}
 	}
-	_isJumpingNav = false;
 	// FVector _vectorDirection = TargetPostion - GetActorLocation();
 	// _vectorDirection = _vectorDirection.GetSafeNormal();
  //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());

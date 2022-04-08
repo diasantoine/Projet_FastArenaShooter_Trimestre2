@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{7305f4bb-a270-4c68-912a-53967969dd27}">
+		<property name="color">
+			<value>Green</value>
+		</property>
+		<property name="name">
+			<value>Projectile_Rocket</value>
+		</property>
+		<relationship name="folder">
+			<destination>{d9260819-ea72-475f-950f-b989e4d96335}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyWeaponBehaviour.h"
 #include "Blueprint/UserWidget.h"
 #include "UserWidgetMunition.generated.h"
 
@@ -29,6 +28,34 @@ public:
 	class UImage* _WeaponTypeImage;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* BarreGunOnRiffleImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* BarreGunOnShotGunImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* BarreGunOnRocketLauncherImage;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* LedRiffleImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* LedShotGunImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* LedRocketLauncherImage;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* RiffleImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* ShotgunImage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UImage* RocketLauncherImage;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* TextReloadRiffle;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* TextReloadShotGun;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* TextReloadRocketLauncher;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UTextBlock* _WeaponTypeText;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
@@ -39,9 +66,15 @@ public:
 	FVector2D _sizeRocketLauncherImage;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
 	FVector2D _sizeHPImage;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
+	float _opacityLow = 0.3f;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
+	float _opacityHigh= 1;
 	
-	void MunitionChanged(TypeOfWeapon WhichWeapon,int MunitionLeft, int MaxMunition);
+	void MunitionChanged(int WhichWeapon,int MunitionLeft, int MaxMunition);
 	void HPChange(int HPLeft, int HPMax);
-	void SwapWeapon(TypeOfWeapon WhichWeapon);
+	void SwapWeapon(int WhichWeapon);
 	
 };
