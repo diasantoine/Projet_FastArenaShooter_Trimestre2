@@ -92,13 +92,13 @@ void AAITrashMob::IAMoving(AFASCharacter* _player)
 	if (_player != nullptr)
 	{
 		_IAController->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
-		float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
-		float AngleRadians = FMath::Acos(AngleCosine);
-		float angle = FMath::RadiansToDegrees(AngleRadians);
-		if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f && angle <= _iaDataStruct._minimalAngleForAttack)
-		{
-			IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
-		}
+		// float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
+		// float AngleRadians = FMath::Acos(AngleCosine);
+		// float angle = FMath::RadiansToDegrees(AngleRadians);
+		// if (angle <= _iaDataStruct._minimalAngleForAttack)
+		// {
+		// 	IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
+		// }
 	}
 }
 
@@ -114,14 +114,16 @@ void AAITrashMob::IASpecialAttack(AFASCharacter* _player)
 
 void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 {
-	FVector _direction = GetActorForwardVector() * 100 + GetActorLocation();
+	FVector _direction = GetActorForwardVector() * 250 + GetActorLocation();
 	FHitResult out;
 	FQuat rot = {0,0,0,0};
 	GetWorld()->SweepSingleByChannel(out,GetActorLocation(),_direction,rot,ECC_Visibility,FCollisionShape::MakeSphere(20),FCollisionQueryParams::DefaultQueryParam,
 		FCollisionResponseParams::DefaultResponseParam);
 	if (out.bBlockingHit || _needToJump)
 	{
-		if (!Cast<AFASCharacter>(out.GetActor()) && !Cast<AFAS_IACharacter>(out.GetActor()))
+		AFASCharacter* _canBePlayer = Cast<AFASCharacter>(out.GetActor());
+		AFAS_IACharacter* _canBeIA = Cast<AFAS_IACharacter>(out.GetActor());
+		if (_canBePlayer == nullptr && _canBeIA != nullptr)
 		{
 			FVector _destinationLocation;
 			_destinationLocation.X = TargetPostion.X - GetActorLocation().X;
@@ -135,7 +137,7 @@ void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			//Jump();
 		}
 	}
-	_isJumpingNav = false;
+	//_isJumpingNav = false;
 	// FVector _vectorDirection = TargetPostion - GetActorLocation();
 	// _vectorDirection = _vectorDirection.GetSafeNormal();
  //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());

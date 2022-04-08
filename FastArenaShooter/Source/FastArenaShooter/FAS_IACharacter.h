@@ -72,6 +72,7 @@ public:
 	virtual void DamageIA(int DMG, AActor* Attaquant, float Power);
 	virtual void IAMoving(AFASCharacter* _player);
 	virtual void IASpecialAttack(AFASCharacter* _player);
+	UFUNCTION(BlueprintCallable,Category = "IA")
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump);
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseBullet.h"
+#include "UserWidgetMunition.h"
 #include "GameFramework/Actor.h"
 #include "MyWeaponBehaviour.generated.h"
 
@@ -57,7 +58,7 @@ public:
 	void StopFire(bool _normalFire);
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation);
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
-	void Reload();
+	void Reload(UUserWidgetMunition* WidgetMunition);
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	FdataWeapon _dataWeapon;
@@ -74,6 +75,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
 	bool _ContinuFire = false;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
+	bool _justFire = false;
 
 	USceneComponent* FP_MuzzleLocationContinuFire;
 };

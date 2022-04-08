@@ -41,6 +41,12 @@ struct FdataStruct
 	float _timeBeforeRecovery = 2.0f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpRecovery = 5;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _reloadShotGunPercentageMaxBunnySpeed = 0.75f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _reloadRifflePercentageMaxGroundSpeed = 0.75f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeLedReset = 1.f;
 };
 
 UCLASS()
@@ -136,6 +142,9 @@ public:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Stat Character")
 	float _recoveryTime;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
+	bool _casualBunny = false;
+
 private:
 	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
@@ -157,4 +166,8 @@ private:
 	AMyWeaponBehaviour* weaponBehaviourObject;
 
 	float _forwardSign = 1;
+
+	float _timeBeforeLedRiffle;
+	float _timeBeforeLedShotGun;
+	float _timeBeforeLedRocketLauncher;
 };
