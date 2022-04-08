@@ -112,10 +112,10 @@ void AAIRangeMob::IAMoving(AFASCharacter* _player)
 		float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
 		float AngleRadians = FMath::Acos(AngleCosine);
 		float angle = FMath::RadiansToDegrees(AngleRadians);
-		if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f && angle <= _iaDataStruct._minimalAngleForAttack)
-		{
-			IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
-		}
+		// if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f && angle <= _iaDataStruct._minimalAngleForAttack)
+		// {
+		// 	IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
+		// }
 	}
 }
 
@@ -154,7 +154,6 @@ void AAIRangeMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			//Jump();
 		}
 	}
-	_isJumpingNav = false;
 	// FVector _vectorDirection = TargetPostion - GetActorLocation();
 	// _vectorDirection = _vectorDirection.GetSafeNormal();
  //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());

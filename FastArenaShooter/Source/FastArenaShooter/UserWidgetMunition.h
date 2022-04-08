@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyWeaponBehaviour.h"
 #include "Blueprint/UserWidget.h"
 #include "UserWidgetMunition.generated.h"
 
@@ -74,8 +73,8 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
 	float _opacityHigh= 1;
 	
-	void MunitionChanged(TypeOfWeapon WhichWeapon,int MunitionLeft, int MaxMunition);
+	void MunitionChanged(int WhichWeapon,int MunitionLeft, int MaxMunition);
 	void HPChange(int HPLeft, int HPMax);
-	void SwapWeapon(TypeOfWeapon WhichWeapon);
+	void SwapWeapon(int WhichWeapon);
 	
 };

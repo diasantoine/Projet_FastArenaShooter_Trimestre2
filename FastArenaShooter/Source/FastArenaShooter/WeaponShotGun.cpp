@@ -14,6 +14,7 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation)
 		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
 		if (_timeBeforeNextShoot <= 0)
 		{
+			_justFire = true;
 			while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 			{
 				breakWhile++;
@@ -93,4 +94,3 @@ void AWeaponShotGun::SpecialFire(USceneComponent* FP_MuzzleLocation)
 		_numberOfBallLeft--;
 	}
 }
-

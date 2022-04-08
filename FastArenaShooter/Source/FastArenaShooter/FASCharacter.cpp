@@ -3,6 +3,7 @@
 
 #include "FASCharacter.h"
 #include "TimerManager.h"
+#include "Components/Image.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -105,6 +106,46 @@ void AFASCharacter::Tick(float DeltaTime)
 	else
 	{
 		UE_LOG(LogTemp,Warning,TEXT("HUD null ou weapons vide"));
+	}
+
+	if (_userWidgetMunition != nullptr)
+	{
+		if (_userWidgetMunition->LedRiffleImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		{
+			if (_timeBeforeLedRiffle >= _fDataStruct._timeBeforeLedReset)
+			{
+				_userWidgetMunition->LedRiffleImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_timeBeforeLedRiffle = 0;
+			}
+			else
+			{
+				_timeBeforeLedRiffle += GetWorld()->GetDeltaSeconds();
+			}
+		}
+		if (_userWidgetMunition->LedShotGunImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		{
+			if (_timeBeforeLedShotGun >= _fDataStruct._timeBeforeLedReset)
+			{
+				_userWidgetMunition->LedShotGunImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_timeBeforeLedShotGun = 0;
+			}
+			else
+			{
+				_timeBeforeLedShotGun += GetWorld()->GetDeltaSeconds();
+			}
+		}
+		if (_userWidgetMunition->LedRocketLauncherImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		{
+			if (_timeBeforeLedRocketLauncher >= _fDataStruct._timeBeforeLedReset)
+			{
+				_userWidgetMunition->LedRocketLauncherImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_timeBeforeLedRocketLauncher = 0;
+			}
+			else
+			{
+				_timeBeforeLedRocketLauncher += GetWorld()->GetDeltaSeconds();
+			}
+		}
 	}
 }
 
@@ -285,18 +326,18 @@ void AFASCharacter::MovementPlayer()
 		{
 			_bunnyVelocity = 0;
 		}
-		if (/*InputComponent->GetAxisValue("Right") != 0 && */ _onBunny)
+		if (InputComponent->GetAxisValue("Right") != 0 && _onBunny || _onBunny && _casualBunny)
 		{
 			FVector2D Velocity2D = FVector2D( GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
 			GetCharacterMovement()->Velocity.X = _forwardSign * GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
 			GetCharacterMovement()->Velocity.Y = _forwardSign * GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 			_containerVelocityBunny = GetCharacterMovement()->Velocity.Size();
 			//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
-			if (_WeaponType != Shotgun)
+			if (_WeaponType != Shotgun && GetCharacterMovement()->Velocity.Size() >= _fDataStruct._maxSpeed * _fDataStruct._reloadShotGunPercentageMaxBunnySpeed)
 			{
 				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
 				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-				weaponBehaviourObjectReload->Reload();
+				weaponBehaviourObjectReload->Reload(_userWidgetMunition);
 			}
 		}
 		else
@@ -375,11 +416,11 @@ void AFASCharacter::MovementPlayer()
 		}
 		else
 		{
-			if (_WeaponType != Riffle)
+			if (_WeaponType != Riffle && GetCharacterMovement()->Velocity.Size() >= _fDataStruct._groundSpeed * _fDataStruct._reloadRifflePercentageMaxGroundSpeed)
 			{
 				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
 				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-				weaponBehaviourObjectReload->Reload();
+				weaponBehaviourObjectReload->Reload(_userWidgetMunition);
 			}
 			if (_bunnyVelocity == 0)
 			{
@@ -496,7 +537,7 @@ void AFASCharacter::AutoJumpPlayer()
 		{
 			TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
 			AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-			weaponBehaviourObjectReload->Reload();
+			weaponBehaviourObjectReload->Reload(_userWidgetMunition);
 		}
 		Jump();
 		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
