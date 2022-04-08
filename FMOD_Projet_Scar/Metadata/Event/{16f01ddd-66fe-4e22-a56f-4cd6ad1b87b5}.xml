@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{16f01ddd-66fe-4e22-a56f-4cd6ad1b87b5}">
+		<property name="color">
+			<value>Red</value>
+		</property>
 		<property name="name">
 			<value>Trash_Move</value>
 		</property>
@@ -63,7 +66,11 @@
 			<destination>{2372f8fb-4449-41f8-8552-4594fc9d8894}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{55e75a7e-c2de-43dc-bb80-3d0855c8e7be}" />
+	<object class="Timeline" id="{55e75a7e-c2de-43dc-bb80-3d0855c8e7be}">
+		<relationship name="markers">
+			<destination>{5f43220b-11df-43ae-9b95-66e89cba6824}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{e59613e3-e0bf-4570-b4be-3b520a5079b1}">
 		<relationship name="effectChain">
 			<destination>{964ff368-2adb-4802-a9d9-f86ad75c4a1e}</destination>
@@ -82,6 +89,9 @@
 	</object>
 	<object class="MixerBusPanner" id="{34ad628a-e864-4c7f-8057-3452c48e96c7}" />
 	<object class="EventMixerGroup" id="{2372f8fb-4449-41f8-8552-4594fc9d8894}">
+		<property name="volume">
+			<value>-46</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -93,6 +103,20 @@
 		</relationship>
 		<relationship name="output">
 			<destination>{e59613e3-e0bf-4570-b4be-3b520a5079b1}</destination>
+		</relationship>
+	</object>
+	<object class="LoopRegion" id="{5f43220b-11df-43ae-9b95-66e89cba6824}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="length">
+			<value>27.841428571428573</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{55e75a7e-c2de-43dc-bb80-3d0855c8e7be}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{18e4fe34-c5c5-4d81-8033-15175d01596a}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{964ff368-2adb-4802-a9d9-f86ad75c4a1e}">

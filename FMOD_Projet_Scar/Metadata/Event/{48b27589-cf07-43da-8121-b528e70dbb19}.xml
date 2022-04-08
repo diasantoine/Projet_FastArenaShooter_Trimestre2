@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{48b27589-cf07-43da-8121-b528e70dbb19}">
+		<property name="color">
+			<value>Green</value>
+		</property>
 		<property name="name">
 			<value>RocketLoop</value>
 		</property>
@@ -127,7 +130,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{8ed24aae-9ae9-4e62-baa5-53f53bdf93a9}">
 		<property name="volume">
-			<value>-19.5</value>
+			<value>-15</value>
 		</property>
 		<property name="name">
 			<value>Audio 1</value>
