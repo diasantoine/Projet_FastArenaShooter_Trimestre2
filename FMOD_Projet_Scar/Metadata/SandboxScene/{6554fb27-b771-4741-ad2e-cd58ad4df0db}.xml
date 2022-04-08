@@ -6,7 +6,7 @@
 
 2/ Le joueur tombe face à un ennemi, alors il se met à bunny hop pour prendre de la distance face à l'ennemi qui le poursuit : désactiver : 1 - 2 / activer : X - 5 (en boucle) - 6 
 
-3/ le joueur s'arrête et tir sur l'ennemi : désactiver : 5 - 6 / activer : 7 autant que vous voulez puis activer le 8.
+3/ le joueur s'arrête et tir sur l'ennemi : désactiver : 5 - 6 / activer : 7 et le 8 en alternant les deux puis finir par le numéro 9.
 
 FIN, l'ennemi est mort !</value>
 		</property>
@@ -33,6 +33,7 @@ FIN, l'ennemi est mort !</value>
 			<destination>{effbf1a2-f25b-436a-a524-b98379e0789d}</destination>
 			<destination>{0d0324bb-78c6-4f8f-b4ee-27f39c23f623}</destination>
 			<destination>{4dd47ee1-3f88-42c6-a4d9-91046f8e3b76}</destination>
+			<destination>{4faaae9d-3805-440e-aadd-7a1d32d8554c}</destination>
 			<destination>{d76a2645-ae7c-4ad6-bbf4-d757662a85b0}</destination>
 		</relationship>
 	</object>
@@ -145,6 +146,17 @@ FIN, l'ennemi est mort !</value>
 		</property>
 		<relationship name="event">
 			<destination>{02efd463-f05b-4c6f-b901-bbc4b02a8c6b}</destination>
+		</relationship>
+	</object>
+	<object class="SandboxEmitter" id="{4faaae9d-3805-440e-aadd-7a1d32d8554c}">
+		<property name="positionX">
+			<value>-1.47500002</value>
+		</property>
+		<property name="positionZ">
+			<value>3.82500005</value>
+		</property>
+		<relationship name="event">
+			<destination>{d67840e0-4e50-4f84-a3ef-b2329ed32c80}</destination>
 		</relationship>
 	</object>
 	<object class="SandboxEmitter" id="{d76a2645-ae7c-4ad6-bbf4-d757662a85b0}">
