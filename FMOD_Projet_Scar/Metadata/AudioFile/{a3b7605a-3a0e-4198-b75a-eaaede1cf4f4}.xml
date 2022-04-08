@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a3b7605a-3a0e-4198-b75a-eaaede1cf4f4}">
+		<property name="assetPath">
+			<value>Shotgun_PumpActionFirst/Shotgun_PumpActionFirst_03.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.69591836734693879</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d8bbc69e-2f46-463b-8022-900469688ee1}</destination>
+		</relationship>
+	</object>
+</objects>

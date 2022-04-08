@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{918ac6f5-24f8-491d-8c8b-3010415f1ae1}">
+		<property name="assetPath">
+			<value>RifleFire/RifleFire_04.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.5496825396825398</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d8bbc69e-2f46-463b-8022-900469688ee1}</destination>
+		</relationship>
+	</object>
+</objects>
