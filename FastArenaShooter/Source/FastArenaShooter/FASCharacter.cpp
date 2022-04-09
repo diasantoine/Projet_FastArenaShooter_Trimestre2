@@ -43,13 +43,10 @@ void AFASCharacter::InitialiseWeapon()
 	{
 		if(!weapons.Contains(Weapon.Value))
 		{
-			// ici tu crées ton nouveau WeaponBehavior object à partir de la class (GetWorld()->Spawn ?)
 			AMyWeaponBehaviour* container = GetWorld()->SpawnActor<AMyWeaponBehaviour>(Weapon.Value,GetActorLocation() + FVector(50,0,25),GetActorRotation());
 			container->AttachToComponent(FP_Gun,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-			//container->AttachToActor(this,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-			//container->AttachToComponent(_socketWeapon,FAttachmentTransformRules::KeepRelativeTransform);
 			container->SetActorHiddenInGame(true);
-			weapons.Add(Weapon.Value,container); //Cast<AMyWeaponBehaviour>(GetWorld()->SpawnActor(Weapon.Value)->GetClass())); 
+			weapons.Add(Weapon.Value,container);
 		}
 	}
 }
@@ -74,79 +71,24 @@ void AFASCharacter::BeginPlay()
 void AFASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (_actualHP != _fDataStruct._hpMax)
-	{
-		_recoveryTime += DeltaTime;
-		if (_recoveryTime >= _fDataStruct._timeBeforeRecovery)
-		{
-			_actualHP += _fDataStruct._hpRecovery;
-			_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
-			_recoveryTime = 0;
-		}
-	}
-	else
-	{
-		_recoveryTime = 0;
-	}
+	HPRegeneration(DeltaTime);
 	CheckPlayerPosition();
 	MovementPlayer();
+	if (weaponBehaviourObject->_justFire)
+	{
+		RecoilWeapon(_WeaponType);
+		weaponBehaviourObject->_justFire = false;
+	}
+	
 	FP_Gun->SetRelativeRotation(FRotator(0,-90,
-		-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation().Pitch));
+		-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation().Pitch));//rotate weapon for style
+	
 	if (_onJumpAuto)
 	{
 		AutoJumpPlayer();
 	}
-	if (_userWidgetMunition != nullptr && weapons.Num() > 0)
-	{
-		for (auto _weapon : weapons)
-		{
-			_userWidgetMunition->MunitionChanged(_weaponTypes.FindKey(_weapon.Key)->GetValue(),_weapon.Value->_numberOfBallLeft,_weapon.Value->_dataWeapon._magazineSize);
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp,Warning,TEXT("HUD null ou weapons vide"));
-	}
-
-	if (_userWidgetMunition != nullptr)
-	{
-		if (_userWidgetMunition->LedRiffleImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
-		{
-			if (_timeBeforeLedRiffle >= _fDataStruct._timeBeforeLedReset)
-			{
-				_userWidgetMunition->LedRiffleImage->SetOpacity(_userWidgetMunition->_opacityLow);
-				_timeBeforeLedRiffle = 0;
-			}
-			else
-			{
-				_timeBeforeLedRiffle += GetWorld()->GetDeltaSeconds();
-			}
-		}
-		if (_userWidgetMunition->LedShotGunImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
-		{
-			if (_timeBeforeLedShotGun >= _fDataStruct._timeBeforeLedReset)
-			{
-				_userWidgetMunition->LedShotGunImage->SetOpacity(_userWidgetMunition->_opacityLow);
-				_timeBeforeLedShotGun = 0;
-			}
-			else
-			{
-				_timeBeforeLedShotGun += GetWorld()->GetDeltaSeconds();
-			}
-		}
-		if (_userWidgetMunition->LedRocketLauncherImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
-		{
-			if (_timeBeforeLedRocketLauncher >= _fDataStruct._timeBeforeLedReset)
-			{
-				_userWidgetMunition->LedRocketLauncherImage->SetOpacity(_userWidgetMunition->_opacityLow);
-				_timeBeforeLedRocketLauncher = 0;
-			}
-			else
-			{
-				_timeBeforeLedRocketLauncher += GetWorld()->GetDeltaSeconds();
-			}
-		}
-	}
+	
+	HudGestion();
 }
 
 // Called to bind functionality to input
@@ -171,19 +113,11 @@ void AFASCharacter::InputPlayer()
 	this->InputComponent->BindAction<_typeOfFire>("NormalFire", IE_Released, this, &AFASCharacter::StopShootWeapon,true);
 	this->InputComponent->BindAction("SpecialFire",IE_Pressed,this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("SpecialFire",IE_Released,this,&AFASCharacter::DesactivationJumpPlayer);
-	//this->InputComponent->BindAction<_typeOfFire>("SpecialFire", IE_Pressed, this, &AFASCharacter::ShootWeapon,false);
 	this->InputComponent->BindAxis("WheelMouse",this,&AFASCharacter::ChangeWeapon);
-
-	// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
-	// {
-	// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AFASCharacter::StopBunnyHop,_timeBeforeBunnyStop,
-	// 		false,_timeBeforeBunnyStop);
-	// }	
 }
 
 void AFASCharacter::PitchRotation(float _value)
 {
-	//GetCharacterMovement()->Velocity *= GetActorForwardVector();
 	APawn::AddControllerPitchInput(_value);
 }
 
@@ -194,12 +128,10 @@ void AFASCharacter::YawRotation(float _value)
 
 void AFASCharacter::ForwardPlayer(float _value)
 {
-	
 }
 
 void AFASCharacter::RightPlayer(float _value)
 {
-	
 }
 
 void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power, bool AddImpulse)
@@ -249,8 +181,23 @@ void AFASCharacter::Respawn()
 	SetActorLocation(_respawnPosition);
 }
 
-
-
+void AFASCharacter::HPRegeneration(float DeltaTime)
+{
+	if (_actualHP != _fDataStruct._hpMax)
+	{
+		_recoveryTime += DeltaTime;
+		if (_recoveryTime >= _fDataStruct._timeBeforeRecovery)
+		{
+			_actualHP += _fDataStruct._hpRecovery;
+			_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
+			_recoveryTime = 0;
+		}
+	}
+	else
+	{
+		_recoveryTime = 0;
+	}
+}
 
 
 void AFASCharacter::MovementPlayer()
@@ -280,7 +227,14 @@ void AFASCharacter::MovementPlayer()
 		InputRight = InputComponent->GetAxisValue("Right");//TODO make the direction follow Q or D during jump to create the perfect BUNNY
 		if (_onBunny)
 		{
-			AccelDirection = GetActorRightVector();// * InputRight;
+			if (_casualBunny)
+			{
+				AccelDirection = GetActorRightVector();// * InputRight;
+			}
+			else
+			{
+				AccelDirection = GetActorRightVector() * InputRight;
+			}
 		}
 		else
 		{
@@ -437,65 +391,6 @@ void AFASCharacter::MovementPlayer()
 		}
 	}
 	GetCharacterMovement()->Velocity = FMath::Clamp(GetCharacterMovement()->Velocity.Size(),0.0f,_fDataStruct._maxSpeed) * GetCharacterMovement()->Velocity.GetSafeNormal();
-
-	// GetCharacterMovement()->Velocity.X = GetActorForwardVector().X * Velocity2D.Size() + AccelDirection.X * accelVel;
-	// GetCharacterMovement()->Velocity.Y = GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
-
-
-	// FVector ConteneurCameraPositionForward = GetActorForwardVector();
-	// FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
-	// FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
-	// GetCharacterMovement()->Velocity *= FVector(GetActorForwardVector().X,1,1);
-
-	
-	
-	// if (GetCharacterMovement()->IsMovingOnGround())
-	// {
-	// 	FVector _forwardDirection = GetActorForwardVector() * InputComponent->GetAxisValue("Forward");
-	// 	FVector _rightMovement = GetActorRightVector() * InputComponent->GetAxisValue("Right");
-	// 	FVector _directionPlayer =  (_forwardDirection + _rightMovement).GetSafeNormal();
-	// 	GetCharacterMovement()->Velocity = _directionPlayer * GetCharacterMovement()->MaxWalkSpeed + FVector(0,0,GetCharacterMovement()->Velocity.Z);
-	// 	
-	// 	// GetCharacterMovement()->Velocity = FVector(InputComponent->GetAxisValue("Forward") * _fDataStruct._groundSpeed 
-	// 	// 	, InputComponent->GetAxisValue("Right") * _fDataStruct._groundSpeed,GetCharacterMovement()->Velocity.Z) * rotationVec;
-	// }else
-	// {
-	// 	FVector ConteneurCameraPositionForward = GetActorForwardVector();
-	// 	FVector ConteneurCameraPositionRight = GetActorRightVector() * InputComponent->GetAxisValue("Right");
-	// 	FVector Vector3_Deplacement_Player =  ConteneurCameraPositionForward + ConteneurCameraPositionRight;
-	// 	GetCharacterMovement()->Velocity *= FVector(GetActorForwardVector().X,1,1);
-	// 	// GetCharacterMovement()->Velocity = FVector(Vector3_Deplacement_Player.X * GetCharacterMovement()->Velocity.X,
-	// 	// 		Vector3_Deplacement_Player.Y +  GetCharacterMovement()->Velocity.Y,GetCharacterMovement()->Velocity.Z);
-	// }
-	
-	// if (_oldForwardVector == FVector(0,0,0))
-	// {
-	// 	_oldForwardVector = GetActorForwardVector();
-	// }
-	// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
-	// if (//(angle >= _fDataStruct._AmountOfMovementForBunny &&
-	// 	!GetCharacterMovement()->IsMovingOnGround()
-	// 	&& InputComponent->GetAxisValue("Right") != 0)// || _onBunny)
-	// {
-	// 	_onBunny = true;
-	// 	//Calculate current speed
-	// 	FVector horizontalMovement = GetCharacterMovement()->Velocity;
-	// 	horizontalMovement.Z = 0.0f;
-	// 	float speed = horizontalMovement.Size();
-	//
-	// 	//Get the rotation of pawn
-	// 	FRotator rotation = GetActorRotation();
-	// 	FVector rotationVec = rotation.Vector();
-	//
-	// 	//Apply speed to rotation vector
-	// 	rotationVec.X *= speed;
-	// 	rotationVec.Y *= speed;
-	//
-	// 	//Set new movement velocity
-	// 	GetCharacterMovement()->Velocity.X = rotationVec.X;
-	// 	//GetCharacterMovement()->Velocity.Y = rotationVec.Y;
-	// }
-	// _oldForwardVector = GetActorForwardVector();
 }
 
 void AFASCharacter::StopBunnyHop()
@@ -511,7 +406,8 @@ void AFASCharacter::StopBunnyHop()
 		_onBunny = false;
 		_keepBunnySpeed = false;
 	}
-	_forwardSign = 1;
+	UE_LOG(LogTemp,Warning,TEXT("%f"), _forwardSign);
+	//_forwardSign = 1;
 	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 }
 
@@ -697,12 +593,75 @@ void AFASCharacter::ChangeWeapon(float _value)
 		case RocketLauncher:
 			_WeaponType = Shotgun;
 			UE_LOG(LogTemp,Warning,TEXT("ShotGun"));
-			//weaponBehaviourClass = _weaponTypes[_WeaponType];
 			break;
 		}
 		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];
 		weaponBehaviourObject->SetActorHiddenInGame(false);
 		_userWidgetMunition->SwapWeapon(_WeaponType);
+	}
+}
+
+void AFASCharacter::RecoilWeapon(TypeOfWeapon WhichWeapon)
+{
+	switch (WhichWeapon)
+	{
+	case Riffle:
+		break;
+	case Shotgun:
+		break;
+	case RocketLauncher:
+		break;
+	}
+}
+
+void AFASCharacter::HudGestion()
+{
+	if (_userWidgetMunition != nullptr && weapons.Num() > 0)
+	{
+		for (auto _weapon : weapons)
+		{
+			_userWidgetMunition->MunitionChanged(_weaponTypes.FindKey(_weapon.Key)->GetValue(),_weapon.Value->_numberOfBallLeft,_weapon.Value->_dataWeapon._magazineSize);
+		}
+		if (_userWidgetMunition->LedRiffleImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		{
+			if (_timeBeforeLedRiffle >= _fDataStruct._timeBeforeLedReset)
+			{
+				_userWidgetMunition->LedRiffleImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_timeBeforeLedRiffle = 0;
+			}
+			else
+			{
+				_timeBeforeLedRiffle += GetWorld()->GetDeltaSeconds();
+			}
+		}
+		if (_userWidgetMunition->LedShotGunImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		{
+			if (_timeBeforeLedShotGun >= _fDataStruct._timeBeforeLedReset)
+			{
+				_userWidgetMunition->LedShotGunImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_timeBeforeLedShotGun = 0;
+			}
+			else
+			{
+				_timeBeforeLedShotGun += GetWorld()->GetDeltaSeconds();
+			}
+		}
+		if (_userWidgetMunition->LedRocketLauncherImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		{
+			if (_timeBeforeLedRocketLauncher >= _fDataStruct._timeBeforeLedReset)
+			{
+				_userWidgetMunition->LedRocketLauncherImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_timeBeforeLedRocketLauncher = 0;
+			}
+			else
+			{
+				_timeBeforeLedRocketLauncher += GetWorld()->GetDeltaSeconds();
+			}
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp,Warning,TEXT("HUD null ou weapons vide"));
 	}
 }
 

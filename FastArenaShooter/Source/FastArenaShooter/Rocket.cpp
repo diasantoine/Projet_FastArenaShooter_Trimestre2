@@ -48,14 +48,44 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 	{
 		if (OtherComp->IsSimulatingPhysics())
 		{
-			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+			OtherComp->AddImpulseAtLocation(GetVelocity() * _dataBullet._impactPower * 200, GetActorLocation());
 		}
 		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
 			if (_containerIA != nullptr)
 			{
-				_containerIA->DamageIA(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower);
+				_containerIA->DamageIA(_dataBullet._dmg * 200,GetOwner(),_dataBullet._impactPower);
+			}
+		}
+		TArray<FHitResult> out;
+		FQuat quat = {0,0,0,0};
+		GetWorld()->SweepMultiByChannel(out,GetActorLocation(),GetActorLocation(),quat,ECC_Visibility,FCollisionShape::MakeSphere(400),
+			FCollisionQueryParams::DefaultQueryParam,FCollisionResponseParams::DefaultResponseParam);
+		for (auto Out : out)
+		{
+			if (Out.GetComponent()->IsSimulatingPhysics())
+			{
+				Out.GetComponent()->AddImpulseAtLocation(GetVelocity() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()), GetActorLocation());
+			}
+			if ((Out.GetActor() != nullptr))
+			{
+				AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Out.GetActor());
+				AFASCharacter* _containerCharacter = Cast<AFASCharacter>(Out.GetActor());
+				if (_containerIA != nullptr)
+				{
+					_containerIA->LaunchCharacter(
+						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
+					_containerIA->DamageIA(_dataBullet._dmg  / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),GetOwner(),
+						_dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()));
+				}else if (_containerCharacter != nullptr)
+				{
+					_containerCharacter->LaunchCharacter(
+						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
+					_containerCharacter->DamagePlayer(
+						_dataBullet._dmg  / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),GetOwner(),
+						_dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true);
+				}
 			}
 		}
 		Destroy();
