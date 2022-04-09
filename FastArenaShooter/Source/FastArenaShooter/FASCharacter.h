@@ -34,7 +34,7 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _deceleration = 0.5f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _timeBeforeBunnyStop = 2.0f;
+	float _timeBeforeBunnyStop = 0.5f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpMax = 200;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
@@ -81,8 +81,11 @@ public:
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _normalFire);
 	void StopShootWeapon(bool _normalFire);
+	void RecoilWeapon(TypeOfWeapon WhichWeapon);
 	void ChangeWeapon(float _value);
+	void HudGestion();
 	void DamagePlayer(int DMG, AActor* Attaquant, float Power, bool AddImpulse);
+	void HPRegeneration(float DeltaTime);
 	void CheckPlayerPosition();
 	void Respawn();
 
