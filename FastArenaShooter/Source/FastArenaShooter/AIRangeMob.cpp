@@ -112,7 +112,7 @@ void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 void AAIRangeMob::MakeIaMoveInZ()
 {
 	//GetCapsuleComponent()->SetCapsuleHalfHeight(_modifHeightIA + FMath::RandRange(_modifHeightIA/3,_modifHeightIA * 2));
-	_modifHeightIA = FMath::FRandRange(_heighIA/2.f,_heighIA * 2.f);
+	_modifHeightIA = FMath::FRandRange(_heighIA/_heighChangeValue,_heighIA * _heighChangeValue);
 }
 
 void AAIRangeMob::IAMoving(AFASCharacter* _player)

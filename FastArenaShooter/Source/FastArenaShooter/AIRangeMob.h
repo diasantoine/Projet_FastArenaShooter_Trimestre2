@@ -44,6 +44,9 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
 	float _timeBetweenZChangement = 3.f;
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
+	float _heighChangeValue = 2.f;
+
 private:
 	float _heighIA;
 	AMyWeaponBehaviour* weaponBehaviourObject;
