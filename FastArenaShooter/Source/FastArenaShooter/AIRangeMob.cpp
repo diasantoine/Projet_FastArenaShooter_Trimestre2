@@ -4,6 +4,7 @@
 #include "AIRangeMob.h"
 
 #include "MyAiController.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -34,6 +35,8 @@ void AAIRangeMob::BeginPlay()
 	container->AttachToComponent(FP_Gun,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	weaponBehaviourObject = container;
 	_IAController = Cast<AMyAiController>(GetController());
+	_heightCapsuleCollider = GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+	GetWorldTimerManager().SetTimer(_timeManager,this,&AAIRangeMob::MakeIaMoveInZ,_timeBetweenZChangement,true,0);
 }
 
 // Called every frame
@@ -103,6 +106,11 @@ void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 	}
 }
 
+
+void AAIRangeMob::MakeIaMoveInZ()
+{
+	GetCapsuleComponent()->SetCapsuleHalfHeight(_heightCapsuleCollider + FMath::RandRange(_heightCapsuleCollider/3,_heightCapsuleCollider * 2));
+}
 
 void AAIRangeMob::IAMoving(AFASCharacter* _player)
 {

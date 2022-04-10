@@ -42,6 +42,8 @@ struct FdataWeapon
 	float _impactPower;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	bool _continuTir;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	float _recoilPower;
 };
 
 

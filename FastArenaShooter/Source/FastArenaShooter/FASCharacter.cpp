@@ -260,14 +260,15 @@ void AFASCharacter::MovementPlayer()
 		accelVel = _fDataStruct._maxSpeed - projVel;
 
 	//FVector2D Velocity2D = FVector2D(GetCharacterMovement()->Velocity.X,GetCharacterMovement()->Velocity.Y);
-	if (_keepBunnySpeed && GetCharacterMovement()->IsMovingOnGround())
+	if (/*_keepBunnySpeed && */ !_onJumpAuto && GetCharacterMovement()->IsMovingOnGround())
 	{
 		_onBunny = false;
-		if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
-		{
-			GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AFASCharacter::StopBunnyHop,_fDataStruct._timeBeforeBunnyStop,
-				false,_fDataStruct._timeBeforeBunnyStop);
-		}	
+		StopBunnyHop();
+		// if (!GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
+		// {
+		// 	GetWorldTimerManager().SetTimer(ManagerTimeDotRotation,this,&AFASCharacter::StopBunnyHop,_fDataStruct._timeBeforeBunnyStop,
+		// 		false,_fDataStruct._timeBeforeBunnyStop);
+		// }	
 	}else if (GetWorldTimerManager().TimerExists(ManagerTimeDotRotation))
 	{
 		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
@@ -608,6 +609,7 @@ void AFASCharacter::RecoilWeapon(TypeOfWeapon WhichWeapon)
 	case Riffle:
 		break;
 	case Shotgun:
+		LaunchCharacter(-GetActorForwardVector() * weaponBehaviourObject->_dataWeapon._recoilPower,true,true);
 		break;
 	case RocketLauncher:
 		break;
