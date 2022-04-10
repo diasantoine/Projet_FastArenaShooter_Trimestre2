@@ -39,12 +39,13 @@ public:
 	TSubclassOf<AMyWeaponBehaviour> _IAWeapon;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
-	float _heightCapsuleCollider;
+	float _modifHeightIA;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
 	float _timeBetweenZChangement = 3.f;
 
 private:
+	float _heighIA;
 	AMyWeaponBehaviour* weaponBehaviourObject;
 	FTimerHandle _timeManager;
 };
