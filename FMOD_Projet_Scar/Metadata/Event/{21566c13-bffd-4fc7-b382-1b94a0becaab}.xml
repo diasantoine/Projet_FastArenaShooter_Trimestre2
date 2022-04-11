@@ -5,7 +5,7 @@
 			<value>Robot_Alert POUR SANDBOX</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{b1bcd174-3584-43d2-849c-e64771af2cf8}</destination>
@@ -31,6 +31,9 @@
 		</relationship>
 		<relationship name="timeline">
 			<destination>{a4f49ecc-7c88-4f3d-ae35-df5bae9e744a}</destination>
+		</relationship>
+		<relationship name="banks">
+			<destination>{6883e776-44d0-4923-af4c-1d58741f149c}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{1617d712-23ff-482e-8b69-460a4ae01710}">
@@ -192,7 +195,6 @@
 	<object class="MixerBusEffectChain" id="{8b0816ef-cb3d-4eba-9644-2406ba52cf44}">
 		<relationship name="effects">
 			<destination>{506cef14-6d81-4843-8d9d-ef5be40d6519}</destination>
-			<destination>{5951c1a4-d76b-470e-ad85-7d6fb69829ef}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e71992ae-0362-4462-aef5-453d98bee697}" />
@@ -235,7 +237,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{59586243-ce12-43f8-912d-b1db985d9287}" />
 	<object class="MixerBusFader" id="{506cef14-6d81-4843-8d9d-ef5be40d6519}" />
-	<object class="SpatialiserEffect" id="{5951c1a4-d76b-470e-ad85-7d6fb69829ef}" />
 	<object class="AutomationPoint" id="{d71178d4-387d-4237-aef0-b0d8b12f0a85}">
 		<property name="position">
 			<value>0</value>
