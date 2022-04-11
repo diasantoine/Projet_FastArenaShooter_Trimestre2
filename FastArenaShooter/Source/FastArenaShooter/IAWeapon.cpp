@@ -20,7 +20,8 @@ void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 				{
 					breakWhile++;
 					numberOfBallNeededToBeShoot--;
-					const FRotator SpawnRotation = GetActorRotation();//GetActorRotation();//GetControlRotation();
+					const FVector FacingVector = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation() - GetActorLocation();
+					const FRotator SpawnRotation = FacingVector.Rotation();//GetActorRotation();//GetControlRotation();
 					FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
 					const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 					FTransform BulletTransform = {SpawnRotation,SpawnLocation};

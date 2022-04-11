@@ -609,7 +609,8 @@ void AFASCharacter::RecoilWeapon(TypeOfWeapon WhichWeapon)
 	case Riffle:
 		break;
 	case Shotgun:
-		LaunchCharacter(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * weaponBehaviourObject->_dataWeapon._recoilPower,true,true);
+		GetCharacterMovement()->AddImpulse(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * weaponBehaviourObject->_dataWeapon._recoilPower,true);
+		//LaunchCharacter(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * weaponBehaviourObject->_dataWeapon._recoilPower,true,true);
 		break;
 	case RocketLauncher:
 		break;
