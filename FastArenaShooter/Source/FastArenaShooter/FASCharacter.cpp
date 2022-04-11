@@ -74,10 +74,10 @@ void AFASCharacter::Tick(float DeltaTime)
 	HPRegeneration(DeltaTime);
 	CheckPlayerPosition();
 	MovementPlayer();
-	if (weaponBehaviourObject->_justFire)
+	if (weaponBehaviourObject->_justFireRecoil)
 	{
 		RecoilWeapon(_WeaponType);
-		weaponBehaviourObject->_justFire = false;
+		weaponBehaviourObject->_justFireRecoil = false;
 	}
 	
 	FP_Gun->SetRelativeRotation(FRotator(0,-90,
