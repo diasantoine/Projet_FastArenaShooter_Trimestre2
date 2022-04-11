@@ -12,8 +12,6 @@ struct FIAParameter
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
-	TArray<AActor*> _spawner;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	float _cooldownSpawn;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	int _numberOfSpawn;
@@ -48,5 +46,11 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	TSubclassOf<AFAS_IACharacter> _iaToSpawn;
 	FTimerHandle _timerManager;
+	FTimerHandle _timerIARange;
+	FTimerHandle _timerIATank;
+	FTimerHandle _timerIATrash;
 	void RapidSpawnIA();
+	void IARangeSpawner();
+	void IATankSpawner();
+	void IATrashSpawner();
 };
