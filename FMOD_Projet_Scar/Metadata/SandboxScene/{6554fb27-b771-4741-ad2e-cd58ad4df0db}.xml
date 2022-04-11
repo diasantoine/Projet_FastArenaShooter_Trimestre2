@@ -180,7 +180,7 @@ FIN, l'ennemi est mort !</value>
 	</object>
 	<object class="SandboxParameter" id="{4c5fec08-03d8-47f0-846a-4a6378442b91}">
 		<property name="parameterValue">
-			<value>51</value>
+			<value>68.5</value>
 		</property>
 		<relationship name="parameter">
 			<destination>{6a573e9b-fe74-4579-b0b3-54bd3b9edd99}</destination>
