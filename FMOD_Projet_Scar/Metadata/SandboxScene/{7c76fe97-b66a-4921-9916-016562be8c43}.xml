@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="SandboxScene" id="{7c76fe97-b66a-4921-9916-016562be8c43}">
+		<property name="name">
+			<value>Antoine Dias -</value>
+		</property>
+		<relationship name="folder">
+			<destination>{5e4c6393-045d-4f10-8cef-88662921f862}</destination>
+		</relationship>
+		<relationship name="markerTracks">
+			<destination>{0f4f2bba-7cc4-445c-9a7c-57f3be522f01}</destination>
+		</relationship>
+		<relationship name="timeline">
+			<destination>{8ef936c5-4d8d-41d8-8f94-e80d81a1074b}</destination>
+		</relationship>
+		<relationship name="listeners">
+			<destination>{3abcbf06-aa37-4327-b151-275b3b18b015}</destination>
+		</relationship>
+	</object>
+	<object class="MarkerTrack" id="{0f4f2bba-7cc4-445c-9a7c-57f3be522f01}" />
+	<object class="Timeline" id="{8ef936c5-4d8d-41d8-8f94-e80d81a1074b}" />
+	<object class="SandboxListener" id="{3abcbf06-aa37-4327-b151-275b3b18b015}">
+		<property name="positionX">
+			<value>0.0749996305</value>
+		</property>
+		<property name="positionZ">
+			<value>1</value>
+		</property>
+		<property name="rotationY">
+			<value>-139.612686</value>
+		</property>
+	</object>
+</objects>

@@ -2,6 +2,8 @@
 
 
 #include "BTT_Node_MoveIAToLocation.h"
+
+#include "AIRangeMob.h"
 #include "FAS_IACharacter.h"
 #include "MyAiController.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -18,9 +20,20 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 	AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
 	if (IA != nullptr && _player != nullptr)
 	{
-		if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAbility)
+		AAIRangeMob* IARange = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
+		if (IARange != nullptr)
 		{
-			Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
+			if (!IA->_onAbility)
+			{
+				Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
+			}
+		}
+		else
+		{
+			if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAbility)
+			{
+				Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
+			}
 		}
 		return EBTNodeResult::Succeeded;
 	}

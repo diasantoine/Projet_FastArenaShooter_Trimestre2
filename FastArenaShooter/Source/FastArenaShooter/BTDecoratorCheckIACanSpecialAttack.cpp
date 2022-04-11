@@ -3,6 +3,7 @@
 
 #include "BTDecoratorCheckIACanSpecialAttack.h"
 #include "AIController.h"
+#include "AIRangeMob.h"
 #include "FAS_IACharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -16,11 +17,23 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 	float AngleRadians = FMath::Acos(AngleCosine);
 	float angle = FMath::RadiansToDegrees(AngleRadians);
 //	UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()));
-	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
-	&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
-	&& !IA->_onAbility)
+	AAIRangeMob* IARange = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
+	if (IARange != nullptr)
 	{
-		return true;
+		float _distance = FVector::Distance(FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,IA->GetActorLocation().Z),IA->GetActorLocation());
+		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && _distance < IA->_iaDataStruct._minimumDistanceForAttackSpecial && _distance > IA->_iaDataStruct._acceptanceRadius && !IA->_onAbility)
+		{
+			return true;
+		}
+	}
+	else
+	{
+		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
+			&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
+			&& !IA->_onAbility)
+		{
+			return true;
+		}
 	}
 	return false;
 }

@@ -42,6 +42,10 @@ struct FdataWeapon
 	float _impactPower;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	bool _continuTir;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	float _recoilPower;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon Parameter")
+	float _sizeSphereExplosion = 400;
 };
 
 
