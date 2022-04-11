@@ -60,7 +60,7 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 		}
 		TArray<FHitResult> out;
 		FQuat quat = {0,0,0,0};
-		GetWorld()->SweepMultiByChannel(out,GetActorLocation(),GetActorLocation(),quat,ECC_Visibility,FCollisionShape::MakeSphere(400),
+		GetWorld()->SweepMultiByChannel(out,GetActorLocation(),GetActorLocation(),quat,ECC_Pawn,FCollisionShape::MakeSphere(_dataBullet._sizeSphereExplosion),
 			FCollisionQueryParams::DefaultQueryParam,FCollisionResponseParams::DefaultResponseParam);
 		for (auto Out : out)
 		{

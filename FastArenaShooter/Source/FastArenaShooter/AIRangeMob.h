@@ -23,6 +23,9 @@ public:
 	virtual void IAMoving(AFASCharacter* _player)override;
 	virtual void IASpecialAttack(AFASCharacter* _player)override;
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump)override;
+
+	void MakeIaMoveInZ();
+
 	
 	/** Gun mesh: 1st person view (seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly,BlueprintReadOnly, Category = Mesh)
@@ -35,6 +38,17 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Character")
 	TSubclassOf<AMyWeaponBehaviour> _IAWeapon;
 
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	float _modifHeightIA;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
+	float _timeBetweenZChangement = 3.f;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
+	float _heighChangeValue = 2.f;
+
 private:
+	float _heighIA;
 	AMyWeaponBehaviour* weaponBehaviourObject;
+	FTimerHandle _timeManager;
 };
