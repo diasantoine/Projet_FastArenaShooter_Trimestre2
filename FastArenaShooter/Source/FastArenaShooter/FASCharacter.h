@@ -81,7 +81,7 @@ public:
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _normalFire);
 	void StopShootWeapon(bool _normalFire);
-	void RecoilWeapon(TypeOfWeapon WhichWeapon);
+	void KnockBackPlayer(TypeOfWeapon WhichWeapon, float _KnockBackDuration, float _knockBackPower, FVector _direction);
 	void ChangeWeapon(float _value);
 	void HudGestion();
 	void DamagePlayer(int DMG, AActor* Attaquant, float Power, bool AddImpulse);
@@ -148,6 +148,9 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
 	bool _casualBunny = false;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
+	bool _onRecoil = false;
+
 private:
 	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;
@@ -173,4 +176,5 @@ private:
 	float _timeBeforeLedRiffle;
 	float _timeBeforeLedShotGun;
 	float _timeBeforeLedRocketLauncher;
+	float _containerRecoil;
 };

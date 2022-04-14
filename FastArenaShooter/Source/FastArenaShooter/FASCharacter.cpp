@@ -76,8 +76,13 @@ void AFASCharacter::Tick(float DeltaTime)
 	MovementPlayer();
 	if (weaponBehaviourObject->_justFireRecoil)
 	{
-		RecoilWeapon(_WeaponType);
+		KnockBackPlayer(_WeaponType,weaponBehaviourObject->_dataWeapon._knockPlayerDuration,weaponBehaviourObject->_dataWeapon._recoilPower,
+			-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
 		weaponBehaviourObject->_justFireRecoil = false;
+	}
+	if (_onRecoil)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("%f"), _containerRecoil);
 	}
 	
 	FP_Gun->SetRelativeRotation(FRotator(0,-90,
@@ -294,6 +299,18 @@ void AFASCharacter::MovementPlayer()
 				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 				weaponBehaviourObjectReload->Reload(_userWidgetMunition);
 			}
+			if (_onRecoil)
+			{
+				if (_containerRecoil > 0)
+				{
+					_containerRecoil -= GetWorld()->GetDeltaSeconds();
+				}
+				else
+				{
+					_containerRecoil = 0;
+					_onRecoil = false;
+				}
+			}
 		}
 		else
 		{
@@ -335,17 +352,32 @@ void AFASCharacter::MovementPlayer()
 				}
 				else
 				{
-					if (_containerVelocityBunny == 0)
+					if (_onRecoil)
 					{
-						GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
-						GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+						if (_containerRecoil > 0)
+						{
+							_containerRecoil -= GetWorld()->GetDeltaSeconds();
+						}
+						else
+						{
+							_containerRecoil = 0;
+							_onRecoil = false;
+						}
 					}
 					else
 					{
-						// GetCharacterMovement()->Velocity.X += accelVel;
-						// GetCharacterMovement()->Velocity.Y += accelVel;
-						// GetCharacterMovement()->Velocity.X = 1 * _containerVelocityBunny;
-						// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _containerVelocityBunny;
+						if (_containerVelocityBunny == 0)
+						{
+							GetCharacterMovement()->Velocity.X = AccelDirection.X * _fDataStruct._airSpeed;// * accelVel;
+							GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _fDataStruct._airSpeed;
+						}
+						else
+						{
+							// GetCharacterMovement()->Velocity.X += accelVel;
+							// GetCharacterMovement()->Velocity.Y += accelVel;
+							// GetCharacterMovement()->Velocity.X = 1 * _containerVelocityBunny;
+							// GetCharacterMovement()->Velocity.Y = AccelDirection.Y * _containerVelocityBunny;
+						}
 					}
 				}
 			}
@@ -353,42 +385,57 @@ void AFASCharacter::MovementPlayer()
 	}
 	else
 	{
-		if (_keepBunnySpeed)//Todo le bunny se met en false que si je le rate, 
+		if (_onRecoil)
 		{
-			if (_bunnyVelocity == 0)
+			if (_containerRecoil > 0)
 			{
-				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
+				_containerRecoil -= GetWorld()->GetDeltaSeconds();
 			}
-			// float speed = VelocityPlayer.Size();
-			// if (speed != 0) // To avoid divide by zero errors
-			// {
-			// 	float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
-			// 	VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
-			// }
-			 _decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
-			// float test =VelocityPlayer.Size();
-			GetCharacterMovement()->Velocity = GetCharacterMovement()->Velocity.GetSafeNormal() * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocityGround); //accelVel;
+			else
+			{
+				_containerRecoil = 0;
+				_onRecoil = false;
+			}
 		}
 		else
 		{
-			if (_WeaponType != Riffle && GetCharacterMovement()->Velocity.Size() >= _fDataStruct._groundSpeed * _fDataStruct._reloadRifflePercentageMaxGroundSpeed)
+			if (_keepBunnySpeed)//Todo le bunny se met en false que si je le rate, 
+				{
+				if (_bunnyVelocity == 0)
+				{
+					_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
+				}
+				// float speed = VelocityPlayer.Size();
+				// if (speed != 0) // To avoid divide by zero errors
+				// {
+				// 	float drop = speed * 2 * GetWorld()->GetDeltaSeconds();
+				// 	VelocityPlayer *= FMath::Max(speed - drop, 0.f) / speed; // Scale the velocity based on friction.
+				// }
+				_decelerationVelocityGround = _decelerationVelocityGround + GetWorld()->GetDeltaSeconds()/_fDataStruct._timeBeforeBunnyStop;
+				// float test =VelocityPlayer.Size();
+				GetCharacterMovement()->Velocity = GetCharacterMovement()->Velocity.GetSafeNormal() * FMath::Lerp(_bunnyVelocity,_fDataStruct._groundSpeed,_decelerationVelocityGround); //accelVel;
+				}
+			else
 			{
-				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
-				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-				weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+				if (_WeaponType != Riffle && GetCharacterMovement()->Velocity.Size() >= _fDataStruct._groundSpeed * _fDataStruct._reloadRifflePercentageMaxGroundSpeed)
+				{
+					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
+					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+				}
+				if (_bunnyVelocity == 0)
+				{
+					_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
+				}
+				//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
+				if (_bunnyVelocity != 0)
+				{
+					_bunnyVelocity = 0;
+				}
+				_containerVelocityBunny = 0;
+				_decelerationVelocityGround = 0;
+				GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 			}
-			if (_bunnyVelocity == 0)
-			{
-				_bunnyVelocity = GetCharacterMovement()->Velocity.Size();
-			}
-			//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
-			if (_bunnyVelocity != 0)
-			{
-				_bunnyVelocity = 0;
-			}
-			_containerVelocityBunny = 0;
-			_decelerationVelocityGround = 0;
-			GetCharacterMovement()->Velocity = accelVel * AccelDirection;
 		}
 	}
 	GetCharacterMovement()->Velocity = FMath::Clamp(GetCharacterMovement()->Velocity.Size(),0.0f,_fDataStruct._maxSpeed) * GetCharacterMovement()->Velocity.GetSafeNormal();
@@ -407,7 +454,7 @@ void AFASCharacter::StopBunnyHop()
 		_onBunny = false;
 		_keepBunnySpeed = false;
 	}
-	UE_LOG(LogTemp,Warning,TEXT("%f"), _forwardSign);
+//	UE_LOG(LogTemp,Warning,TEXT("%f"), _forwardSign);
 	//_forwardSign = 1;
 	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
 }
@@ -602,17 +649,24 @@ void AFASCharacter::ChangeWeapon(float _value)
 	}
 }
 
-void AFASCharacter::RecoilWeapon(TypeOfWeapon WhichWeapon)
+void AFASCharacter::KnockBackPlayer(TypeOfWeapon WhichWeapon, float _KnockBackDuration, float _knockBackPower, FVector _direction)
 {
 	switch (WhichWeapon)
 	{
 	case Riffle:
 		break;
 	case Shotgun:
-		GetCharacterMovement()->AddImpulse(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * weaponBehaviourObject->_dataWeapon._recoilPower,true);
+		_onRecoil = true;
+		_containerRecoil = _KnockBackDuration;
+		GetCharacterMovement()->AddImpulse(_direction * _knockBackPower,true);
+		//GetCharacterMovement()->AddImpulse(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * _knockBackPower,true);
 		//LaunchCharacter(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * weaponBehaviourObject->_dataWeapon._recoilPower,true,true);
 		break;
 	case RocketLauncher:
+		_onRecoil = true;
+		_containerRecoil = _KnockBackDuration;
+		LaunchCharacter(_direction,true,true);
+		//GetCharacterMovement()->AddImpulse(_direction * _knockBackPower,true);
 		break;
 	}
 }
