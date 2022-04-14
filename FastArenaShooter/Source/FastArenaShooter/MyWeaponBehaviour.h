@@ -44,6 +44,8 @@ struct FdataWeapon
 	bool _continuTir;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _recoilPower;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	float _knockPlayerDuration;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon Parameter")
 	float _sizeSphereExplosion = 400;
 };
@@ -82,6 +84,9 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
 	bool _justFire = false;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
+	bool _justFireRecoil = false;
 
 	USceneComponent* FP_MuzzleLocationContinuFire;
 };

@@ -80,8 +80,10 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 						_dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()));
 				}else if (_containerCharacter != nullptr)
 				{
-					_containerCharacter->LaunchCharacter(
-						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
+					_containerCharacter->KnockBackPlayer(RocketLauncher,_dataBullet._knockPlayerDuration,_dataBullet._impactPower,
+						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()));
+					// _containerCharacter->LaunchCharacter(
+					// 	(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
 					_containerCharacter->DamagePlayer(
 						_dataBullet._dmg  / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),GetOwner(),
 						_dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true);
