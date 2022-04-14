@@ -83,5 +83,8 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
 	bool _justFire = false;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
+	bool _justFireRecoil = false;
+
 	USceneComponent* FP_MuzzleLocationContinuFire;
 };
