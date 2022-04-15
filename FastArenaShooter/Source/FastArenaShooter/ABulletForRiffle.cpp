@@ -26,8 +26,8 @@ ABulletForRiffle::ABulletForRiffle()
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
 	ProjectileMovement->UpdatedComponent = CollisionComp;
-	ProjectileMovement->InitialSpeed = 12000.f;
-	ProjectileMovement->MaxSpeed = 3000000.f;
+	ProjectileMovement->InitialSpeed = 3000.f;
+	ProjectileMovement->MaxSpeed = 3000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 
@@ -40,6 +40,7 @@ void ABulletForRiffle::BeginPlay()
 	Super::BeginPlay();
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
+	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
 }
 
 

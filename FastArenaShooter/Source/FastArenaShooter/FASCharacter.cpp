@@ -80,10 +80,10 @@ void AFASCharacter::Tick(float DeltaTime)
 			-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
 		weaponBehaviourObject->_justFireRecoil = false;
 	}
-	if (_onRecoil)
-	{
-		UE_LOG(LogTemp,Warning,TEXT("%f"), _containerRecoil);
-	}
+	// if (_onRecoil)
+	// {
+	// 	UE_LOG(LogTemp,Warning,TEXT("%f"), _containerRecoil);
+	// }
 	
 	FP_Gun->SetRelativeRotation(FRotator(0,-90,
 		-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation().Pitch));//rotate weapon for style
@@ -610,15 +610,13 @@ void AFASCharacter::ChangeWeapon(float _value)
 		case Riffle:
 			default:
 			_WeaponType = Shotgun;
-			UE_LOG(LogTemp,Warning,TEXT("ShotGun"));
 			break;
 		case Shotgun:
 			_WeaponType = RocketLauncher;
-			UE_LOG(LogTemp,Warning,TEXT("RocketLauncher"));
 			break;
 		case RocketLauncher:
 			_WeaponType = Riffle;
-			UE_LOG(LogTemp,Warning,TEXT("Riffle"));
+		//	UE_LOG(LogTemp,Warning,TEXT("Riffle"));
 			break;
 		}
 		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];
@@ -631,16 +629,14 @@ void AFASCharacter::ChangeWeapon(float _value)
 		{
 		case Riffle:
 			_WeaponType = RocketLauncher;
-			UE_LOG(LogTemp,Warning,TEXT("RocketLauncher"));
 			break;
 		case Shotgun:
 		default:
 			_WeaponType = Riffle;
-			UE_LOG(LogTemp,Warning,TEXT("Riffle"));
 			break;
 		case RocketLauncher:
 			_WeaponType = Shotgun;
-			UE_LOG(LogTemp,Warning,TEXT("ShotGun"));
+		//	UE_LOG(LogTemp,Warning,TEXT("ShotGun"));
 			break;
 		}
 		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];

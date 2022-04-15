@@ -40,8 +40,9 @@ void AShotGunBullets::BeginPlay()
 	FVector _angle = {FMath::FRandRange(-200,200),FMath::FRandRange(-200,200),FMath::FRandRange(-200,200)};
 	//FVector _angle = FMath::VRandCone(ProjectileMovement->Velocity.GetSafeNormal(),60);//UKismetMathLibrary::RandomUnitVectorInConeInRadians(this->GetActorForwardVector(),30);
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
-	ProjectileMovement->Velocity += _angle;
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
+	ProjectileMovement->Velocity += _angle;
+	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
 }
 
 
