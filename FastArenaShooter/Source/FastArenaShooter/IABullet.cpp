@@ -39,6 +39,7 @@ void AIABullet::BeginPlay()
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
 	ProjectileMovement->Velocity += (GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation() - GetActorLocation()).GetSafeNormal();
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
+	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
 }
 
 

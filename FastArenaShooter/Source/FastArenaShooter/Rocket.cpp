@@ -38,6 +38,7 @@ void ARocket::BeginPlay()
 	Super::BeginPlay();
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
+	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
 }
 
 
