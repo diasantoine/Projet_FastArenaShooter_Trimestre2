@@ -35,12 +35,12 @@ void AMyWeaponBehaviour::Tick(float DeltaTime)
 	{
 		if (FP_MuzzleLocationContinuFire != nullptr)
 		{
-			NormalFire(FP_MuzzleLocationContinuFire);
+			NormalFire(FP_MuzzleLocationContinuFire,ActualSpeed/MaxSpeed);
 		}
 	}
 }
 
-void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation)
+void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	if (_normalFire)
 	{
@@ -54,7 +54,7 @@ void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocatio
 			_ContinuFire = false;
 			FP_MuzzleLocationContinuFire = nullptr;
 		}
-		NormalFire(FP_MuzzleLocation);
+		NormalFire(FP_MuzzleLocation,_percentageEffect);
 	}
 	else
 	{
@@ -67,7 +67,7 @@ void AMyWeaponBehaviour::Fire(bool _normalFire,USceneComponent* FP_MuzzleLocatio
 			_ContinuFire = false;
 			FP_MuzzleLocationContinuFire = nullptr;
 		}
-		SpecialFire(FP_MuzzleLocation);
+		SpecialFire(FP_MuzzleLocation,_percentageEffect);
 	}
 }
 
@@ -97,29 +97,29 @@ void AMyWeaponBehaviour::Reload(UUserWidgetMunition* WidgetMunition)
 	case Riffle:
 	default:
 		WidgetMunition->LedRiffleImage->SetOpacity(WidgetMunition->_opacityHigh);
-		_numberOfBallLeft++;
+		_numberOfBallLeft += _dataWeapon._numberOfBallReload;
 		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	case Shotgun:
 		WidgetMunition->LedShotGunImage->SetOpacity(WidgetMunition->_opacityHigh);
-		_numberOfBallLeft++;
+		_numberOfBallLeft += _dataWeapon._numberOfBallReload;
 		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	case RocketLauncher:
 		WidgetMunition->LedRocketLauncherImage->SetOpacity(WidgetMunition->_opacityHigh);
-		_numberOfBallLeft++;
+		_numberOfBallLeft += _dataWeapon._numberOfBallReload;
 		_numberOfBallLeft = FMath::Clamp(_numberOfBallLeft,0,_dataWeapon._magazineSize);
 		break;
 	}
 }
 
 
-void AMyWeaponBehaviour::NormalFire(USceneComponent* FP_MuzzleLocation)
+void AMyWeaponBehaviour::NormalFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Normal FIre"));
 }
 
-void AMyWeaponBehaviour::SpecialFire(USceneComponent* FP_MuzzleLocation)
+void AMyWeaponBehaviour::SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Special FIre"));
 }

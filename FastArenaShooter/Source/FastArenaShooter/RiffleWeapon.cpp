@@ -5,7 +5,7 @@
 #include "ABulletForRiffle.h"
 #include "Kismet/GameplayStatics.h"
 
-void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
+void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _actualSpeed, float _maxSpeed)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
@@ -60,14 +60,14 @@ void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 				// 	}
 				// }
 			}
-			_timeBeforeNextShoot = _dataWeapon._cadenceTir;
+			_timeBeforeNextShoot = _dataWeapon._cadenceTir * _actualSpeed/_maxSpeed;
 			_numberOfBallLeft--;
 		}
 	}
 }
 
 
-void ARiffleWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation)
+void ARiffleWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation, float _actualSpeed, float _maxSpeed)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)

@@ -14,7 +14,7 @@ class FASTARENASHOOTER_API ARiffleWeapon : public AMyWeaponBehaviour
 {
 	GENERATED_BODY()
 public:
-	void NormalFire(USceneComponent* FP_MuzzleLocation)override;
-	void SpecialFire(USceneComponent* FP_MuzzleLocation) override;
+	virtual void NormalFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) override;
+	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) override;
 
 };

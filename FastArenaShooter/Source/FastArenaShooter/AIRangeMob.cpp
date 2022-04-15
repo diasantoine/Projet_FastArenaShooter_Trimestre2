@@ -147,7 +147,7 @@ void AAIRangeMob::IASpecialAttack(AFASCharacter* _player)
 		_IAController->StopMovement();
 		if (weaponBehaviourObject != nullptr)
 		{
-			weaponBehaviourObject->Fire(true,FP_MuzzleLocation);
+			weaponBehaviourObject->Fire(true,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size(),_iaDataStruct._maxSpeed);
 		}
 	}
 }

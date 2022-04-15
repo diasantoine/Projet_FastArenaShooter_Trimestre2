@@ -74,11 +74,16 @@ void AFASCharacter::Tick(float DeltaTime)
 	HPRegeneration(DeltaTime);
 	CheckPlayerPosition();
 	MovementPlayer();
-	if (weaponBehaviourObject->_justFireRecoil)
+	if (weaponBehaviourObject != nullptr)
 	{
-		KnockBackPlayer(_WeaponType,weaponBehaviourObject->_dataWeapon._knockPlayerDuration,weaponBehaviourObject->_dataWeapon._recoilPower,
-			-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
-		weaponBehaviourObject->_justFireRecoil = false;
+		if (weaponBehaviourObject->_justFireRecoil)
+		{
+			KnockBackPlayer(_WeaponType,weaponBehaviourObject->_dataWeapon._knockPlayerDuration,weaponBehaviourObject->_dataWeapon._recoilPower,
+				-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
+			weaponBehaviourObject->_justFireRecoil = false;
+		}
+		weaponBehaviourObject->ActualSpeed = GetCharacterMovement()->Velocity.Size();
+		weaponBehaviourObject->MaxSpeed = _fDataStruct._maxSpeed;
 	}
 	// if (_onRecoil)
 	// {
@@ -293,11 +298,37 @@ void AFASCharacter::MovementPlayer()
 			GetCharacterMovement()->Velocity.Y = _forwardSign * GetActorForwardVector().Y * Velocity2D.Size() + AccelDirection.Y * accelVel;
 			_containerVelocityBunny = GetCharacterMovement()->Velocity.Size();
 			//UE_LOG(LogTemp,Warning,TEXT("%f"),_containerVelocityBunny)
-			if (_WeaponType != Shotgun && GetCharacterMovement()->Velocity.Size() >= _fDataStruct._maxSpeed * _fDataStruct._reloadShotGunPercentageMaxBunnySpeed)
+			if (_WeaponType != Shotgun && GetCharacterMovement()->Velocity.Size() >= _fDataStruct._maxSpeed * _fDataStruct._reloadShotGunPercentagelvl1)
 			{
-				TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
-				AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-				weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+				if (_timeBeforeReloadShotGun >= _fDataStruct._timeBeforeReloadShotGun)
+				{
+					_timeBeforeReloadShotGun = 0;
+					if (GetCharacterMovement()->Velocity.Size() >= _fDataStruct._maxSpeed * _fDataStruct._reloadShotGunPercentagelvl3)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else if (GetCharacterMovement()->Velocity.Size() >= _fDataStruct._maxSpeed * _fDataStruct._reloadShotGunPercentagelvl2)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}
+				}else
+				{
+					_timeBeforeReloadShotGun += GetWorld()->GetDeltaSeconds();
+				}
+			}else
+			{
+				if (_timeBeforeReloadShotGun > 0)
+				{
+					_timeBeforeReloadShotGun = 0;
+				}
 			}
 			if (_onRecoil)
 			{
@@ -419,9 +450,19 @@ void AFASCharacter::MovementPlayer()
 			{
 				if (_WeaponType != Riffle && GetCharacterMovement()->Velocity.Size() >= _fDataStruct._groundSpeed * _fDataStruct._reloadRifflePercentageMaxGroundSpeed)
 				{
-					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
-					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					if (_timeBeforeReloadRiffle > _fDataStruct._timeBeforeReloadRiffle)
+					{
+						_timeBeforeReloadRiffle = 0;
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else
+					{
+						_timeBeforeReloadRiffle += GetWorld()->GetDeltaSeconds();
+					}
+				}else
+				{
+					_timeBeforeReloadRiffle = 0;
 				}
 				if (_bunnyVelocity == 0)
 				{
@@ -477,12 +518,6 @@ void AFASCharacter::AutoJumpPlayer()
 {
 	if(GetCharacterMovement()->IsMovingOnGround())
 	{
-		if (_WeaponType != RocketLauncher)
-		{
-			TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
-			AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-			weaponBehaviourObjectReload->Reload(_userWidgetMunition);
-		}
 		Jump();
 		// float angle = ((acosf(FVector::DotProduct(_oldForwardVector, GetActorForwardVector()))) * (180 / PI));
 		// if (GetInputAxisValue("Right") != 0 && angle >= _fDataStruct._AmountOfMovementForBunny)
@@ -496,11 +531,37 @@ void AFASCharacter::AutoJumpPlayer()
 			if (InputComponent->GetAxisValue("Right") < 0 && InputComponent->GetAxisValue("Turn") <= -_fDataStruct._AmountOfMovementForBunny)
 			//if (InputComponent->GetAxisValue("Turn") <= -_fDataStruct._AmountOfMovementForBunny)
 			{
+				if (_WeaponType != RocketLauncher)
+				{
+					_numberOfBunnyMade++;
+					if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl3)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl2)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl1)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}
+				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
 			}else //if (InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
 				if (InputComponent->GetAxisValue("Right") > 0 && InputComponent->GetAxisValue("Turn") >= _fDataStruct._AmountOfMovementForBunny)
 			{
+				if (_WeaponType != RocketLauncher)
+				{
+					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
 			}else if  (InputComponent->GetAxisValue("Forward") != 0)
@@ -511,6 +572,12 @@ void AFASCharacter::AutoJumpPlayer()
 				}else
 				{
 					_forwardSign = -1;
+				}
+				if (_WeaponType != RocketLauncher)
+				{
+					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
 				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
@@ -591,7 +658,7 @@ void AFASCharacter::JumpWindow()
 void AFASCharacter::ShootWeapon(bool _normalFire)
 {
 	//InitialiseWeapon();
-	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation);
+	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size(),_fDataStruct._maxSpeed);
 }
 
 void AFASCharacter::StopShootWeapon(bool _normalFire)

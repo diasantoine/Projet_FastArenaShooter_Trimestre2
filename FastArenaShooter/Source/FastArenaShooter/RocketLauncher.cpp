@@ -6,7 +6,7 @@
 #include "Rocket.h"
 #include "Kismet/GameplayStatics.h"
 
-void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
+void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
@@ -42,9 +42,10 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 					//_bulletsShotgun->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
 					ARocket* _bulletClass = Cast<ARocket>(_bulletsShotgun);
 					if (_bulletClass != nullptr)
-					
 					{
 						_bulletClass->_dataBullet = _dataWeapon;
+						_bulletClass->_actualSpeed = _actualSpeed;
+						_bulletClass->_maxSpeed = _maxSpeed;
 					}
 					UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 				}
@@ -67,7 +68,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation)
 	}
 }
 
-void ARocketLauncher::SpecialFire(USceneComponent* FP_MuzzleLocation)
+void ARocketLauncher::SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
