@@ -54,8 +54,6 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _numberOfBunnyForReloadRocketLauncherlvl3 = 12;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _reloadShotGunPercentageMaxBunnySpe = 0.75f;
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadShotGun = 2.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _reloadRifflePercentageMaxGroundSpeed = 0.75f;

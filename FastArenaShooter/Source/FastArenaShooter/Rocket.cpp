@@ -39,8 +39,8 @@ void ARocket::BeginPlay()
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
 	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
-	_rangeExplosion = _dataBullet._sizeSphereExplosion * _actualSpeed/_maxSpeed;
-	_explosionImpact = _dataBullet._impactPower * _actualSpeed/_maxSpeed;
+	_rangeExplosion = _dataBullet._sizeSphereExplosion * _percentageSpeed;
+	_explosionImpact = _dataBullet._impactPower * _percentageSpeed;
 }
 
 
@@ -58,7 +58,7 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
 			if (_containerIA != nullptr)
 			{
-				_containerIA->DamageIA(_dataBullet._dmg * _actualSpeed/_maxSpeed,GetOwner(),_explosionImpact);
+				_containerIA->DamageIA(_dataBullet._dmg * _percentageSpeed,GetOwner(),_explosionImpact);
 			}
 		}
 		TArray<FHitResult> out;
@@ -67,11 +67,11 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 			FCollisionQueryParams::DefaultQueryParam,FCollisionResponseParams::DefaultResponseParam);
 		for (auto Out : out)
 		{
-			float DistanceModifVar = FMath::Clamp(_minimumDistanceForOptimalImpact/ FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),0.f,1.f );
+			float DistanceModifVar = FMath::Clamp(_minimumDistanceForOptimalImpact/ FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),0.f,1.f )
+			 * _percentageSpeed;
 			if (Out.GetComponent()->IsSimulatingPhysics())
 			{
-				Out.GetComponent()->AddImpulseAtLocation(GetVelocity() * _explosionImpact * _minimumDistanceForOptimalImpact
-					/ FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()), GetActorLocation());
+				Out.GetComponent()->AddImpulseAtLocation(GetVelocity() * _explosionImpact * DistanceModifVar, GetActorLocation());
 			}
 			if (Out.GetActor() != nullptr)
 			{

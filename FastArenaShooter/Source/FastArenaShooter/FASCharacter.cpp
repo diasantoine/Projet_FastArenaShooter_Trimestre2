@@ -2,7 +2,10 @@
 
 
 #include "FASCharacter.h"
+
+#include "RiffleWeapon.h"
 #include "TimerManager.h"
+#include "WeaponShotGun.h"
 #include "Components/Image.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -83,7 +86,7 @@ void AFASCharacter::Tick(float DeltaTime)
 			weaponBehaviourObject->_justFireRecoil = false;
 		}
 		weaponBehaviourObject->ActualSpeed = GetCharacterMovement()->Velocity.Size();
-		weaponBehaviourObject->MaxSpeed = _fDataStruct._maxSpeed;
+		weaponBehaviourObject->MaxSpeed = _fDataStruct._groundSpeed;
 	}
 	// if (_onRecoil)
 	// {
@@ -658,7 +661,13 @@ void AFASCharacter::JumpWindow()
 void AFASCharacter::ShootWeapon(bool _normalFire)
 {
 	//InitialiseWeapon();
-	weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size(),_fDataStruct._maxSpeed);
+	if (Cast<ARiffleWeapon>(weaponBehaviourObject))
+	{
+		weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size() / _fDataStruct._groundSpeed);
+	}else
+	{
+		weaponBehaviourObject->Fire(_normalFire,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size() / _fDataStruct._maxSpeed);
+	}
 }
 
 void AFASCharacter::StopShootWeapon(bool _normalFire)

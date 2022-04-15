@@ -112,7 +112,7 @@ void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 void AAIRangeMob::MakeIaMoveInZ()
 {
 	//GetCapsuleComponent()->SetCapsuleHalfHeight(_modifHeightIA + FMath::RandRange(_modifHeightIA/3,_modifHeightIA * 2));
-	_modifHeightIA = FMath::FRandRange(_heighIA/_heighChangeValue,_heighIA * _heighChangeValue);
+	_modifHeightIA = FMath::FRandRange(_heighIA/_heighChangeValueLow,_heighIA * _heighChangeValueHigh);
 }
 
 void AAIRangeMob::IAMoving(AFASCharacter* _player)
@@ -147,7 +147,7 @@ void AAIRangeMob::IASpecialAttack(AFASCharacter* _player)
 		_IAController->StopMovement();
 		if (weaponBehaviourObject != nullptr)
 		{
-			weaponBehaviourObject->Fire(true,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size(),_iaDataStruct._maxSpeed);
+			weaponBehaviourObject->Fire(true,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size()/_iaDataStruct._maxSpeed);
 		}
 	}
 }

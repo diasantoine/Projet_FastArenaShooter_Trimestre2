@@ -25,9 +25,7 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Bullet Data")
 	float _minimumDistanceForOptimalImpact = 100.f;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Bullet Data")
-	float _actualSpeed;
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Bullet Data")
-	float _maxSpeed;
+	float _percentageSpeed;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Bullet Data")
 	float _rangeExplosion;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Bullet Data")

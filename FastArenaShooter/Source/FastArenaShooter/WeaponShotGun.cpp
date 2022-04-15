@@ -11,7 +11,7 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation,float _percen
 	if (World != nullptr && _numberOfBallLeft > 0)
 	{
 		int breakWhile = 0;
-		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;//FMath::RoundToInt(FMath::Clamp(_dataWeapon._numberOfBallShoot * _percentageEffect, _numberOfBallMinimum,_dataWeapon._numberOfBallShoot));
+		int numberOfBallNeededToBeShoot = FMath::Clamp( FMath::RoundToInt(_dataWeapon._numberOfBallShoot * _percentageEffect), _numberOfBallMinimum,_dataWeapon._numberOfBallShoot);
 		if (_timeBeforeNextShoot <= 0)
 		{
 			_justFire = true;

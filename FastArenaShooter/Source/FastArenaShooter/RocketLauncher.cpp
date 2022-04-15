@@ -44,8 +44,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation, float _perc
 					if (_bulletClass != nullptr)
 					{
 						_bulletClass->_dataBullet = _dataWeapon;
-						_bulletClass->_actualSpeed = _actualSpeed;
-						_bulletClass->_maxSpeed = _maxSpeed;
+						_bulletClass->_percentageSpeed = _percentageEffect;
 					}
 					UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 				}
