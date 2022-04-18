@@ -68,6 +68,7 @@ void AFASCharacter::BeginPlay()
 	weaponBehaviourObject->SetActorHiddenInGame(false);
 	_actualHP = _fDataStruct._hpMax;
 	_userWidgetMunition->SwapWeapon(_WeaponType);
+	_containerWhichWeapon = _WeaponType;
 }
 
 // Called every frame
@@ -97,8 +98,8 @@ void AFASCharacter::Tick(float DeltaTime)
 	// 	UE_LOG(LogTemp,Warning,TEXT("%f"), _containerRecoil);
 	// }
 	
-	FP_Gun->SetRelativeRotation(FRotator(0,-90,
-		-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation().Pitch));//rotate weapon for style
+	FP_Gun->SetRelativeRotation(FRotator(0,90,
+		UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetCameraRotation().Pitch));//rotate weapon for style
 	
 	if (_onJumpAuto)
 	{

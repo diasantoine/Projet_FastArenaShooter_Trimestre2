@@ -167,6 +167,9 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
 	bool _onRecoil = false;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
+	TEnumAsByte<TypeOfWeapon> _containerWhichWeapon;
+
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadRiffle = 0;
