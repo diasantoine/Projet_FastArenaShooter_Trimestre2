@@ -5,13 +5,13 @@
 #include "ShotGunBullets.h"
 #include "Kismet/GameplayStatics.h"
 
-void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation)
+void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation,float _percentageEffect)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
 	{
 		int breakWhile = 0;
-		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
+		int numberOfBallNeededToBeShoot = FMath::Clamp( FMath::RoundToInt(_dataWeapon._numberOfBallShoot * _percentageEffect), _numberOfBallMinimum,_dataWeapon._numberOfBallShoot);
 		if (_timeBeforeNextShoot <= 0)
 		{
 			_justFire = true;
@@ -67,7 +67,7 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation)
 	}
 }
 
-void AWeaponShotGun::SpecialFire(USceneComponent* FP_MuzzleLocation)
+void AWeaponShotGun::SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)

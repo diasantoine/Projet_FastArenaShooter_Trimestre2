@@ -30,7 +30,7 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 	{
 		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
 			&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
-			&& !IA->_onAbility)
+			&& !IA->_onAbility && !IA->_isJumpingNav)
 		{
 			return true;
 		}

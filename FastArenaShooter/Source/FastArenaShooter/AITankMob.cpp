@@ -4,6 +4,7 @@
 #include "AITankMob.h"
 
 #include "MyAiController.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -39,6 +40,8 @@ void AAITankMob::Tick(float DeltaTime)
 		if (_isJumpingNav)
 		{
 			_isJumpingNav = false;
+			GetMesh()->SetCollisionProfileName(_IACollision,false);
+			GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
 		}
 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
 		{
@@ -129,6 +132,8 @@ void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
+			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
+			GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
 			//Jump();
 		}
 	}
@@ -143,17 +148,32 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 {
 	if (OtherComp != nullptr)
 	{
-		if (OtherComp->IsSimulatingPhysics())
-		{
-			OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-		}
 		if ((Other != nullptr) && (Other != this))
 		{
-			AFASCharacter* _containerIA = Cast<AFASCharacter>(Other);
-			if (_containerIA != nullptr)
+			AFASCharacter* _containerPlayer = Cast<AFASCharacter>(Other);
+			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Other);
+			if (_containerPlayer != nullptr)
 			{
 				_IAController->StopMovement();
-				_containerIA->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
+				_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
+				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
+			}else if (_containerIA)
+			{
+				_IAController->StopMovement();
+				OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+				//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
+			}else
+			{
+				if (OtherComp->IsSimulatingPhysics())
+				{
+					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+				}
+			}
+		}else
+		{
+			if (OtherComp->IsSimulatingPhysics())
+			{
+				OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
 			}
 		}
 	}

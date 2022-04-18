@@ -42,9 +42,25 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpRecovery = 5;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _reloadShotGunPercentageMaxBunnySpeed = 0.75f;
+	float _reloadShotGunPercentagelvl1 = 0.75f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _reloadShotGunPercentagelvl2 = 0.85f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _reloadShotGunPercentagelvl3 = 0.95f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _numberOfBunnyForReloadRocketLauncherlvl1 = 4;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _numberOfBunnyForReloadRocketLauncherlvl2 = 8;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _numberOfBunnyForReloadRocketLauncherlvl3 = 12;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeReloadShotGun = 2.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _reloadRifflePercentageMaxGroundSpeed = 0.75f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeReloadRiffle = 2.f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeReloadRocketLauncher = 2.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeLedReset = 1.f;
 };
@@ -151,6 +167,15 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
 	bool _onRecoil = false;
 
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeReloadRiffle = 0;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeReloadShotGun = 0;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _timeBeforeReloadRocketLauncher= 0;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	int _numberOfBunnyMade;
 private:
 	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;

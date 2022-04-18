@@ -31,7 +31,9 @@ struct FdataWeapon
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	FVector _gunOffset;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
-	float _numberOfBallShoot;
+	int _numberOfBallShoot;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	int _numberOfBallReload;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _dmg;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
@@ -60,10 +62,10 @@ public:
 	AMyWeaponBehaviour();
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	void Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation);
+	void Fire(bool _normalFire,USceneComponent* FP_MuzzleLocation, float _percentageEffect);
 	void StopFire(bool _normalFire);
-	virtual void NormalFire(USceneComponent* FP_MuzzleLocation);
-	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation);
+	virtual void NormalFire(USceneComponent* FP_MuzzleLocation,float _percentageEffect);
+	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect);
 	void Reload(UUserWidgetMunition* WidgetMunition);
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
@@ -87,6 +89,11 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
 	bool _justFireRecoil = false;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
+	float MaxSpeed = 0;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
+	float ActualSpeed = 0;
 
 	USceneComponent* FP_MuzzleLocationContinuFire;
 };
