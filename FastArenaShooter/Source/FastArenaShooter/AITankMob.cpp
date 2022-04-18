@@ -41,7 +41,7 @@ void AAITankMob::Tick(float DeltaTime)
 		{
 			_isJumpingNav = false;
 			GetMesh()->SetCollisionProfileName(_IACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
+		//	GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
 		}
 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
 		{
@@ -133,7 +133,7 @@ void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
 			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
+			//GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
 			//Jump();
 		}
 	}
@@ -162,20 +162,20 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 				_IAController->StopMovement();
 				OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
 				//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
-			}else
-			{
-				if (OtherComp->IsSimulatingPhysics())
-				{
-					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-				}
-			}
-		}else
-		{
-			if (OtherComp->IsSimulatingPhysics())
-			{
-				OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-			}
-		}
+			}//else
+			// {
+			// 	if (OtherComp->IsSimulatingPhysics())
+			// 	{
+			// 		OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+			// 	}
+			// }
+		}//else
+		// {
+		// 	if (OtherComp->IsSimulatingPhysics())
+		// 	{
+		// 		OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+		// 	}
+		// }
 	}
 }
 

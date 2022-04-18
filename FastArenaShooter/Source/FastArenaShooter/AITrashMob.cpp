@@ -41,7 +41,7 @@ void AAITrashMob::Tick(float DeltaTime)
 		{
 			_isJumpingNav = false;
 			GetMesh()->SetCollisionProfileName(_IACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
+		//	GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
 		}
 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
 		{
@@ -75,7 +75,7 @@ void AAITrashMob::AttackPlayer(AFASCharacter* player)
 	if (player)
 	{
 		_IAController->StopMovement();
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
+		//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 }
 
@@ -138,7 +138,7 @@ void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
 			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
+			//GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
 			//Jump();
 		}
 	}
@@ -149,6 +149,31 @@ void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
  //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
  //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
 }
+
+void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherComp != nullptr && _onAbility)
+	{
+		if ((Other != nullptr) && (Other != this))
+		{
+			AFASCharacter* _containerPlayer = Cast<AFASCharacter>(Other);
+			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Other);
+			if (_containerPlayer != nullptr)
+			{
+				_IAController->StopMovement();
+				//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
+				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
+				_onAbility = false;
+			}
+			// else if (_containerIA)
+			// {
+			// 	_IAController->StopMovement();
+			// 	OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+			// }
+		}
+	}
+}
+
 
 
 

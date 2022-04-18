@@ -19,6 +19,7 @@ bool UBTDecoratorCheckIACanAttack::CalculateRawConditionValue(UBehaviorTreeCompo
 	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttack
 		&& !IA->_onAbility && !IA->_isJumpingNav)
 	{
+		IA->_onAbility = true;
 		return true;
 	}
 	return false;

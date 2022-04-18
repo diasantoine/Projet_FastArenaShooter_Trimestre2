@@ -6,14 +6,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99f9a064-5419-4a46-b681-a251aac7f713" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0001.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0003.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0005.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0006.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-2386.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-4576.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/3D/Enemies/Enemy1/TrashMob_Anim_Degat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/3D/Enemies/Enemy1/TrashMob_Anim_Degat.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_AIRangeMob.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_AIRangeMob.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_AITrashMob.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_AITrashMob.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_AiTankMob.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_AiTankMob.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/Level/ARTPAss.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/Level/ARTPAss.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/ABulletForRiffle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/ABulletForRiffle.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/AITankMob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/AITankMob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTDecoratorCheckIACanAttack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTDecoratorCheckIACanAttack.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTDecoratorCheckIACanSpecialAttack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTDecoratorCheckIACanSpecialAttack.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTTNodeSPecialAttack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTTNodeSPecialAttack.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_AttackPlayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/BTT_Node_AttackPlayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/IABullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/IABullet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/Rocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/Rocket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/Rocket.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/Rocket.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/RocketLauncher.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/RocketLauncher.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/RocketLauncher.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/RocketLauncher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/ShotGunBullets.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/ShotGunBullets.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +57,7 @@
     <setting file="file://$PROJECT_DIR$/Source/FastArenaShooter/GameModeFastArenaFPS.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/FastArenaShooter/GameModeFastArenaFPS.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/FastArenaShooter/FASCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Inc/FastArenaShooter/BaseBullet.gen.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/FastArenaShooter/MyPlayerController.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/FastArenaShooter/FASCharacter.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/FastArenaShooter/FastArenaShooterCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
