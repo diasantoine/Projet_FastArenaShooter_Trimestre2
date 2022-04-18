@@ -39,6 +39,8 @@ void ARocket::BeginPlay()
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
 	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
+	_rangeExplosion = _dataBullet._sizeSphereExplosion * _percentageSpeed;
+	_explosionImpact = _dataBullet._impactPower * _percentageSpeed;
 }
 
 
@@ -49,45 +51,43 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 	{
 		if (OtherComp->IsSimulatingPhysics())
 		{
-			OtherComp->AddImpulseAtLocation(GetVelocity() * _dataBullet._impactPower * 200, GetActorLocation());
+			OtherComp->AddImpulseAtLocation(GetVelocity() * _explosionImpact, GetActorLocation());
 		}
 		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
 			if (_containerIA != nullptr)
 			{
-				_containerIA->DamageIA(_dataBullet._dmg * 200,GetOwner(),_dataBullet._impactPower);
+				_containerIA->DamageIA(_dataBullet._dmg * _percentageSpeed,GetOwner(),_explosionImpact);
 			}
 		}
 		TArray<FHitResult> out;
 		FQuat quat = {0,0,0,0};
-		GetWorld()->SweepMultiByChannel(out,GetActorLocation(),GetActorLocation(),quat,ECC_Pawn,FCollisionShape::MakeSphere(_dataBullet._sizeSphereExplosion),
+		GetWorld()->SweepMultiByChannel(out,GetActorLocation(),GetActorLocation(),quat,ECC_Pawn,FCollisionShape::MakeSphere(_rangeExplosion),
 			FCollisionQueryParams::DefaultQueryParam,FCollisionResponseParams::DefaultResponseParam);
 		for (auto Out : out)
 		{
+			float DistanceModifVar = FMath::Clamp(_minimumDistanceForOptimalImpact/ FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),0.f,1.f )
+			 * _percentageSpeed;
 			if (Out.GetComponent()->IsSimulatingPhysics())
 			{
-				Out.GetComponent()->AddImpulseAtLocation(GetVelocity() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()), GetActorLocation());
+				Out.GetComponent()->AddImpulseAtLocation(GetVelocity() * _explosionImpact * DistanceModifVar, GetActorLocation());
 			}
-			if ((Out.GetActor() != nullptr))
+			if (Out.GetActor() != nullptr)
 			{
 				AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Out.GetActor());
 				AFASCharacter* _containerCharacter = Cast<AFASCharacter>(Out.GetActor());
 				if (_containerIA != nullptr)
 				{
-					_containerIA->LaunchCharacter(
-						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
-					_containerIA->DamageIA(_dataBullet._dmg  / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),GetOwner(),
-						_dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()));
+					_containerIA->LaunchCharacter((Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _explosionImpact * DistanceModifVar,true,true);
+					_containerIA->DamageIA(_dataBullet._dmg * DistanceModifVar,GetOwner(),_dataBullet._impactPower * DistanceModifVar);
 				}else if (_containerCharacter != nullptr)
 				{
-					_containerCharacter->KnockBackPlayer(RocketLauncher,_dataBullet._knockPlayerDuration,_dataBullet._impactPower,
-						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()));
+					_containerCharacter->KnockBackPlayer(RocketLauncher,_dataBullet._knockPlayerDuration * DistanceModifVar,_explosionImpact * DistanceModifVar,
+						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _explosionImpact * DistanceModifVar);
 					// _containerCharacter->LaunchCharacter(
 					// 	(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
-					_containerCharacter->DamagePlayer(
-						_dataBullet._dmg  / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),GetOwner(),
-						_dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true);
+					_containerCharacter->DamagePlayer(_dataBullet._dmg * DistanceModifVar,GetOwner(),_explosionImpact * DistanceModifVar,true);
 				}
 			}
 		}

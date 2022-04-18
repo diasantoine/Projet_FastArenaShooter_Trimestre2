@@ -6,7 +6,7 @@
 #include "IABullet.h"
 #include "Kismet/GameplayStatics.h"
 
-void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
+void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) 
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
@@ -44,7 +44,7 @@ void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 	}
 }
 
-void  AIAWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation)
+void  AIAWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) 
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
