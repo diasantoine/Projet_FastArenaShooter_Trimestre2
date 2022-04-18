@@ -30,4 +30,6 @@ public:
 	float _rangeExplosion;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Bullet Data")
 	float _explosionImpact;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Bullet Data")
+	float _minimalPower = 0.3f;;
 };
