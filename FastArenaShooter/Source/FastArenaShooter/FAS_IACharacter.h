@@ -94,4 +94,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _onAbility = false;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
+	FName _IACollision;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
+	FName _jumpIACollision;
 };

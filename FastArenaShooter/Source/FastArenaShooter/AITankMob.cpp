@@ -4,6 +4,7 @@
 #include "AITankMob.h"
 
 #include "MyAiController.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -39,6 +40,8 @@ void AAITankMob::Tick(float DeltaTime)
 		if (_isJumpingNav)
 		{
 			_isJumpingNav = false;
+			GetMesh()->SetCollisionProfileName(_IACollision,false);
+			GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
 		}
 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
 		{
@@ -129,6 +132,8 @@ void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
+			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
+			GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
 			//Jump();
 		}
 	}

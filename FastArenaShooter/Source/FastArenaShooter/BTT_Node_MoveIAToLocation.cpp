@@ -30,7 +30,7 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 		}
 		else
 		{
-			if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAbility)
+			if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAbility && !IA->_isJumpingNav)
 			{
 				Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
 			}
