@@ -5,13 +5,14 @@
 #include "ABulletForRiffle.h"
 #include "Kismet/GameplayStatics.h"
 
-void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
+void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)
 	{
 		int breakWhile = 0;
 		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
+		UE_LOG(LogTemp,Warning,TEXT("%f"),_timeBeforeNextShoot)
 		if (_timeBeforeNextShoot <= 0)
 		{
 			_justFire = true;
@@ -60,14 +61,15 @@ void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation)
 				// 	}
 				// }
 			}
-			_timeBeforeNextShoot = _dataWeapon._cadenceTir;
+			_timeBeforeNextShoot = FMath::Clamp(_dataWeapon._cadenceTir / _percentageEffect,_dataWeapon._cadenceTir,_maximumCadenceTir);
+			UE_LOG(LogTemp,Warning,TEXT("%f"),_timeBeforeNextShoot)
 			_numberOfBallLeft--;
 		}
 	}
 }
 
 
-void ARiffleWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation)
+void ARiffleWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect)
 {
 	UWorld* const World = GetWorld();
 	if (World != nullptr && _numberOfBallLeft > 0)

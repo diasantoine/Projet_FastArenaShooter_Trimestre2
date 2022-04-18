@@ -45,7 +45,9 @@ public:
 	float _timeBetweenZChangement = 3.f;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
-	float _heighChangeValue = 2.f;
+	float _heighChangeValueHigh = 2.f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
+	float _heighChangeValueLow = 2.f;
 
 private:
 	float _heighIA;
