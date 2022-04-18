@@ -16,4 +16,6 @@ class FASTARENASHOOTER_API ARocketLauncher : public AMyWeaponBehaviour
 public:
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) override;
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) override;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	float _minimalPower = 0.3f;
 };

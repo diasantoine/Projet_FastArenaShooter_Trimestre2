@@ -61,7 +61,7 @@ void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percen
 				// 	}
 				// }
 			}
-			_timeBeforeNextShoot = _dataWeapon._cadenceTir / _percentageEffect;
+			_timeBeforeNextShoot = FMath::Clamp(_dataWeapon._cadenceTir / _percentageEffect,_dataWeapon._cadenceTir,_maximumCadenceTir);
 			UE_LOG(LogTemp,Warning,TEXT("%f"),_timeBeforeNextShoot)
 			_numberOfBallLeft--;
 		}

@@ -88,6 +88,10 @@ void AFASCharacter::Tick(float DeltaTime)
 		weaponBehaviourObject->ActualSpeed = GetCharacterMovement()->Velocity.Size();
 		weaponBehaviourObject->MaxSpeed = _fDataStruct._groundSpeed;
 	}
+	if (_WeaponType == RocketLauncher && _numberOfBunnyMade > 0)
+	{
+		_numberOfBunnyMade = 0;
+	}
 	// if (_onRecoil)
 	// {
 	// 	UE_LOG(LogTemp,Warning,TEXT("%f"), _containerRecoil);
@@ -553,6 +557,12 @@ void AFASCharacter::AutoJumpPlayer()
 						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
 					}
+				}else
+				{
+					if (_numberOfBunnyMade > 0)
+					{
+						_numberOfBunnyMade = 0;
+					}
 				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
@@ -561,9 +571,32 @@ void AFASCharacter::AutoJumpPlayer()
 			{
 				if (_WeaponType != RocketLauncher)
 				{
-					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
-					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					// TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+					// AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+					// weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					_numberOfBunnyMade++;
+					if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl3)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl2)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl1)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}
+				}else
+				{
+					if (_numberOfBunnyMade > 0)
+					{
+						_numberOfBunnyMade = 0;
+					}
 				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
@@ -578,9 +611,29 @@ void AFASCharacter::AutoJumpPlayer()
 				}
 				if (_WeaponType != RocketLauncher)
 				{
-					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
-					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
-					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					_numberOfBunnyMade++;
+					if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl3)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl2)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl1)
+					{
+						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+					}
+				}else
+				{
+					if (_numberOfBunnyMade > 0)
+					{
+						_numberOfBunnyMade = 0;
+					}
 				}
 				_onBunny = true;
 				_keepBunnySpeed = true;
@@ -601,6 +654,32 @@ void AFASCharacter::AutoJumpPlayer()
 			}else
 			{
 				_forwardSign = -1;
+			}
+			if (_WeaponType != RocketLauncher)
+			{
+				_numberOfBunnyMade++;
+				if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl3)
+				{
+					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+				}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl2)
+				{
+					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+				}else if (_numberOfBunnyMade >= _fDataStruct._numberOfBunnyForReloadRocketLauncherlvl1)
+				{
+					TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[RocketLauncher];
+					AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
+					weaponBehaviourObjectReload->Reload(_userWidgetMunition);
+				}
+			}else
+			{
+				if (_numberOfBunnyMade > 0)
+				{
+					_numberOfBunnyMade = 0;
+				}
 			}
 			_onBunny = true;
 			_keepBunnySpeed = true;
