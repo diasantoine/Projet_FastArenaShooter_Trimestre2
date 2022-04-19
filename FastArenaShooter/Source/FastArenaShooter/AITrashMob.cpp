@@ -89,7 +89,7 @@ void AAITrashMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 {
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
-	_onATakingDMG = true;
+	_onTakingDMG = true;
 	if (_actualHP <= 0)
 	{
 		Destroy();
@@ -169,7 +169,8 @@ void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimiti
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Other);
 			if (_containerPlayer != nullptr)
 			{
-				_IAController->StopMovement();
+				_IAController->StopMovement();//TODO check ça
+				_onPlayerTakingDMG = true;
 				//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 				_onAttack = false;

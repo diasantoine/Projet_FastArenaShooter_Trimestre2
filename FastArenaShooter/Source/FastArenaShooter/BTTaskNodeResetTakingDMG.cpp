@@ -19,9 +19,9 @@ EBTNodeResult::Type UBTTaskNodeResetTakingDMG::ExecuteTask(UBehaviorTreeComponen
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	if (IA != nullptr)
 	{
-		if (IA->_onATakingDMG)
+		if (IA->_onTakingDMG)
 		{
-			IA->_onATakingDMG = false;
+			IA->_onTakingDMG = false;
 		}
 		return EBTNodeResult::Succeeded;
 	}

@@ -99,7 +99,10 @@ public:
 	bool _onAttackSpecial = false;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
-	bool _onATakingDMG = false;
+	bool _onTakingDMG = false;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "IA")
+	bool _onPlayerTakingDMG = false;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
 	FName _IACollision;

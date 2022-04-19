@@ -14,7 +14,7 @@ bool UBTDecoratorIsTakingDMG::CalculateRawConditionValue(UBehaviorTreeComponent&
 	//AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (IA != nullptr)
 	{
-		if (IA->_onATakingDMG)
+		if (IA->_onTakingDMG)
 		{
 			return true;
 		}

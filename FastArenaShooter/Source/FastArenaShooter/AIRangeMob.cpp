@@ -103,7 +103,7 @@ void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 {
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
-	_onATakingDMG = true;
+	_onTakingDMG = true;
 	if (_actualHP <= 0)
 	{
 		Destroy();
