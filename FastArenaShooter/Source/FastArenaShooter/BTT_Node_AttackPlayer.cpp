@@ -19,6 +19,7 @@ EBTNodeResult::Type UBTT_Node_AttackPlayer::ExecuteTask(UBehaviorTreeComponent& 
 	if (IA != nullptr && _player != nullptr)
 	{
 		IA->_onAttack = true;
+		IA->_isMoving = false;
 		IA->AttackPlayer(_player);
 		return EBTNodeResult::Succeeded;
 	}

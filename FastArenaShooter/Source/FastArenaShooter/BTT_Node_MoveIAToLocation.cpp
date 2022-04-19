@@ -23,16 +23,18 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 		AAIRangeMob* IARange = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 		if (IARange != nullptr)
 		{
-			if (!IA->_onAttack)
+			if (!IARange->_onAttack)
 			{
-				Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
+				IARange->_isMoving = true;
+				IARange->IAMoving(_player);
 			}
 		}
 		else
 		{
 			if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAttack && !IA->_isJumpingNav)
 			{
-				Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->IAMoving(_player);
+				IA->_isMoving = true;
+				IA->IAMoving(_player);
 			}
 		}
 		return EBTNodeResult::Succeeded;

@@ -21,6 +21,7 @@ EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& O
 	if (IA != nullptr && _player != nullptr)
 	{
 		IA->_onAttackSpecial = true;
+		IA->_isMoving = false;
 		IA->IASpecialAttack(_player);
 		return EBTNodeResult::Succeeded;
 	}
