@@ -94,8 +94,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _onAttack = false;
+	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _onAttackSpecial = false;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _onATakingDMG = false;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
 	FName _IACollision;

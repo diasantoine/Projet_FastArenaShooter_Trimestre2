@@ -4,6 +4,8 @@
 #include "BTDecoratorCheckIACanSpecialAttack.h"
 #include "AIController.h"
 #include "AIRangeMob.h"
+#include "AITankMob.h"
+#include "AITrashMob.h"
 #include "FAS_IACharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -18,19 +20,30 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 	float angle = FMath::RadiansToDegrees(AngleRadians);
 //	UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()));
 	AAIRangeMob* IARange = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
+	AAITankMob* IATankMob = Cast<AAITankMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	if (IARange != nullptr)
 	{
 		float _distance = FVector::Distance(FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,IA->GetActorLocation().Z),IA->GetActorLocation());
-		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && _distance < IA->_iaDataStruct._minimumDistanceForAttackSpecial && _distance > IA->_iaDataStruct._acceptanceRadius && !IA->_onAttack)
+		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && _distance < IA->_iaDataStruct._minimumDistanceForAttackSpecial && _distance > IA->_iaDataStruct._acceptanceRadius && !IA->_onAttack
+			&& !IA->_onATakingDMG)
+		{
+			return true;
+		}
+	}else if (IATankMob != nullptr)
+	{
+		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
+			&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
+			&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onATakingDMG)
 		{
 			return true;
 		}
 	}
-	else
+	else if(IA != nullptr)
 	{
-		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
-			&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
-			&& !IA->_onAttack && !IA->_isJumpingNav)
+		float _distance = FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation());
+		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && _distance < IA->_iaDataStruct._minimumDistanceForAttackSpecial
+			&& _distance > IA->_iaDataStruct._minimumDistanceForAttack && IA->GetCharacterMovement()->IsMovingOnGround()
+			&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onATakingDMG)
 		{
 			return true;
 		}

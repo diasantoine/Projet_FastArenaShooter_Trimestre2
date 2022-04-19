@@ -28,4 +28,6 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Dash IA")
 	float _dashSpeed = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Dash IA")
+	float _minimalDistanceForAggro = 500.f;
 };

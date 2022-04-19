@@ -106,9 +106,12 @@ void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 	if (_player!= nullptr)
 	{
 		_IAController->StopMovement();
-		FVector _direction = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+		FVector Player = {_player->GetActorLocation().X,_player->GetActorLocation().Y,GetActorLocation().Z};
+		FVector _direction = (Player - GetActorLocation()).GetSafeNormal();
 		_direction *= _dashSpeed;
-		ACharacter::LaunchCharacter(_direction,true,true);
+		
+		GetCharacterMovement()->Velocity = _direction;
+		//ACharacter::LaunchCharacter(_direction,true,true);
 	}
 }
 
@@ -156,6 +159,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 			if (_containerPlayer != nullptr)
 			{
 				_IAController->StopMovement();
+				_onAttackSpecial = false;
 				_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
 			}else if (_containerIA)
@@ -163,7 +167,13 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 				_IAController->StopMovement();
 				OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
 				//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
-			}//else
+			}
+			else
+			{
+				_IAController->StopMovement();
+				_onAttackSpecial = false;
+			}
+			//else
 			// {
 			// 	if (OtherComp->IsSimulatingPhysics())
 			// 	{

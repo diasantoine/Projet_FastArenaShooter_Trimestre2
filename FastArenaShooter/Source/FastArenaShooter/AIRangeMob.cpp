@@ -6,6 +6,7 @@
 #include "MyAiController.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 AAIRangeMob::AAIRangeMob()
@@ -102,6 +103,7 @@ void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 {
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
+	_onATakingDMG = true;
 	if (_actualHP <= 0)
 	{
 		Destroy();
@@ -121,6 +123,7 @@ void AAIRangeMob::IAMoving(AFASCharacter* _player)
 	{
 		if (FVector::Dist(GetActorLocation(),{_player->GetActorLocation().X,_player->GetActorLocation().Y,_modifHeightIA}) > _iaDataStruct._acceptanceRadius)
 		{
+			FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), _player->GetActorLocation()));
 			FVector _direction = FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,_modifHeightIA) - GetActorLocation();
 			GetCharacterMovement()->Velocity = _direction.GetSafeNormal() * _iaDataStruct._groundSpeed;
 		}
