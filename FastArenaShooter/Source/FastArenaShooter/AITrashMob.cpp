@@ -118,7 +118,7 @@ void AAITrashMob::IASpecialAttack(AFASCharacter* _player)
 	{
 		//Cast<AMyAiController>(GetController())->StopMovement();
 		//GetMesh()->SetSimulatePhysics(true);
-		GetCharacterMovement()->Velocity *= (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _iaDataStruct._groundSpeed;
 		Jump();
 	}
 }
@@ -183,7 +183,6 @@ void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimiti
 		}
 	}
 }
-
 
 
 

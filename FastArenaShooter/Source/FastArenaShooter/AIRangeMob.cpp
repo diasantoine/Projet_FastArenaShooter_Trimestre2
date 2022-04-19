@@ -46,6 +46,10 @@ void AAIRangeMob::BeginPlay()
 void AAIRangeMob::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (Player != nullptr)
+	{
+		FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Player->GetActorLocation()));
+	}
 	// if (!GetCharacterMovement()->IsMovingOnGround())
 	// {
 	// 	if (!_isJumpingNav)
@@ -90,7 +94,7 @@ void AAIRangeMob::AttackPlayer(AFASCharacter* player)
 	// }
 	if (player != nullptr)
 	{
-		_IAController->StopMovement();
+		//_IAController->StopMovement();
 		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 	// if (weaponBehaviourObject != nullptr)
@@ -121,9 +125,12 @@ void AAIRangeMob::IAMoving(AFASCharacter* _player)
 {
 	if (_player != nullptr)
 	{
+		if (Player == nullptr)
+		{
+			Player = _player;
+		}
 		if (FVector::Dist(GetActorLocation(),{_player->GetActorLocation().X,_player->GetActorLocation().Y,_modifHeightIA}) > _iaDataStruct._acceptanceRadius)
 		{
-			FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), _player->GetActorLocation()));
 			FVector _direction = FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,_modifHeightIA) - GetActorLocation();
 			GetCharacterMovement()->Velocity = _direction.GetSafeNormal() * _iaDataStruct._groundSpeed;
 		}

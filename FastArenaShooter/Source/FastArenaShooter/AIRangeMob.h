@@ -49,6 +49,9 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
 	float _heighChangeValueLow = 2.f;
 
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "IA")
+	AFASCharacter* Player;
+
 private:
 	float _heighIA;
 	AMyWeaponBehaviour* weaponBehaviourObject;

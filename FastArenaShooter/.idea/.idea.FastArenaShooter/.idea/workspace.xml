@@ -6,15 +6,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99f9a064-5419-4a46-b681-a251aac7f713" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0001.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0002.dll" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0001.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0003.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0005.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0008.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0010.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0012.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0014.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0015.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0017.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0019.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0022.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0024.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0292.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0499.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0514.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-1507.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-2176.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-2228.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-3605.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-3732.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-5048.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-5245.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-6818.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-7055.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FastArenaShooter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0007.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter-0007.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor-FastArenaShooter.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" beforeDir="false" afterPath="$PROJECT_DIR$/Binaries/Win64/UE4Editor.modules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_AIRangeMob.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_AIRangeMob.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/3D/Enemies/Enemy1/Enemy_1_PhysicsAsset.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/3D/Enemies/Enemy1/Enemy_1_PhysicsAsset.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/3D/Enemies/Enemy3/TankMob_Anim_SautRush.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/3D/Enemies/Enemy3/TankMob_Anim_SautRush.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_AITrashMob.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_AITrashMob.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_AiTankMob.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_AiTankMob.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_WeaponShotGun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_WeaponShotGun.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MyContent/BP/BP_FASCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/BP/BP_FASCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MyContent/Level/Prog_Antoine.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/AIRangeMob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/AIRangeMob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/AIRangeMob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/AIRangeMob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/AITrashMob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/FastArenaShooter/SpawnerEntityIA.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/FastArenaShooter/SpawnerEntityIA.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

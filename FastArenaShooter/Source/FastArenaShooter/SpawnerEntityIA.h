@@ -15,6 +15,8 @@ struct FIAParameter
 	float _cooldownSpawn;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	int _numberOfSpawn;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	int _numberToSpawn;
 };
 USTRUCT(BlueprintType)
 struct FWaweIA
@@ -45,6 +47,12 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	TSubclassOf<AFAS_IACharacter> _iaToSpawn;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Spawner IA")
+	float _timeBeforeNewWawe = 60.f;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	float _containerActualTime = 0;
 	FTimerHandle _timerManager;
 	FTimerHandle _timerIARange;
 	FTimerHandle _timerIATank;
