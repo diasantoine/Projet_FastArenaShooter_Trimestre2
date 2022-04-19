@@ -132,6 +132,7 @@ void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
+			_isMoving = false;
 			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
 			//GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
 			//Jump();
