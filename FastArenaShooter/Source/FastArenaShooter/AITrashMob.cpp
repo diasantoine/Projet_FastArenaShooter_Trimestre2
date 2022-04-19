@@ -152,7 +152,7 @@ void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 
 void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (OtherComp != nullptr && _onAbility)
+	if (OtherComp != nullptr && _onAttack)
 	{
 		if ((Other != nullptr) && (Other != this))
 		{
@@ -163,7 +163,7 @@ void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimiti
 				_IAController->StopMovement();
 				//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
-				_onAbility = false;
+				_onAttack = false;
 			}
 			// else if (_containerIA)
 			// {

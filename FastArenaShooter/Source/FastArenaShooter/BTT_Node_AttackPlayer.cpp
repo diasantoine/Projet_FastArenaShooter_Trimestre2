@@ -18,6 +18,7 @@ EBTNodeResult::Type UBTT_Node_AttackPlayer::ExecuteTask(UBehaviorTreeComponent& 
 	AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
 	if (IA != nullptr && _player != nullptr)
 	{
+		IA->_onAttack = true;
 		IA->AttackPlayer(_player);
 		return EBTNodeResult::Succeeded;
 	}

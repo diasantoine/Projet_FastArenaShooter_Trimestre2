@@ -93,7 +93,9 @@ public:
 	AMyAiController* _IAController;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
-	bool _onAbility = false;
+	bool _onAttack = false;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _onAttackSpecial = false;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
 	FName _IACollision;

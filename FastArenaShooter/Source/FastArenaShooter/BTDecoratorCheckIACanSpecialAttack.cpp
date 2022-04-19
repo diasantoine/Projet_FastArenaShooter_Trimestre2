@@ -21,9 +21,8 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 	if (IARange != nullptr)
 	{
 		float _distance = FVector::Distance(FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,IA->GetActorLocation().Z),IA->GetActorLocation());
-		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && _distance < IA->_iaDataStruct._minimumDistanceForAttackSpecial && _distance > IA->_iaDataStruct._acceptanceRadius && !IA->_onAbility)
+		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && _distance < IA->_iaDataStruct._minimumDistanceForAttackSpecial && _distance > IA->_iaDataStruct._acceptanceRadius && !IA->_onAttack)
 		{
-			IARange->_onAbility = true;
 			return true;
 		}
 	}
@@ -31,9 +30,8 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 	{
 		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttackSpecial
 			&& FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) > IA->_iaDataStruct._acceptanceRadius && IA->GetCharacterMovement()->IsMovingOnGround()
-			&& !IA->_onAbility && !IA->_isJumpingNav)
+			&& !IA->_onAttack && !IA->_isJumpingNav)
 		{
-			IA->_onAbility = true;
 			return true;
 		}
 	}

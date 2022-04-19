@@ -20,7 +20,7 @@ EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& O
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	if (IA != nullptr && _player != nullptr)
 	{
-		//IA->_onAbility = true;
+		IA->_onAttackSpecial = true;
 		IA->IASpecialAttack(_player);
 		return EBTNodeResult::Succeeded;
 	}
