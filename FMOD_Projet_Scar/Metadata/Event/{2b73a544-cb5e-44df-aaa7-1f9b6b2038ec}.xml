@@ -8,7 +8,7 @@
 			<value>RocketLauncher_Shoot</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{d9260819-ea72-475f-950f-b989e4d96335}</destination>
@@ -167,7 +167,6 @@
 	<object class="MixerBusEffectChain" id="{932126b4-81c0-4eaa-9914-6a16f92b0e7c}">
 		<relationship name="effects">
 			<destination>{49de5b5a-e14e-4f45-9c85-f72ebe34daa4}</destination>
-			<destination>{8b8d7712-e248-448a-89a1-f7e4ca431eff}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{96489960-ff62-481d-ad2b-10e29804849e}" />
@@ -193,7 +192,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{80242c16-d8a3-4f4b-97f1-742b5b97cd36}" />
 	<object class="MixerBusFader" id="{49de5b5a-e14e-4f45-9c85-f72ebe34daa4}" />
-	<object class="SpatialiserEffect" id="{8b8d7712-e248-448a-89a1-f7e4ca431eff}" />
 	<object class="MixerBusFader" id="{659e7f88-b1af-464d-985a-a5b4c4da4937}" />
 	<object class="AutomationCurve" id="{f9a61660-a1ec-4ac6-898f-29b8f3f52fe9}">
 		<relationship name="parameter">
