@@ -17,5 +17,7 @@ public:
 	virtual void NormalFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) override;
 	virtual void SpecialFire(USceneComponent* FP_MuzzleLocation, float _percentageEffect) override;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
-	float _minimalPower = 0.3f;
+	float _minimalPowerExplosion = 0.3f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
+	float _minimalDMGExplosion = 1;
 };

@@ -6,6 +6,7 @@
 #include "MyAiController.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 AAITrashMob::AAITrashMob()
@@ -41,12 +42,24 @@ void AAITrashMob::Tick(float DeltaTime)
 		{
 			_isJumpingNav = false;
 			GetMesh()->SetCollisionProfileName(_IACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
+		//	GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
+		}
+		if (_onAttackSpecial)
+		{
+			_onAttackSpecial = false;
 		}
 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
 		{
 			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 		}
+	}
+	if (_timeBeforeAbilityBack > 0)
+	{
+		_timeBeforeAbilityBack -= DeltaTime;
+	}
+	if (_timeBeforeSpecialAbilityBack > 0)
+	{
+		_timeBeforeSpecialAbilityBack -= DeltaTime;
 	}
 }
 
@@ -74,8 +87,10 @@ void AAITrashMob::AttackPlayer(AFASCharacter* player)
 	// }
 	if (player)
 	{
+		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
 		_IAController->StopMovement();
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
+		FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), player->GetActorLocation()));
+		//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 }
 
@@ -83,6 +98,7 @@ void AAITrashMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 {
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
+	_onTakingDMG = true;
 	if (_actualHP <= 0)
 	{
 		Destroy();
@@ -111,6 +127,8 @@ void AAITrashMob::IASpecialAttack(AFASCharacter* _player)
 	{
 		//Cast<AMyAiController>(GetController())->StopMovement();
 		//GetMesh()->SetSimulatePhysics(true);
+		_timeBeforeSpecialAbilityBack = _iaDataStruct._cooldownBetweenEachSpecialAbility;
+		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _iaDataStruct._groundSpeed;
 		Jump();
 	}
 }
@@ -137,8 +155,9 @@ void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
+			_isMoving = false;
 			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
+			//GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
 			//Jump();
 		}
 	}
@@ -148,6 +167,31 @@ void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
  //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());
  //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
  //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
+}
+
+void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherComp != nullptr && _onAttack)
+	{
+		if ((Other != nullptr) && (Other != this))
+		{
+			AFASCharacter* _containerPlayer = Cast<AFASCharacter>(Other);
+			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Other);
+			if (_containerPlayer != nullptr)
+			{
+				_IAController->StopMovement();//TODO check ça
+				_onPlayerTakingDMG = true;
+				//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
+				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
+				_onAttack = false;
+			}
+			// else if (_containerIA)
+			// {
+			// 	_IAController->StopMovement();
+			// 	OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+			// }
+		}
+	}
 }
 
 

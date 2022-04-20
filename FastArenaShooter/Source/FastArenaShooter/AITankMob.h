@@ -21,6 +21,7 @@ public:
 	virtual void AttackPlayer(AFASCharacter* _player)override;
 	virtual void DamageIA(int DMG, AActor* Attaquant, float Power)override;
 	virtual void IAMoving(AFASCharacter* _player)override;
+	void IARandomMove();
 	virtual void IASpecialAttack(AFASCharacter* _player)override;
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump)override;
 
@@ -28,4 +29,10 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Dash IA")
 	float _dashSpeed = 5000;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Dash IA")
+	float _minimalDistanceForAggro = 500.f;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Dash IA")
+	FVector _endDashPosition = FVector(0,0,0);
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "IA")
+	TArray<AActor*> _arrayOfRandomPosition;
 };

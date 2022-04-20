@@ -41,6 +41,10 @@ struct FIAdataStruct
 	float _minimumDistanceForAttack = 100;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _minimumDistanceForAttackSpecial = 100;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _cooldownBetweenEachAbility = 1;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _cooldownBetweenEachSpecialAbility = 2;
 };
 
 
@@ -93,11 +97,26 @@ public:
 	AMyAiController* _IAController;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
-	bool _onAbility = false;
+	bool _onAttack = false;
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _onAttackSpecial = false;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	bool _onTakingDMG = false;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "IA")
+	bool _onPlayerTakingDMG = false;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
 	FName _IACollision;
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
 	FName _jumpIACollision;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	float _timeBeforeAbilityBack = 0;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	float _timeBeforeSpecialAbilityBack = 0;
 };

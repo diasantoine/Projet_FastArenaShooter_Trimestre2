@@ -49,10 +49,10 @@ void ABulletForRiffle::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, U
 	// Only add impulse and destroy projectile if we hit a physics
 	if (OtherComp != nullptr)
 	{
-		if (OtherComp->IsSimulatingPhysics())
-		{
-			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-		}
+		// if (OtherComp->IsSimulatingPhysics())
+		// {
+		// 	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		// }
 		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);

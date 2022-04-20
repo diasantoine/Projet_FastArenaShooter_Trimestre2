@@ -6,6 +6,7 @@
 #include "MyAiController.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 AAIRangeMob::AAIRangeMob()
@@ -45,6 +46,14 @@ void AAIRangeMob::BeginPlay()
 void AAIRangeMob::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (Player != nullptr)
+	{
+		FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Player->GetActorLocation()));
+	}
+	if (_timeBeforeSpecialAbilityBack > 0)
+	{
+		_timeBeforeSpecialAbilityBack -= DeltaTime;
+	}
 	// if (!GetCharacterMovement()->IsMovingOnGround())
 	// {
 	// 	if (!_isJumpingNav)
@@ -89,7 +98,8 @@ void AAIRangeMob::AttackPlayer(AFASCharacter* player)
 	// }
 	if (player != nullptr)
 	{
-		_IAController->StopMovement();
+		//_IAController->StopMovement();
+		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
 		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 	// if (weaponBehaviourObject != nullptr)
@@ -102,6 +112,7 @@ void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 {
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
+	_onTakingDMG = true;
 	if (_actualHP <= 0)
 	{
 		Destroy();
@@ -119,6 +130,10 @@ void AAIRangeMob::IAMoving(AFASCharacter* _player)
 {
 	if (_player != nullptr)
 	{
+		if (Player == nullptr)
+		{
+			Player = _player;
+		}
 		if (FVector::Dist(GetActorLocation(),{_player->GetActorLocation().X,_player->GetActorLocation().Y,_modifHeightIA}) > _iaDataStruct._acceptanceRadius)
 		{
 			FVector _direction = FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,_modifHeightIA) - GetActorLocation();
@@ -147,6 +162,7 @@ void AAIRangeMob::IASpecialAttack(AFASCharacter* _player)
 		_IAController->StopMovement();
 		if (weaponBehaviourObject != nullptr)
 		{
+			_timeBeforeSpecialAbilityBack = _iaDataStruct._cooldownBetweenEachSpecialAbility;
 			weaponBehaviourObject->Fire(true,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size()/_iaDataStruct._maxSpeed);
 		}
 	}

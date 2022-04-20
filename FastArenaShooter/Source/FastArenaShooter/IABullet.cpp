@@ -37,9 +37,8 @@ void AIABullet::BeginPlay()
 {
 	Super::BeginPlay();
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
-	ProjectileMovement->Velocity += (GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation() - GetActorLocation()).GetSafeNormal();
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
-	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
+	ProjectileMovement->Velocity = (GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._speed;
 }
 
 
@@ -48,16 +47,16 @@ void AIABullet::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimiti
 	// Only add impulse and destroy projectile if we hit a physics
 	if (OtherComp != nullptr)
 	{
-		if (OtherComp->IsSimulatingPhysics())
-		{
-			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-		}
+		// if (OtherComp->IsSimulatingPhysics())
+		// {
+		// 	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		// }
 		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
-			AFASCharacter* _containerIA = Cast<AFASCharacter>(OtherActor);
-			if (_containerIA != nullptr)
+			AFASCharacter* _containerPlayer = Cast<AFASCharacter>(OtherActor);
+			if (_containerPlayer != nullptr)
 			{
-				_containerIA->DamagePlayer(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower,false);
+				_containerPlayer->DamagePlayer(_dataBullet._dmg,GetOwner(),_dataBullet._impactPower,false);
 			}
 		}
 		Destroy();

@@ -52,10 +52,10 @@ void AShotGunBullets::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 	// Only add impulse and destroy projectile if we hit a physics
 	if (OtherComp != nullptr)// && OtherComp->IsSimulatingPhysics())
 	{
-		if (OtherComp->IsSimulatingPhysics())
-		{
-			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-		}
+		// if (OtherComp->IsSimulatingPhysics())
+		// {
+		// 	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		// }
 		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);

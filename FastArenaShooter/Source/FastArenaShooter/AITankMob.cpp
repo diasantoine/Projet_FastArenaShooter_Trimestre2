@@ -41,13 +41,32 @@ void AAITankMob::Tick(float DeltaTime)
 		{
 			_isJumpingNav = false;
 			GetMesh()->SetCollisionProfileName(_IACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
+		//	GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
 		}
 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
 		{
 			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 		}
 	}
+	if (_timeBeforeAbilityBack > 0)
+	{
+		_timeBeforeAbilityBack -= DeltaTime;
+	}
+	if (_timeBeforeSpecialAbilityBack > 0)
+	{
+		_timeBeforeSpecialAbilityBack -= DeltaTime;
+	}
+	// if (_endDashPosition != FVector(0,0,0))
+	// {
+	// 	if (FVector::Dist(_endDashPosition,GetActorLocation()) <= _iaDataStruct._acceptanceRadius)
+	// 	{
+	// 		_IAController->StopMovement();
+	// 		_onAttackSpecial = false;
+	// 		GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+	// 		//UE_LOG(LogTemp,Warning,TEXT("%f"),GetCharacterMovement()->Velocity.Size());
+	// 		_endDashPosition = FVector(0,0,0);
+	// 	}
+	// }
 }
 
 
@@ -71,7 +90,8 @@ void AAITankMob::AttackPlayer(AFASCharacter* player)
 	if (player != nullptr)
 	{
 		_IAController->StopMovement();
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
+		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
+		//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 }
 
@@ -91,24 +111,47 @@ void AAITankMob::IAMoving(AFASCharacter* _player)
 	if (_player != nullptr)
 	{
 		_IAController->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
-		float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
-		float AngleRadians = FMath::Acos(AngleCosine);
-		float angle = FMath::RadiansToDegrees(AngleRadians);
-		if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f && angle <= _iaDataStruct._minimalAngleForAttack)
-		{
-			IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
-		}
+		// float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
+		// float AngleRadians = FMath::Acos(AngleCosine);
+		// float angle = FMath::RadiansToDegrees(AngleRadians);
+		// if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f && angle <= _iaDataStruct._minimalAngleForAttack)
+		// {
+		// 	IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
+		// }
 	}
 }
+
+void AAITankMob::IARandomMove()
+{
+	if (_IAController->GetMoveStatus() != EPathFollowingStatus::Moving)
+	{
+		if (_arrayOfRandomPosition.Num() > 0)
+		{
+			int _index = FMath::RandRange(0,_arrayOfRandomPosition.Num());
+			_IAController->MoveToActor(_arrayOfRandomPosition[_index],_iaDataStruct._acceptanceRadius,false);
+		}
+	}
+	// float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
+	// float AngleRadians = FMath::Acos(AngleCosine);
+	// float angle = FMath::RadiansToDegrees(AngleRadians);
+	// if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f && angle <= _iaDataStruct._minimalAngleForAttack)
+	// {
+	// 	IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
+	// }
+}
+
 
 void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
-		_IAController->StopMovement();
-		FVector _direction = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
-		_direction *= _dashSpeed;
-		ACharacter::LaunchCharacter(_direction,true,true);
+		_timeBeforeSpecialAbilityBack = _iaDataStruct._cooldownBetweenEachSpecialAbility;
+		//_IAController->MoveToLocation(_player->GetActorLocation(),-1,false);
+		//FAIMoveRequest test = FAIMoveRequest::GoalActor
+		GetCharacterMovement()->MaxWalkSpeed = _dashSpeed;
+		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dashSpeed;
+		_endDashPosition = _player->GetActorLocation();
+		//ACharacter::LaunchCharacter(_direction,true,true);
 	}
 }
 
@@ -132,8 +175,9 @@ void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
+			_isMoving = false;
 			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
-			GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
+			//GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
 			//Jump();
 		}
 	}
@@ -152,30 +196,64 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 		{
 			AFASCharacter* _containerPlayer = Cast<AFASCharacter>(Other);
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Other);
-			if (_containerPlayer != nullptr)
+			ABaseBullet* _containerBullet = Cast<ABaseBullet>(Other);
+			if (_onAttack)
 			{
-				_IAController->StopMovement();
-				_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
-				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
-			}else if (_containerIA)
-			{
-				_IAController->StopMovement();
-				OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-				//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
-			}else
-			{
-				if (OtherComp->IsSimulatingPhysics())
+				if (_containerPlayer != nullptr)
 				{
+					_IAController->StopMovement();
+					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+					//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
+					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
+				}else if (_containerIA)
+				{
+					_IAController->StopMovement();
 					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+					//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
+				}
+				else if (_containerBullet == nullptr)
+				{
+					_IAController->StopMovement();
+					_onAttackSpecial = false;
+					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+				}
+			}else if (_onAttackSpecial)
+			{
+				if (_containerPlayer != nullptr)
+				{
+					_IAController->StopMovement();
+					_onAttackSpecial = false;
+					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;//TODO check knocback and make one dash at a time
+					_containerPlayer->KnockBackPlayer(IATankKnock,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
+					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,false);
+				}else if (_containerIA)
+				{
+					//_IAController->StopMovement();
+					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+					//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
+				}
+				else if (_containerBullet == nullptr)
+				{
+					UE_LOG(LogTemp,Warning,TEXT("HIIIIIIIIIIIIT"));
+					_IAController->StopMovement();
+					_onAttackSpecial = false;
+					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 				}
 			}
-		}else
-		{
-			if (OtherComp->IsSimulatingPhysics())
-			{
-				OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-			}
-		}
+			//else
+			// {
+			// 	if (OtherComp->IsSimulatingPhysics())
+			// 	{
+			// 		OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+			// 	}
+			// }
+		}//else
+		// {
+		// 	if (OtherComp->IsSimulatingPhysics())
+		// 	{
+		// 		OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+		// 	}
+		// }
 	}
 }
 

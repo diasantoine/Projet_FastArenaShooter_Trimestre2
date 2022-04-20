@@ -9,7 +9,7 @@
 #include "MyWeaponBehaviour.generated.h"
 
 
-UENUM()
+UENUM(BlueprintType)
 enum TypeOfWeapon
 {
 	Riffle,
@@ -91,9 +91,7 @@ public:
 	bool _justFireRecoil = false;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
-	float MaxSpeed = 0;
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
-	float ActualSpeed = 0;
+	float _percentageSpeed = 0;
 
 	USceneComponent* FP_MuzzleLocationContinuFire;
 };
