@@ -4,6 +4,7 @@
 #include "SpawnerEntityIA.h"
 
 #include "AIRangeMob.h"
+#include "AITankMob.h"
 #include "AITrashMob.h"
 
 // Sets default values
@@ -97,8 +98,13 @@ void ASpawnerEntityIA::IATankSpawner()
 {
 	FActorSpawnParameters ActorSpawnParams;
 	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-	GetWorld()->SpawnActor<AFAS_IACharacter>(_iaToSpawn,GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
+	AFAS_IACharacter* IA = GetWorld()->SpawnActor<AFAS_IACharacter>(_iaToSpawn,GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
 	_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn--;
+	AAITankMob* IATank = Cast<AAITankMob>(IA);
+	if (IATank != nullptr)
+	{
+		IATank->_arrayOfRandomPosition = _arrayOfRandomPositionForTank;
+	}
 	if (_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn <= 0)
 	{
 		GetWorldTimerManager().ClearTimer(_timerIATank);

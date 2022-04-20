@@ -9,6 +9,17 @@
 #include "GameFramework/Character.h"
 #include "FASCharacter.generated.h"
 
+
+UENUM(BlueprintType)
+enum TypeOfKnockback
+{
+	RiffleKnock,
+	ShotgunKnock,
+	RocketLauncherKnock,
+	IATrashKnock,
+	IARangeKnock,
+	IATankKnock
+};
 USTRUCT(BlueprintType)
 struct FdataStruct
 {
@@ -37,6 +48,8 @@ struct FdataStruct
 	float _timeBeforeBunnyStop = 0.5f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	int _hpMax = 200;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	int _numberOfLives = 3;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeRecovery = 2.0f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
@@ -107,7 +120,7 @@ public:
 	void ResetAccelerationVelocity();
 	void ShootWeapon(bool _normalFire);
 	void StopShootWeapon(bool _normalFire);
-	void KnockBackPlayer(TypeOfWeapon WhichWeapon, float _KnockBackDuration, float _knockBackPower, FVector _direction);
+	void KnockBackPlayer(TypeOfKnockback WhichKnock, float _KnockBackDuration, float _knockBackPower, FVector _direction);
 	void ChangeWeapon(float _value);
 	void HudGestion();
 	void DamagePlayer(int DMG, AActor* Attaquant, float Power, bool AddImpulse);
@@ -177,6 +190,12 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
 	bool _onRecoil = false;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
+	bool _onTakeDMG = false;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Stat Character")
+	int _numberOfLifeLeft = 0;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Stat Character")
 	TEnumAsByte<TypeOfWeapon> _containerWhichWeapon;
 

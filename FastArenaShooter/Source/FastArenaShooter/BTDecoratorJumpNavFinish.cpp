@@ -4,6 +4,7 @@
 #include "BTDecoratorJumpNavFinish.h"
 
 #include "AIController.h"
+#include "AITankMob.h"
 #include "FAS_IACharacter.h"
 
 
@@ -11,7 +12,16 @@ bool UBTDecoratorJumpNavFinish::CalculateRawConditionValue(UBehaviorTreeComponen
 {
 	//Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn());
+	AAITankMob* IATank = Cast<AAITankMob>(OwnerComp.GetAIOwner()->GetPawn());
 	//AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	if (IATank)
+	{
+		if (!IATank->_onAttackSpecial)
+		{
+			return true;
+		}
+		return false;
+	}
 	if (IA != nullptr)
 	{
 		if (!IA->_onAttackSpecial)

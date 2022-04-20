@@ -12,7 +12,7 @@ void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percen
 	{
 		int breakWhile = 0;
 		int numberOfBallNeededToBeShoot = _dataWeapon._numberOfBallShoot;
-		UE_LOG(LogTemp,Warning,TEXT("%f"),_timeBeforeNextShoot)
+	//	UE_LOG(LogTemp,Warning,TEXT("%f"),_timeBeforeNextShoot)
 		if (_timeBeforeNextShoot <= 0)
 		{
 			_justFire = true;

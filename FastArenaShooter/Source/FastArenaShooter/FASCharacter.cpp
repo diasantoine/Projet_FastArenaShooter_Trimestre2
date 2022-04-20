@@ -70,6 +70,7 @@ void AFASCharacter::BeginPlay()
 	_actualHP = _fDataStruct._hpMax;
 	_userWidgetMunition->SwapWeapon(_WeaponType);
 	_containerWhichWeapon = _WeaponType;
+	_numberOfLifeLeft = _fDataStruct._numberOfLives;
 }
 
 // Called every frame
@@ -83,8 +84,23 @@ void AFASCharacter::Tick(float DeltaTime)
 	{
 		if (weaponBehaviourObject->_justFireRecoil)
 		{
-			KnockBackPlayer(_WeaponType,weaponBehaviourObject->_dataWeapon._knockPlayerDuration,weaponBehaviourObject->_dataWeapon._recoilPower,
-				-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
+			switch (_WeaponType)
+			{
+			case Riffle:
+				KnockBackPlayer(RiffleKnock,weaponBehaviourObject->_dataWeapon._knockPlayerDuration,weaponBehaviourObject->_dataWeapon._recoilPower,
+			-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
+				break;
+			case Shotgun:
+				KnockBackPlayer(ShotgunKnock,weaponBehaviourObject->_dataWeapon._knockPlayerDuration,weaponBehaviourObject->_dataWeapon._recoilPower,
+			-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
+				default:
+				break;
+			case RocketLauncher:
+				KnockBackPlayer(RocketLauncherKnock,weaponBehaviourObject->_dataWeapon._knockPlayerDuration,weaponBehaviourObject->_dataWeapon._recoilPower,
+			-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector());
+				break;
+			}
+		
 			weaponBehaviourObject->_justFireRecoil = false;
 		}
 		weaponBehaviourObject->ActualSpeed = GetCharacterMovement()->Velocity.Size();
@@ -159,6 +175,7 @@ void AFASCharacter::DamagePlayer(int DMG, AActor* Attaquant, float Power, bool A
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_fDataStruct._hpMax);
 	_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
+	_onTakeDMG = true;
 	if (_actualHP <= 0)
 	{
 		Respawn();
@@ -189,6 +206,11 @@ void AFASCharacter::CheckPlayerPosition()
 
 void AFASCharacter::Respawn()
 {
+	_numberOfLifeLeft--;
+	if (_numberOfLifeLeft <= 0)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("TES MORT"));
+	}
 	_actualHP = _fDataStruct._hpMax;
 	_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
 	_containerVelocityBunny = 0;
@@ -317,19 +339,30 @@ void AFASCharacter::MovementPlayer()
 						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
 						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
-						_ContainerpercentageSpeedMaxSpeedShotGun = _fDataStruct._percentageSpeedMaxSpeedlvl3;
+						if (_ContainerpercentageSpeedMaxSpeedShotGun != _fDataStruct._percentageSpeedMaxSpeedlvl3)
+						{
+							_ContainerpercentageSpeedMaxSpeedShotGun = _fDataStruct._percentageSpeedMaxSpeedlvl3;
+						}
 					}else if (GetCharacterMovement()->Velocity.Size() >= _fDataStruct._maxSpeed * _fDataStruct._reloadShotGunPercentagelvl2)
 					{
 						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
 						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
-						_ContainerpercentageSpeedMaxSpeedShotGun = _fDataStruct._percentageSpeedMaxSpeedlvl2;
+						if (_ContainerpercentageSpeedMaxSpeedShotGun != _fDataStruct._percentageSpeedMaxSpeedlvl2 &&
+							_ContainerpercentageSpeedMaxSpeedShotGun != _fDataStruct._percentageSpeedMaxSpeedlvl3)
+						{
+							_ContainerpercentageSpeedMaxSpeedShotGun = _fDataStruct._percentageSpeedMaxSpeedlvl2;
+						}
 					}else
 					{
 						TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Shotgun];
 						AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 						weaponBehaviourObjectReload->Reload(_userWidgetMunition);
-						_ContainerpercentageSpeedMaxSpeedShotGun = _fDataStruct._percentageSpeedMaxSpeedlvl1;
+						if (_ContainerpercentageSpeedMaxSpeedShotGun != _fDataStruct._percentageSpeedMaxSpeedlvl2 &&
+							_ContainerpercentageSpeedMaxSpeedShotGun != _fDataStruct._percentageSpeedMaxSpeedlvl3)
+						{
+							_ContainerpercentageSpeedMaxSpeedShotGun = _fDataStruct._percentageSpeedMaxSpeedlvl1;
+						}
 					}
 				}else
 				{
@@ -470,14 +503,21 @@ void AFASCharacter::MovementPlayer()
 							TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
 							AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 							weaponBehaviourObjectReload->Reload(_userWidgetMunition);
-							_ContainerpercentageSpeedMaxSpeedRiffle= _fDataStruct._percentageSpeedMaxSpeedlvl3;
+							if (_ContainerpercentageSpeedMaxSpeedRiffle != _fDataStruct._percentageSpeedMaxSpeedlvl3)
+							{
+								_ContainerpercentageSpeedMaxSpeedRiffle= _fDataStruct._percentageSpeedMaxSpeedlvl3;
+							}
 						}else if (GetCharacterMovement()->Velocity.Size() >= _fDataStruct._groundSpeed * _fDataStruct._reloadRifflePercentageMaxGroundSpeedlvl2)
 						{
 							_timeBeforeReloadRiffle = 0;
 							TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
 							AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 							weaponBehaviourObjectReload->Reload(_userWidgetMunition);
-							_ContainerpercentageSpeedMaxSpeedRiffle= _fDataStruct._percentageSpeedMaxSpeedlvl2;
+							if (_ContainerpercentageSpeedMaxSpeedRiffle != _fDataStruct._percentageSpeedMaxSpeedlvl3 &&
+								_ContainerpercentageSpeedMaxSpeedRiffle != _fDataStruct._percentageSpeedMaxSpeedlvl2)
+							{
+								_ContainerpercentageSpeedMaxSpeedRiffle= _fDataStruct._percentageSpeedMaxSpeedlvl2;
+							}
 						}
 						else
 						{
@@ -485,7 +525,11 @@ void AFASCharacter::MovementPlayer()
 							TSubclassOf<AMyWeaponBehaviour>& weaponBehaviourClass = _weaponTypes[Riffle];
 							AMyWeaponBehaviour* weaponBehaviourObjectReload = weapons[weaponBehaviourClass];
 							weaponBehaviourObjectReload->Reload(_userWidgetMunition);
-							_ContainerpercentageSpeedMaxSpeedRiffle= _fDataStruct._percentageSpeedMaxSpeedlvl1;
+							if (_ContainerpercentageSpeedMaxSpeedRiffle != _fDataStruct._percentageSpeedMaxSpeedlvl3 &&
+								_ContainerpercentageSpeedMaxSpeedRiffle != _fDataStruct._percentageSpeedMaxSpeedlvl2)
+							{
+								_ContainerpercentageSpeedMaxSpeedRiffle= _fDataStruct._percentageSpeedMaxSpeedlvl1;
+							}
 						}
 					}else
 					{
@@ -804,12 +848,15 @@ void AFASCharacter::ChangeWeapon(float _value)
 		{
 		case Riffle:
 			default:
+			_ContainerpercentageSpeedMaxSpeedRiffle = 0.f;
 			_WeaponType = Shotgun;
 			break;
 		case Shotgun:
+			_ContainerpercentageSpeedMaxSpeedShotGun = 0.f;
 			_WeaponType = RocketLauncher;
 			break;
 		case RocketLauncher:
+			_ContainerpercentageSpeedMaxSpeedRocketLauncher = 0.f;
 			_WeaponType = Riffle;
 		//	UE_LOG(LogTemp,Warning,TEXT("Riffle"));
 			break;
@@ -823,13 +870,16 @@ void AFASCharacter::ChangeWeapon(float _value)
 		switch (_WeaponType)
 		{
 		case Riffle:
+			_ContainerpercentageSpeedMaxSpeedRiffle = 0.f;
 			_WeaponType = RocketLauncher;
 			break;
 		case Shotgun:
 		default:
+			_ContainerpercentageSpeedMaxSpeedShotGun = 0.f;
 			_WeaponType = Riffle;
 			break;
 		case RocketLauncher:
+			_ContainerpercentageSpeedMaxSpeedRocketLauncher = 0.f;
 			_WeaponType = Shotgun;
 		//	UE_LOG(LogTemp,Warning,TEXT("ShotGun"));
 			break;
@@ -837,30 +887,36 @@ void AFASCharacter::ChangeWeapon(float _value)
 		weaponBehaviourObject = weapons[_weaponTypes[_WeaponType]];
 		weaponBehaviourObject->SetActorHiddenInGame(false);
 		_userWidgetMunition->SwapWeapon(_WeaponType);
-		_ContainerpercentageSpeedMaxSpeedRiffle = 0.f;
-		_ContainerpercentageSpeedMaxSpeedShotGun = 0.f;
-		_ContainerpercentageSpeedMaxSpeedRocketLauncher = 0.f;
 	}
 }
 
-void AFASCharacter::KnockBackPlayer(TypeOfWeapon WhichWeapon, float _KnockBackDuration, float _knockBackPower, FVector _direction)
+void AFASCharacter::KnockBackPlayer(TypeOfKnockback WhichKnock, float _KnockBackDuration, float _knockBackPower, FVector _direction)
 {
-	switch (WhichWeapon)
+	switch (WhichKnock)
 	{
-	case Riffle:
+	case RiffleKnock:
 		break;
-	case Shotgun:
+	case ShotgunKnock:
 		_onRecoil = true;
 		_containerRecoil = _KnockBackDuration;
 		GetCharacterMovement()->AddImpulse(_direction * _knockBackPower,true);
 		//GetCharacterMovement()->AddImpulse(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * _knockBackPower,true);
 		//LaunchCharacter(-UGameplayStatics::GetPlayerCameraManager(GetWorld(),0)->GetActorForwardVector() * weaponBehaviourObject->_dataWeapon._recoilPower,true,true);
 		break;
-	case RocketLauncher:
+	case RocketLauncherKnock:
 		_onRecoil = true;
 		_containerRecoil = _KnockBackDuration;
 		LaunchCharacter(_direction,true,true);
 		//GetCharacterMovement()->AddImpulse(_direction * _knockBackPower,true);
+		break;
+	case IATrashKnock:
+		break;
+	case IARangeKnock:
+		break;
+	case IATankKnock:
+		_onRecoil = true;
+		_containerRecoil = _KnockBackDuration;
+		LaunchCharacter(_direction,true,true);
 		break;
 	}
 }

@@ -9,7 +9,7 @@
 #include "MyWeaponBehaviour.generated.h"
 
 
-UENUM()
+UENUM(BlueprintType)
 enum TypeOfWeapon
 {
 	Riffle,
