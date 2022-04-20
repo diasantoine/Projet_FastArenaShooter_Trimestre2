@@ -62,6 +62,7 @@ void AAITankMob::Tick(float DeltaTime)
 		_onAttackSpecial = false;
 		GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 	}
+	CheckIAPosition();
 	// if (_endDashPosition != FVector(0,0,0))
 	// {
 	// 	if (FVector::Dist(_endDashPosition,GetActorLocation()) <= _iaDataStruct._acceptanceRadius)
@@ -134,7 +135,7 @@ void AAITankMob::IARandomMove()
 	{
 		if (_arrayOfRandomPosition.Num() > 0)
 		{
-			int _index = FMath::RandRange(0,_arrayOfRandomPosition.Num());
+			int _index = FMath::RandRange(0,_arrayOfRandomPosition.Num()-1);
 			_IAController->MoveToActor(_arrayOfRandomPosition[_index],_iaDataStruct._acceptanceRadius,false);
 		}
 	}

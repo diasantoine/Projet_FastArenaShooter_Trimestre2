@@ -4,6 +4,7 @@
 #include "BTDecoratorCheckIACanAttack.h"
 
 #include "AIController.h"
+#include "AITankMob.h"
 #include "FAS_IACharacter.h"
 
 bool UBTDecoratorCheckIACanAttack::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
@@ -19,6 +20,11 @@ bool UBTDecoratorCheckIACanAttack::CalculateRawConditionValue(UBehaviorTreeCompo
 	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttack
 		&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial && IA->_timeBeforeAbilityBack <= 0)
 	{
+		AAITankMob* AITankMob = Cast<AAITankMob>(OwnerComp.GetAIOwner()->GetPawn());
+		if (AITankMob != nullptr)
+		{
+			AITankMob->_isAggro = true;
+		}
 		return true;
 	}
 	return false;

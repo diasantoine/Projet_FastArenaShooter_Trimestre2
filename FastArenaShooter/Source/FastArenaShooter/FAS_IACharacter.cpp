@@ -148,3 +148,18 @@ void AFAS_IACharacter::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
  //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
  //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
 }
+
+void AFAS_IACharacter::CheckIAPosition()
+{
+	if (GetActorLocation().X > _maxCoordinateValue.X || GetActorLocation().X < _minCoordinateValue.X)
+	{
+		Destroy();
+	}else if (GetActorLocation().Y > _maxCoordinateValue.Y || GetActorLocation().Y < _minCoordinateValue.Y)
+	{
+		Destroy();
+	}else if (GetActorLocation().Z > _maxCoordinateValue.Z || GetActorLocation().Z < _minCoordinateValue.Z)
+	{
+		Destroy();
+	}
+}
+

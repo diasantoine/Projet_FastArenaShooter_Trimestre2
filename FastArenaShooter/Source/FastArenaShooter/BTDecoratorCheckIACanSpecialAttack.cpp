@@ -37,6 +37,7 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 			&& _distance > IATankMob->_iaDataStruct._minimumDistanceForAttack && IATankMob->GetCharacterMovement()->IsMovingOnGround()
 			&& !IATankMob->_onAttack && !IATankMob->_isJumpingNav && !IATankMob->_onTakingDMG && !IATankMob->_onAttackSpecial && IATankMob->_timeBeforeSpecialAbilityBack <= 0)
 		{
+			IATankMob->_isAggro = true;
 			return true;
 		}
 	}
