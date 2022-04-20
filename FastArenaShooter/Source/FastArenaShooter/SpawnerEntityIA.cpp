@@ -39,19 +39,28 @@ void ASpawnerEntityIA::BeginPlay()
 void ASpawnerEntityIA::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	// for (FWaweIA WaweIA : _waweIA)
-	// {
-	// 	for (auto IAParameter : WaweIA._waweParameter)
-	// 	{
-	// 		FActorSpawnParameters ActorSpawnParams;
-	// 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-	// 		for (AActor* Spawner :IAParameter.Value._spawner)
-	// 		{
-	// 			GetWorld()->SpawnActor<AFAS_IACharacter>(IAParameter.Key,Spawner->GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
-	// 		}
-	// 	}
-	// }
 }
+
+void ASpawnerEntityIA::ChangeWawe()
+{
+	_index++;
+	GetWorldTimerManager().ClearAllTimersForObject(this);
+	if (Cast<AAITrashMob>(_iaToSpawn))
+	{
+		GetWorldTimerManager().SetTimer(_timerIATrash,this,&ASpawnerEntityIA::IATrashSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+			_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
+	}else if (Cast<AAIRangeMob>(_iaToSpawn))
+	{
+		GetWorldTimerManager().SetTimer(_timerIARange,this,&ASpawnerEntityIA::IARangeSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+			_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
+	}
+	else
+	{
+		GetWorldTimerManager().SetTimer(_timerIATank,this,&ASpawnerEntityIA::IATankSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+			_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
+	}
+}
+
 
 void ASpawnerEntityIA::RapidSpawnIA()
 {
@@ -65,8 +74,8 @@ void ASpawnerEntityIA::IATrashSpawner()
 	FActorSpawnParameters ActorSpawnParams;
 	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 	GetWorld()->SpawnActor<AFAS_IACharacter>(_iaToSpawn,GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
-	_waweIA[0]._waweParameter[_iaToSpawn]._numberOfSpawn--;
-	if (_waweIA[0]._waweParameter[_iaToSpawn]._numberOfSpawn <= 0)
+	_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn--;
+	if (_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn <= 0)
 	{
 		GetWorldTimerManager().ClearTimer(_timerIATrash);
 	}
@@ -77,8 +86,8 @@ void ASpawnerEntityIA::IARangeSpawner()
 	FActorSpawnParameters ActorSpawnParams;
 	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 	GetWorld()->SpawnActor<AFAS_IACharacter>(_iaToSpawn,GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
-	_waweIA[0]._waweParameter[_iaToSpawn]._numberOfSpawn--;
-	if (_waweIA[0]._waweParameter[_iaToSpawn]._numberOfSpawn <= 0)
+	_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn--;
+	if (_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn <= 0)
 	{
 		GetWorldTimerManager().ClearTimer(_timerIARange);
 	}
@@ -89,8 +98,8 @@ void ASpawnerEntityIA::IATankSpawner()
 	FActorSpawnParameters ActorSpawnParams;
 	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 	GetWorld()->SpawnActor<AFAS_IACharacter>(_iaToSpawn,GetActorLocation(),FRotator(0,0,0),ActorSpawnParams);
-	_waweIA[0]._waweParameter[_iaToSpawn]._numberOfSpawn--;
-	if (_waweIA[0]._waweParameter[_iaToSpawn]._numberOfSpawn <= 0)
+	_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn--;
+	if (_waweIA[_index]._waweParameter[_iaToSpawn]._numberOfSpawn <= 0)
 	{
 		GetWorldTimerManager().ClearTimer(_timerIATank);
 	}

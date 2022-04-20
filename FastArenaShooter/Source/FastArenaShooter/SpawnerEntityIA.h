@@ -49,10 +49,8 @@ public:
 	TSubclassOf<AFAS_IACharacter> _iaToSpawn;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Spawner IA")
-	float _timeBeforeNewWawe = 60.f;
+	int _index = 0;
 
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
-	float _containerActualTime = 0;
 	FTimerHandle _timerManager;
 	FTimerHandle _timerIARange;
 	FTimerHandle _timerIATank;
@@ -61,4 +59,5 @@ public:
 	void IARangeSpawner();
 	void IATankSpawner();
 	void IATrashSpawner();
+	void ChangeWawe();
 };

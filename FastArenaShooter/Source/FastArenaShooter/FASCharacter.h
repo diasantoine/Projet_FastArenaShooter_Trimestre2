@@ -56,11 +56,21 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadShotGun = 2.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _reloadRifflePercentageMaxGroundSpeed = 0.75f;
+	float _reloadRifflePercentageMaxGroundSpeedlvl1 = 0.75f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _reloadRifflePercentageMaxGroundSpeedlvl2= 0.85f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _reloadRifflePercentageMaxGroundSpeedlvl3 = 0.95f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadRiffle = 2.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadRocketLauncher = 2.f;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _percentageSpeedMaxSpeedlvl1= 0.4f;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _percentageSpeedMaxSpeedlvl2 = 0.7f;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _percentageSpeedMaxSpeedlvl3 = 1.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeLedReset = 1.f;
 };
@@ -177,6 +187,14 @@ public:
 	float _timeBeforeReloadShotGun = 0;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadRocketLauncher= 0;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _ContainerpercentageSpeedMaxSpeedRiffle = 0;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _ContainerpercentageSpeedMaxSpeedShotGun =  0;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Stat Character")
+	float _ContainerpercentageSpeedMaxSpeedRocketLauncher = 0;
+	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
 	int _numberOfBunnyMade;
 private:
