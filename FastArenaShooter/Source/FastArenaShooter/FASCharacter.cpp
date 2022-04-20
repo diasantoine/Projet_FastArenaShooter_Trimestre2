@@ -910,11 +910,11 @@ void AFASCharacter::HudGestion()
 		{
 			_userWidgetMunition->MunitionChanged(_weaponTypes.FindKey(_weapon.Key)->GetValue(),_weapon.Value->_numberOfBallLeft,_weapon.Value->_dataWeapon._magazineSize);
 		}
-		if (_userWidgetMunition->LedRiffleImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		if (_userWidgetMunition->LedRiffleImage->GetRenderOpacity() > 0)
 		{
 			if (_timeBeforeLedRiffle >= _fDataStruct._timeBeforeLedReset)
 			{
-				_userWidgetMunition->LedRiffleImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_userWidgetMunition->LedRiffleImage->SetOpacity(0);
 				_timeBeforeLedRiffle = 0;
 			}
 			else
@@ -922,11 +922,11 @@ void AFASCharacter::HudGestion()
 				_timeBeforeLedRiffle += GetWorld()->GetDeltaSeconds();
 			}
 		}
-		if (_userWidgetMunition->LedShotGunImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		if (_userWidgetMunition->LedShotGunImage->GetRenderOpacity() > 0)
 		{
 			if (_timeBeforeLedShotGun >= _fDataStruct._timeBeforeLedReset)
 			{
-				_userWidgetMunition->LedShotGunImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_userWidgetMunition->LedShotGunImage->SetOpacity(0);
 				_timeBeforeLedShotGun = 0;
 			}
 			else
@@ -934,11 +934,11 @@ void AFASCharacter::HudGestion()
 				_timeBeforeLedShotGun += GetWorld()->GetDeltaSeconds();
 			}
 		}
-		if (_userWidgetMunition->LedRocketLauncherImage->GetRenderOpacity() > _userWidgetMunition->_opacityLow)
+		if (_userWidgetMunition->LedRocketLauncherImage->GetRenderOpacity() > 0)
 		{
 			if (_timeBeforeLedRocketLauncher >= _fDataStruct._timeBeforeLedReset)
 			{
-				_userWidgetMunition->LedRocketLauncherImage->SetOpacity(_userWidgetMunition->_opacityLow);
+				_userWidgetMunition->LedRocketLauncherImage->SetOpacity(0);
 				_timeBeforeLedRocketLauncher = 0;
 			}
 			else
