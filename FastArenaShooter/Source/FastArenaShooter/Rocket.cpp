@@ -39,7 +39,7 @@ void ARocket::BeginPlay()
 	ProjectileMovement->InitialSpeed = _dataBullet._speed;
 	ProjectileMovement->MaxSpeed =  _dataBullet._speed;
 	ProjectileMovement->Velocity = ProjectileMovement->Velocity.GetSafeNormal() * _dataBullet._speed;
-	_rangeExplosion = _dataBullet._sizeSphereExplosion * _percentageSpeed;
+	_rangeExplosion = FMath::Clamp(_dataBullet._sizeSphereExplosion * _percentageSpeed,_minimalExplosionRange,_dataBullet._sizeSphereExplosion);
 	_explosionImpact = _dataBullet._impactPower * _percentageSpeed;
 }
 
