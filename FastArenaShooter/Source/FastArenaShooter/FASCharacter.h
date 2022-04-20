@@ -69,11 +69,11 @@ struct FdataStruct
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadShotGun = 2.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _reloadRifflePercentageMaxGroundSpeedlvl1 = 0.75f;
+	float _reloadRifflePercentageSpeedlvl1 = 0.75f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _reloadRifflePercentageMaxGroundSpeedlvl2= 0.85f;
+	float _reloadRifflePercentageSpeedlvl2= 0.85f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
-	float _reloadRifflePercentageMaxGroundSpeedlvl3 = 0.95f;
+	float _reloadRifflePercentageSpeedlvl3 = 0.95f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _timeBeforeReloadRiffle = 2.f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")

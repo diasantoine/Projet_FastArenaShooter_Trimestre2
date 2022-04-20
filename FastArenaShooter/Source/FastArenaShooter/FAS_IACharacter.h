@@ -41,6 +41,10 @@ struct FIAdataStruct
 	float _minimumDistanceForAttack = 100;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	float _minimumDistanceForAttackSpecial = 100;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _cooldownBetweenEachAbility = 1;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
+	float _cooldownBetweenEachSpecialAbility = 2;
 };
 
 
@@ -109,4 +113,10 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "IA")
 	FName _jumpIACollision;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	float _timeBeforeAbilityBack = 0;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
+	float _timeBeforeSpecialAbilityBack = 0;
 };

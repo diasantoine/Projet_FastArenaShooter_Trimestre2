@@ -48,6 +48,14 @@ void AAITankMob::Tick(float DeltaTime)
 			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 		}
 	}
+	if (_timeBeforeAbilityBack > 0)
+	{
+		_timeBeforeAbilityBack -= DeltaTime;
+	}
+	if (_timeBeforeSpecialAbilityBack > 0)
+	{
+		_timeBeforeSpecialAbilityBack -= DeltaTime;
+	}
 	// if (_endDashPosition != FVector(0,0,0))
 	// {
 	// 	if (FVector::Dist(_endDashPosition,GetActorLocation()) <= _iaDataStruct._acceptanceRadius)
@@ -82,7 +90,8 @@ void AAITankMob::AttackPlayer(AFASCharacter* player)
 	if (player != nullptr)
 	{
 		_IAController->StopMovement();
-		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
+		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
+		//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 }
 
@@ -136,8 +145,11 @@ void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
-		_IAController->MoveToActor(_player,-1,false);
+		_timeBeforeSpecialAbilityBack = _iaDataStruct._cooldownBetweenEachSpecialAbility;
+		//_IAController->MoveToLocation(_player->GetActorLocation(),-1,false);
+		//FAIMoveRequest test = FAIMoveRequest::GoalActor
 		GetCharacterMovement()->MaxWalkSpeed = _dashSpeed;
+		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dashSpeed;
 		_endDashPosition = _player->GetActorLocation();
 		//ACharacter::LaunchCharacter(_direction,true,true);
 	}
@@ -212,7 +224,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					_IAController->StopMovement();
 					_onAttackSpecial = false;
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;//TODO check knocback and make one dash at a time
-					_containerPlayer->KnockBackPlayer(IATankKnock,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,GetActorForwardVector());//(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
+					_containerPlayer->KnockBackPlayer(IATankKnock,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,false);
 				}else if (_containerIA)
 				{

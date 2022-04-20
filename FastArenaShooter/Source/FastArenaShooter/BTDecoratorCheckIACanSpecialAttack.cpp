@@ -24,7 +24,7 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 	{
 		float _distance = FVector::Distance(FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,IA->GetActorLocation().Z),IARange->GetActorLocation());
 		if (angle <= IARange->_iaDataStruct._minimalAngleForAttack  && _distance < IARange->_iaDataStruct._minimumDistanceForAttackSpecial
-			&& !IARange->_onAttack && !IARange->_onTakingDMG && !IARange->_onAttackSpecial)
+			&& !IARange->_onAttack && !IARange->_onTakingDMG && !IARange->_onAttackSpecial && IARange->_timeBeforeSpecialAbilityBack <= 0)
 		{
 			IARange->_isMoving = false;
 			IARange->_onAttackSpecial = true;
@@ -35,10 +35,8 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 		float _distance = FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation());
 		if (angle <= IATankMob->_iaDataStruct._minimalAngleForAttack  && _distance < IATankMob->_iaDataStruct._minimumDistanceForAttackSpecial
 			&& _distance > IATankMob->_iaDataStruct._minimumDistanceForAttack && IATankMob->GetCharacterMovement()->IsMovingOnGround()
-			&& !IATankMob->_onAttack && !IATankMob->_isJumpingNav && !IATankMob->_onTakingDMG && !IATankMob->_onAttackSpecial)
+			&& !IATankMob->_onAttack && !IATankMob->_isJumpingNav && !IATankMob->_onTakingDMG && !IATankMob->_onAttackSpecial && IATankMob->_timeBeforeSpecialAbilityBack <= 0)
 		{
-			IATankMob->_isMoving = false;
-			IATankMob->_onAttackSpecial = true;
 			return true;
 		}
 	}
@@ -47,7 +45,7 @@ bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTr
 		float _distance = FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation());
 		if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && _distance < IA->_iaDataStruct._minimumDistanceForAttackSpecial
 			&& _distance > IA->_iaDataStruct._minimumDistanceForAttack && IA->GetCharacterMovement()->IsMovingOnGround()
-			&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial)
+			&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial && IA->_timeBeforeSpecialAbilityBack <= 0)
 		{
 			return true;
 		}

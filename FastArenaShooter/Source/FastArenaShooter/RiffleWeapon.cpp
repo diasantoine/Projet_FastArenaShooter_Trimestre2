@@ -45,6 +45,7 @@ void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percen
 					
 					{
 						_bulletClass->_dataBullet = _dataWeapon;
+						_bulletClass->_dataBullet._speed = FMath::Clamp(_dataWeapon._speed / _percentageEffect,_dataWeapon._speed * 0.1f, _dataWeapon._speed);
 					}
 					UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 				}
@@ -62,7 +63,7 @@ void ARiffleWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percen
 				// }
 			}
 			_timeBeforeNextShoot = FMath::Clamp(_dataWeapon._cadenceTir / _percentageEffect,_dataWeapon._cadenceTir,_maximumCadenceTir);
-			UE_LOG(LogTemp,Warning,TEXT("%f"),_timeBeforeNextShoot)
+			UE_LOG(LogTemp,Warning,TEXT("%f"),_percentageEffect)
 			_numberOfBallLeft--;
 		}
 	}

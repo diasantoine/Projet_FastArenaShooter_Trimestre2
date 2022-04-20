@@ -35,7 +35,7 @@ void AMyWeaponBehaviour::Tick(float DeltaTime)
 	{
 		if (FP_MuzzleLocationContinuFire != nullptr)
 		{
-			NormalFire(FP_MuzzleLocationContinuFire,ActualSpeed/MaxSpeed);
+			NormalFire(FP_MuzzleLocationContinuFire,_percentageSpeed);
 		}
 	}
 }

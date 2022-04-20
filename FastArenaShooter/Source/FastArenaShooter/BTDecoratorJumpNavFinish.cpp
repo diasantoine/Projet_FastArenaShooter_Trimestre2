@@ -14,7 +14,7 @@ bool UBTDecoratorJumpNavFinish::CalculateRawConditionValue(UBehaviorTreeComponen
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn());
 	AAITankMob* IATank = Cast<AAITankMob>(OwnerComp.GetAIOwner()->GetPawn());
 	//AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	if (IATank)
+	if (IATank != nullptr)
 	{
 		if (!IATank->_onAttackSpecial)
 		{

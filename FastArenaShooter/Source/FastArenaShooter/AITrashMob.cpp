@@ -53,6 +53,14 @@ void AAITrashMob::Tick(float DeltaTime)
 			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
 		}
 	}
+	if (_timeBeforeAbilityBack > 0)
+	{
+		_timeBeforeAbilityBack -= DeltaTime;
+	}
+	if (_timeBeforeSpecialAbilityBack > 0)
+	{
+		_timeBeforeSpecialAbilityBack -= DeltaTime;
+	}
 }
 
 
@@ -79,6 +87,7 @@ void AAITrashMob::AttackPlayer(AFASCharacter* player)
 	// }
 	if (player)
 	{
+		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
 		_IAController->StopMovement();
 		FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), player->GetActorLocation()));
 		//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
@@ -118,6 +127,7 @@ void AAITrashMob::IASpecialAttack(AFASCharacter* _player)
 	{
 		//Cast<AMyAiController>(GetController())->StopMovement();
 		//GetMesh()->SetSimulatePhysics(true);
+		_timeBeforeSpecialAbilityBack = _iaDataStruct._cooldownBetweenEachSpecialAbility;
 		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _iaDataStruct._groundSpeed;
 		Jump();
 	}

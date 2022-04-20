@@ -50,6 +50,10 @@ void AAIRangeMob::Tick(float DeltaTime)
 	{
 		FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Player->GetActorLocation()));
 	}
+	if (_timeBeforeSpecialAbilityBack > 0)
+	{
+		_timeBeforeSpecialAbilityBack -= DeltaTime;
+	}
 	// if (!GetCharacterMovement()->IsMovingOnGround())
 	// {
 	// 	if (!_isJumpingNav)
@@ -95,6 +99,7 @@ void AAIRangeMob::AttackPlayer(AFASCharacter* player)
 	if (player != nullptr)
 	{
 		//_IAController->StopMovement();
+		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
 		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 	// if (weaponBehaviourObject != nullptr)
@@ -157,6 +162,7 @@ void AAIRangeMob::IASpecialAttack(AFASCharacter* _player)
 		_IAController->StopMovement();
 		if (weaponBehaviourObject != nullptr)
 		{
+			_timeBeforeSpecialAbilityBack = _iaDataStruct._cooldownBetweenEachSpecialAbility;
 			weaponBehaviourObject->Fire(true,FP_MuzzleLocation,GetCharacterMovement()->Velocity.Size()/_iaDataStruct._maxSpeed);
 		}
 	}

@@ -26,12 +26,14 @@ EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& O
 	if (AIRangeMob != nullptr && _player != nullptr)
 	{
 		AIRangeMob->_isMoving = false;
+		AIRangeMob->_onAttackSpecial = true;
 		AIRangeMob->IASpecialAttack(_player);
 		return EBTNodeResult::Succeeded;
 	}
 	if (AITankMob != nullptr && _player != nullptr)
 	{
 		AITankMob->_isMoving = false;
+		AITankMob->_onAttackSpecial = true;
 		AITankMob->IASpecialAttack(_player);
 		return EBTNodeResult::Succeeded;
 	}
