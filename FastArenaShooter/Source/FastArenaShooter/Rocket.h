@@ -31,7 +31,9 @@ public:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Bullet Data")
 	float _explosionImpact;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Bullet Data")
-	float _minimalPower = 0.3f;;
+	float _minimalPower = 0.3f;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Bullet Data")
+	float _minimalExplosionRange = 100.f;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _minimalDMGExplosion = 1;
 };

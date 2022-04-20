@@ -56,6 +56,12 @@ void AAITankMob::Tick(float DeltaTime)
 	{
 		_timeBeforeSpecialAbilityBack -= DeltaTime;
 	}
+	if (GetCharacterMovement()->Velocity.Size() < _dashSpeed && _onAttackSpecial)
+	{
+		_IAController->StopMovement();
+		_onAttackSpecial = false;
+		GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+	}
 	// if (_endDashPosition != FVector(0,0,0))
 	// {
 	// 	if (FVector::Dist(_endDashPosition,GetActorLocation()) <= _iaDataStruct._acceptanceRadius)
