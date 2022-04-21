@@ -47,6 +47,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation, float _perc
 						_bulletClass->_percentageSpeed = FMath::Clamp(_percentageEffect,_minimalPowerExplosion,1.f);
 						_bulletClass->_minimalPower = _minimalPowerExplosion;
 						_bulletClass->_minimalDMGExplosion = _minimalDMGExplosion;
+						_bulletClass->_minimalExplosionRange = _minimalExplosionRange;
 					}
 					UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 				}
