@@ -6,6 +6,7 @@
 #include "MyAiController.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 AAITankMob::AAITankMob()
@@ -56,6 +57,11 @@ void AAITankMob::Tick(float DeltaTime)
 	{
 		_timeBeforeSpecialAbilityBack -= DeltaTime;
 	 }
+	if (_onAttackSpecial && _playerPositionDash != FVector(0,0,0))
+	{
+		//FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Player->GetActorLocation()));
+		GetCharacterMovement()->Velocity = _playerPositionDash * _dashSpeed;
+	}
 	// if (GetCharacterMovement()->Velocity.Size() < _dashSpeed && _onAttackSpecial)
 	// {
 	// 	_IAController->StopMovement();
@@ -148,6 +154,17 @@ void AAITankMob::IARandomMove()
 	// }
 }
 
+void AAITankMob::IAChangeRotation(AFASCharacter* _player)
+{
+	if (_player != nullptr)
+	{
+		_IAController->StopMovement();
+		_startRotateTowardPlayer = true;
+		_playerPositionDash = _player->GetActorLocation();
+	}
+}
+
+
 
 void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 {
@@ -157,12 +174,17 @@ void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 		//_IAController->MoveToLocation(_player->GetActorLocation(),-1,false);
 		//FAIMoveRequest test = FAIMoveRequest::GoalActor
 		GetCharacterMovement()->MaxWalkSpeed = _dashSpeed;
+		_playerPositionDash = (FVector(_player->GetActorLocation().X,_player->GetActorLocation().Y,GetActorLocation().Z) - GetActorLocation()).GetSafeNormal();
+		Player = _player;
+		FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Player->GetActorLocation()));
+		_IAController->StopMovement();
 		//GetCharacterMovement()->AddImpulse((_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dashSpeed,true);
-		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dashSpeed;
+		//GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dashSpeed;
 	//	_endDashPosition = _player->GetActorLocation();
 		//ACharacter::LaunchCharacter(_direction,true,true);
 	}
 }
+
 
 void AAITankMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 {
@@ -213,6 +235,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 				{
 					_IAController->StopMovement();
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+					_onAttack = false;
 					//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
 				}else if (_containeIATank != nullptr)
@@ -222,13 +245,14 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 				else if (_containerIA)
 				{
 					_IAController->StopMovement();
+					_onAttack = false;
 					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
 					//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
 				}
 				else if (_containerBullet == nullptr)
 				{
 					_IAController->StopMovement();
-					_onAttackSpecial = false;
+					_onAttack = false;
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 				}
 			}else if (_onAttackSpecial)
@@ -242,6 +266,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,false);
 				}else if (_containeIATank != nullptr)
 				{
+					_onAttackSpecial = false;
 					_IAController->StopMovement();
 				}
 				else if (_containerIA)
