@@ -16,6 +16,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation, float _perc
 		if (_timeBeforeNextShoot <= 0)
 		{
 			_justFire = true;
+			_justFireRecoilAnimation = true;
 			while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 			{
 				breakWhile++;
@@ -47,6 +48,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation, float _perc
 						_bulletClass->_percentageSpeed = FMath::Clamp(_percentageEffect,_minimalPowerExplosion,1.f);
 						_bulletClass->_minimalPower = _minimalPowerExplosion;
 						_bulletClass->_minimalDMGExplosion = _minimalDMGExplosion;
+						_bulletClass->_minimalExplosionRange = _minimalExplosionRange;
 					}
 					UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 				}

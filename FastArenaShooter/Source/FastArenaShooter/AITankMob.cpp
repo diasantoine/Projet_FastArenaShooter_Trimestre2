@@ -55,13 +55,13 @@ void AAITankMob::Tick(float DeltaTime)
 	if (_timeBeforeSpecialAbilityBack > 0)
 	{
 		_timeBeforeSpecialAbilityBack -= DeltaTime;
-	}
-	if (GetCharacterMovement()->Velocity.Size() < _dashSpeed && _onAttackSpecial)
-	{
-		_IAController->StopMovement();
-		_onAttackSpecial = false;
-		GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
-	}
+	 }
+	// if (GetCharacterMovement()->Velocity.Size() < _dashSpeed && _onAttackSpecial)
+	// {
+	// 	_IAController->StopMovement();
+	// 	_onAttackSpecial = false;
+	// 	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
+	// }
 	CheckIAPosition();
 	// if (_endDashPosition != FVector(0,0,0))
 	// {
@@ -157,8 +157,9 @@ void AAITankMob::IASpecialAttack(AFASCharacter* _player)
 		//_IAController->MoveToLocation(_player->GetActorLocation(),-1,false);
 		//FAIMoveRequest test = FAIMoveRequest::GoalActor
 		GetCharacterMovement()->MaxWalkSpeed = _dashSpeed;
+		//GetCharacterMovement()->AddImpulse((_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dashSpeed,true);
 		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dashSpeed;
-		_endDashPosition = _player->GetActorLocation();
+	//	_endDashPosition = _player->GetActorLocation();
 		//ACharacter::LaunchCharacter(_direction,true,true);
 	}
 }

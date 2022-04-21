@@ -19,5 +19,7 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _minimalPowerExplosion = 0.3f;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Weapon Parameter")
-	float _minimalDMGExplosion = 1;
+	float _minimalDMGExplosion = 0.3f;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = "Bullet Data")
+	float _minimalExplosionRange = 100.f;
 };
