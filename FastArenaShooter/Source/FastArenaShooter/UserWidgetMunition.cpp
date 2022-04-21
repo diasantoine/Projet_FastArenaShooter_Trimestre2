@@ -15,14 +15,14 @@ void UUserWidgetMunition::MunitionChanged(int WhichWeapon,int MunitionLeft, int 
 	{
 	case 0:
 		default:
-		_riffleMunitionImage->Brush.ImageSize.X =_sizeRiffleImage.X * MunitionLeft / MaxMunition;
+		BarreGunOnRiffleImage->Brush.ImageSize.X =_sizeRiffleImage.X * MunitionLeft / MaxMunition;
 		break;
 	case 1:
-		_shotGunMunitionImage->Brush.ImageSize.X = _sizeShotGunImage.X * MunitionLeft / MaxMunition;
+		BarreGunOnShotGunImage->Brush.ImageSize.X = _sizeShotGunImage.X * MunitionLeft / MaxMunition;
 		//LedShotGunImage->SetOpacity(_opacityHigh);
 		break;
 	case 2:
-		_rocketLauncherMunitionImage->Brush.ImageSize.X = _sizeRocketLauncherImage.X * MunitionLeft / MaxMunition;
+		BarreGunOnRocketLauncherImage->Brush.ImageSize.X = _sizeRocketLauncherImage.X * MunitionLeft / MaxMunition;
 		//LedRocketLauncherImage->SetOpacity(_opacityHigh);
 		//_rocketLauncherMunitionImage->GetDesiredSize().Set(_sizeRocketLauncherImage.X * (MunitionLeft / MaxMunition),_sizeRocketLauncherImage.Y * (MunitionLeft / MaxMunition));
 		break;
@@ -43,27 +43,27 @@ void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
 	case 0:
 	default:
 		_WeaponTypeImage->SetColorAndOpacity(FLinearColor::Red);
-		_riffleMunitionImage->SetOpacity(_opacityHigh);
+		//_riffleMunitionImage->SetOpacity(_opacityHigh);
 		RiffleImage->SetOpacity(_opacityHigh);
 		BarreGunOnRiffleImage->SetOpacity(_opacityHigh);
 		TextReloadRiffle->SetOpacity(0);
 
-		if (_shotGunMunitionImage->ColorAndOpacity.A > _opacityLow)
+		if (ShotgunImage->ColorAndOpacity.A > 0)
 		{
-			_shotGunMunitionImage->SetOpacity(_opacityLow);
-			ShotgunImage->SetOpacity(_opacityLow);
+			//_shotGunMunitionImage->SetOpacity(_opacityLow);
+			ShotgunImage->SetOpacity(0);
 	//		LedShotGunImage->SetOpacity(_opacityLow);
 			BarreGunOnShotGunImage->SetOpacity(_opacityLow);
-			TextReloadShotGun->SetOpacity(_opacityLow);
+			TextReloadShotGun->SetOpacity(_opacityHigh);
 		}
 
-		if (_rocketLauncherMunitionImage->ColorAndOpacity.A > _opacityLow)
+		if (RocketLauncherImage->ColorAndOpacity.A > 0)
 		{
-			_rocketLauncherMunitionImage->SetOpacity(_opacityLow);
-			RocketLauncherImage->SetOpacity(_opacityLow);
+			//_rocketLauncherMunitionImage->SetOpacity(_opacityLow);
+			RocketLauncherImage->SetOpacity(0);
 		//	LedRocketLauncherImage->SetOpacity(_opacityLow);
 			BarreGunOnRocketLauncherImage->SetOpacity(_opacityLow);
-			TextReloadRocketLauncher->SetOpacity(_opacityLow);
+			TextReloadRocketLauncher->SetOpacity(_opacityHigh);
 		}
 		
 		t1 = "Riffle";
@@ -72,27 +72,27 @@ void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
 		break;
 	case 1:
 		_WeaponTypeImage->SetColorAndOpacity(FLinearColor::Green);
-		_shotGunMunitionImage->SetOpacity(_opacityHigh);
+		//_shotGunMunitionImage->SetOpacity(_opacityHigh);
 		ShotgunImage->SetOpacity(_opacityHigh);
 		BarreGunOnShotGunImage->SetOpacity(_opacityHigh);
 		TextReloadShotGun->SetOpacity(0);
 
-		if (_rocketLauncherMunitionImage->ColorAndOpacity.A > _opacityLow)
+		if (RocketLauncherImage->ColorAndOpacity.A > 0)
 		{
-			_rocketLauncherMunitionImage->SetOpacity(_opacityLow);
-			RocketLauncherImage->SetOpacity(_opacityLow);
+			//_rocketLauncherMunitionImage->SetOpacity(_opacityLow);
+			RocketLauncherImage->SetOpacity(0);
 		//	LedRocketLauncherImage->SetOpacity(_opacityLow);
 			BarreGunOnRocketLauncherImage->SetOpacity(_opacityLow);
-			TextReloadRocketLauncher->SetOpacity(_opacityLow);
+			TextReloadRocketLauncher->SetOpacity(_opacityHigh);
 		}
 
-		if (_riffleMunitionImage->ColorAndOpacity.A > _opacityLow)
+		if (RiffleImage->ColorAndOpacity.A > 0)
 		{
-			_riffleMunitionImage->SetOpacity(_opacityLow);
-			RiffleImage->SetOpacity(_opacityLow);
+			//_riffleMunitionImage->SetOpacity(_opacityLow);
+			RiffleImage->SetOpacity(0);
 		//	LedRiffleImage->SetOpacity(_opacityLow);
 			BarreGunOnRiffleImage->SetOpacity(_opacityLow);
-			TextReloadRiffle->SetOpacity(_opacityLow);
+			TextReloadRiffle->SetOpacity(_opacityHigh);
 		}
 		
 		t1 = "ShotGun";
@@ -101,26 +101,26 @@ void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
 		break;
 	case 2:
 		_WeaponTypeImage->SetColorAndOpacity(FLinearColor::Yellow);
-		_rocketLauncherMunitionImage->SetOpacity(_opacityHigh);
+		//_rocketLauncherMunitionImage->SetOpacity(_opacityHigh);
 		RocketLauncherImage->SetOpacity(_opacityHigh);
 		BarreGunOnRocketLauncherImage->SetOpacity(_opacityHigh);
 		TextReloadRocketLauncher->SetOpacity(0);
 
-		if (_riffleMunitionImage->ColorAndOpacity.A > _opacityLow)
+		if (RiffleImage->ColorAndOpacity.A > 0)
 		{
-			_riffleMunitionImage->SetOpacity(_opacityLow);
-			RiffleImage->SetOpacity(_opacityLow);
+			//_riffleMunitionImage->SetOpacity(_opacityLow);
+			RiffleImage->SetOpacity(0);
 		//	LedRiffleImage->SetOpacity(_opacityLow);
 			BarreGunOnRiffleImage->SetOpacity(_opacityLow);
-			TextReloadRiffle->SetOpacity(_opacityLow);
+			TextReloadRiffle->SetOpacity(_opacityHigh);
 		}
-		if (_shotGunMunitionImage->ColorAndOpacity.A > _opacityLow)
+		if (ShotgunImage->ColorAndOpacity.A > 0)
 		{
-			_shotGunMunitionImage->SetOpacity(_opacityLow);
-			ShotgunImage->SetOpacity(_opacityLow);
+			//_shotGunMunitionImage->SetOpacity(_opacityLow);
+			ShotgunImage->SetOpacity(0);
 		//	LedShotGunImage->SetOpacity(_opacityLow);
 			BarreGunOnShotGunImage->SetOpacity(_opacityLow);
-			TextReloadShotGun->SetOpacity(_opacityLow);
+			TextReloadShotGun->SetOpacity(_opacityHigh);
 		}
 		t1 = "RocketLauncher";
 		t2 = FText::FromString(ANSI_TO_TCHAR(t1));

@@ -127,6 +127,8 @@ public:
 	void HPRegeneration(float DeltaTime);
 	void CheckPlayerPosition();
 	void Respawn();
+	void LaunchWawe();
+	void ResetScene();
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Stat Character")
 	FdataStruct _fDataStruct;
@@ -216,6 +218,9 @@ public:
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Stat Character")
 	int _numberOfBunnyMade;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner")
+	AActor* _spawnerManager;
 private:
 	virtual void Tick(float DeltaTime) override;
 	virtual void OnConstruction(const FTransform& Transform) override;

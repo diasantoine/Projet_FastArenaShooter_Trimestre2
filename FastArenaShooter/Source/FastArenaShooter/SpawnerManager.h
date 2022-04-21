@@ -22,9 +22,12 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Spawner IA")
 	TArray<AActor*> _arrayOfSpawner;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Spawner IA")
 	float _timeBeforeNewWawe = 60.f;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	float _containerTimeLeft = 0.f;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	bool _inputWaweLaunched = false;
 };

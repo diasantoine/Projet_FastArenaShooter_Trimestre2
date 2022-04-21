@@ -24,17 +24,23 @@ void ASpawnerManager::BeginPlay()
 void ASpawnerManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (_containerTimeLeft > 0)
+	if (_inputWaweLaunched)
 	{
-		_containerTimeLeft -= DeltaTime;
-	}
-	else
-	{
-		_containerTimeLeft = _timeBeforeNewWawe;
-		for (AActor* actor : _arrayOfSpawner)
+		if (_containerTimeLeft > 0)
 		{
-			ASpawnerEntityIA* spawner = Cast<ASpawnerEntityIA>(actor);
-			spawner->ChangeWawe();
+			_containerTimeLeft -= DeltaTime;
+		}
+		else
+		{
+			_containerTimeLeft = _timeBeforeNewWawe;
+			for (AActor* actor : _arrayOfSpawner)
+			{
+				ASpawnerEntityIA* spawner = Cast<ASpawnerEntityIA>(actor);
+				if (spawner != nullptr)
+				{
+					spawner->ChangeWawe();
+				}
+			}
 		}
 	}
 }

@@ -4,6 +4,7 @@
 #include "BTT_Node_MoveIAToLocation.h"
 
 #include "AIRangeMob.h"
+#include "AITankMob.h"
 #include "FAS_IACharacter.h"
 #include "MyAiController.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -21,12 +22,30 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 	if (IA != nullptr && _player != nullptr)
 	{
 		AAIRangeMob* IARange = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
+		AAITankMob* IATankMob = Cast<AAITankMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 		if (IARange != nullptr)
 		{
 			if (!IARange->_onAttackSpecial && !IARange->_onTakingDMG)
 			{
 				IARange->_isMoving = true;
 				IARange->IAMoving(_player);
+			}
+		}else if (IATankMob != nullptr)
+		{
+			float _distance = FVector::Dist(IATankMob->GetActorLocation(),_player->GetActorLocation());
+			if (!IATankMob->_onAttackSpecial && !IATankMob->_onTakingDMG && !IATankMob->_isJumpingNav && _distance > IATankMob->_minimalDistanceForAggro && !IATankMob->_isAggro)
+			{
+				IATankMob->_isMoving = true;
+				IATankMob->IARandomMove();
+			}else if (IATankMob->_isAggro &&!IATankMob->_onAttackSpecial && !IATankMob->_onTakingDMG && !IATankMob->_isJumpingNav)
+			{
+				IATankMob->_isMoving = true;
+				IATankMob->IAMoving(_player);
+			}else if (!IATankMob->_onAttackSpecial && !IATankMob->_onTakingDMG && !IATankMob->_isJumpingNav && _distance < IATankMob->_minimalDistanceForAggro && !IATankMob->_isAggro)
+			{
+				IATankMob->_isMoving = true;
+				IATankMob->_isAggro = true;
+				IATankMob->IAMoving(_player);
 			}
 		}
 		else if(IA != nullptr)
