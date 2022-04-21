@@ -3,10 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AIRangeMob.h"
+#include "AITankMob.h"
+#include "AITrashMob.h"
 #include "FAS_IACharacter.h"
 #include "GameFramework/Actor.h"
 #include "SpawnerEntityIA.generated.h"
 
+UENUM()
+enum EWhichIA
+{
+	Trash,
+	Range,
+	Tank
+};
 USTRUCT(BlueprintType)
 struct FIAParameter
 {
@@ -15,15 +25,13 @@ struct FIAParameter
 	float _cooldownSpawn;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	int _numberOfSpawn;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
-	int _numberToSpawn;
 };
 USTRUCT(BlueprintType)
 struct FWaweIA
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Wawe IA")
-	TMap<TSubclassOf<AFAS_IACharacter>,FIAParameter> _waweParameter;
+	TMap<TEnumAsByte<EWhichIA>,FIAParameter> _waweParameter;
 };
 UCLASS()
 class FASTARENASHOOTER_API ASpawnerEntityIA : public AActor
@@ -46,13 +54,30 @@ public:
 	TArray<FWaweIA> _waweIA;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
-	TSubclassOf<AFAS_IACharacter> _iaToSpawn;
+	TEnumAsByte<EWhichIA> _iaToSpawn;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	TSubclassOf<AAITrashMob> IATrash;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	TSubclassOf<AAIRangeMob> IARange;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	TSubclassOf<AAITankMob> IATank;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Spawner IA")
 	int _index = 0;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Spawner IA")
 	TArray<AActor*> _arrayOfRandomPositionForTank;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	int _numberOfTrashToSpawn = 0;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	int _numberOfRangeToSpawn = 0;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	int _numberOfTankToSpawn = 0;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Spawner IA")
+	bool _gameFinish = false;
 
 	FTimerHandle _timerManager;
 	FTimerHandle _timerIARange;
