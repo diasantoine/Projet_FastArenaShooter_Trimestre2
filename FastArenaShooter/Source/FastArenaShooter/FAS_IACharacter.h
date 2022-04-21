@@ -80,6 +80,8 @@ public:
 	virtual void IASpecialAttack(AFASCharacter* _player);
 	UFUNCTION(BlueprintCallable,Category = "IA")
 	virtual void IAJumpNavMesh(FVector TargetPostion, bool _needToJump);
+	void CheckIAPosition();
+
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _isMoving = false;
@@ -119,4 +121,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	float _timeBeforeSpecialAbilityBack = 0;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
+	FVector _maxCoordinateValue;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "IA")
+	FVector _minCoordinateValue;
 };

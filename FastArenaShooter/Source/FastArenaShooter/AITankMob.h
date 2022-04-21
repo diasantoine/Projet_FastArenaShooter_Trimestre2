@@ -33,6 +33,8 @@ public:
 	float _minimalDistanceForAggro = 500.f;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Dash IA")
 	FVector _endDashPosition = FVector(0,0,0);
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Dash IA")
+	bool _isAggro = false;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "IA")
 	TArray<AActor*> _arrayOfRandomPosition;
 };

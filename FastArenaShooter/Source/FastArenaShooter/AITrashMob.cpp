@@ -61,6 +61,7 @@ void AAITrashMob::Tick(float DeltaTime)
 	{
 		_timeBeforeSpecialAbilityBack -= DeltaTime;
 	}
+	CheckIAPosition();
 }
 
 

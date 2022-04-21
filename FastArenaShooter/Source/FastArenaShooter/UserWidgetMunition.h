@@ -17,15 +17,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UImage* _riffleMunitionImage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UImage* _shotGunMunitionImage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UImage* _rocketLauncherMunitionImage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* _HPImage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UImage* _WeaponTypeImage;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* BarreGunOnRiffleImage;
@@ -49,14 +41,11 @@ public:
 	class UImage* RocketLauncherImage;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UTextBlock* TextReloadRiffle;
+	class UImage* TextReloadRiffle;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UTextBlock* TextReloadShotGun;
+	class UImage* TextReloadShotGun;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UTextBlock* TextReloadRocketLauncher;
-
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UTextBlock* _WeaponTypeText;
+	class UImage* TextReloadRocketLauncher;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
 	FVector2D _sizeRiffleImage;

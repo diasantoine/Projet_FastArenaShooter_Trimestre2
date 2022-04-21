@@ -62,6 +62,7 @@ void AAITankMob::Tick(float DeltaTime)
 		_onAttackSpecial = false;
 		GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 	}
+	CheckIAPosition();
 	// if (_endDashPosition != FVector(0,0,0))
 	// {
 	// 	if (FVector::Dist(_endDashPosition,GetActorLocation()) <= _iaDataStruct._acceptanceRadius)
@@ -103,6 +104,7 @@ void AAITankMob::AttackPlayer(AFASCharacter* player)
 
 void AAITankMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 {
+	_isAggro = true;
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
 	if (_actualHP <= 0)
@@ -133,7 +135,7 @@ void AAITankMob::IARandomMove()
 	{
 		if (_arrayOfRandomPosition.Num() > 0)
 		{
-			int _index = FMath::RandRange(0,_arrayOfRandomPosition.Num());
+			int _index = FMath::RandRange(0,_arrayOfRandomPosition.Num()-1);
 			_IAController->MoveToActor(_arrayOfRandomPosition[_index],_iaDataStruct._acceptanceRadius,false);
 		}
 	}
@@ -202,6 +204,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 		{
 			AFASCharacter* _containerPlayer = Cast<AFASCharacter>(Other);
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Other);
+			AAITankMob* _containeIATank = Cast<AAITankMob>(Other);
 			ABaseBullet* _containerBullet = Cast<ABaseBullet>(Other);
 			if (_onAttack)
 			{
@@ -211,7 +214,11 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 					//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
-				}else if (_containerIA)
+				}else if (_containeIATank != nullptr)
+				{
+					_IAController->StopMovement();
+				}
+				else if (_containerIA)
 				{
 					_IAController->StopMovement();
 					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
@@ -232,7 +239,11 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;//TODO check knocback and make one dash at a time
 					_containerPlayer->KnockBackPlayer(IATankKnock,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,false);
-				}else if (_containerIA)
+				}else if (_containeIATank != nullptr)
+				{
+					_IAController->StopMovement();
+				}
+				else if (_containerIA)
 				{
 					//_IAController->StopMovement();
 					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
