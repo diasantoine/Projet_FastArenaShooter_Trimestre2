@@ -16,6 +16,7 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation,float _percen
 		{
 			_justFire = true;
 			_justFireRecoil = true;
+			_justFireRecoilAnimation = true;
 			while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 			{
 				breakWhile++;

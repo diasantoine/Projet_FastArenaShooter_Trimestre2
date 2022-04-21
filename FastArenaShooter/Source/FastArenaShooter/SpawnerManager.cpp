@@ -17,7 +17,7 @@ ASpawnerManager::ASpawnerManager()
 void ASpawnerManager::BeginPlay()
 {
 	Super::BeginPlay();
-	_containerTimeLeft = _timeBeforeNewWawe;
+	_containerTimeLeft = 0;
 }
 
 // Called every frame
