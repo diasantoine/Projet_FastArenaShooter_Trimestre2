@@ -18,8 +18,6 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* _HPImage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UImage* _WeaponTypeImage;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* BarreGunOnRiffleImage;
@@ -48,9 +46,6 @@ public:
 	class UImage* TextReloadShotGun;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
 	class UImage* TextReloadRocketLauncher;
-
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, meta = (BindWidget))
-	class UTextBlock* _WeaponTypeText;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category = "Weapon HUD")
 	FVector2D _sizeRiffleImage;

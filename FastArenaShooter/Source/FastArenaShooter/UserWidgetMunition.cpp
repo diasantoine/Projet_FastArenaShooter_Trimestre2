@@ -42,7 +42,6 @@ void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
 	{
 	case 0:
 	default:
-		_WeaponTypeImage->SetColorAndOpacity(FLinearColor::Red);
 		//_riffleMunitionImage->SetOpacity(_opacityHigh);
 		RiffleImage->SetOpacity(_opacityHigh);
 		BarreGunOnRiffleImage->SetOpacity(_opacityHigh);
@@ -68,10 +67,8 @@ void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
 		
 		t1 = "Riffle";
 		t2 = FText::FromString(ANSI_TO_TCHAR(t1));
-		_WeaponTypeText->SetText(t2);
 		break;
 	case 1:
-		_WeaponTypeImage->SetColorAndOpacity(FLinearColor::Green);
 		//_shotGunMunitionImage->SetOpacity(_opacityHigh);
 		ShotgunImage->SetOpacity(_opacityHigh);
 		BarreGunOnShotGunImage->SetOpacity(_opacityHigh);
@@ -97,10 +94,8 @@ void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
 		
 		t1 = "ShotGun";
 		t2 = FText::FromString(ANSI_TO_TCHAR(t1));
-		_WeaponTypeText->SetText(t2);
 		break;
 	case 2:
-		_WeaponTypeImage->SetColorAndOpacity(FLinearColor::Yellow);
 		//_rocketLauncherMunitionImage->SetOpacity(_opacityHigh);
 		RocketLauncherImage->SetOpacity(_opacityHigh);
 		BarreGunOnRocketLauncherImage->SetOpacity(_opacityHigh);
@@ -124,7 +119,6 @@ void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
 		}
 		t1 = "RocketLauncher";
 		t2 = FText::FromString(ANSI_TO_TCHAR(t1));
-		_WeaponTypeText->SetText(t2);
 		break;
 	}
 }
