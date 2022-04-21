@@ -86,7 +86,7 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _explosionImpact * DistanceModifVar);
 					// _containerCharacter->LaunchCharacter(
 					// 	(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
-					_containerCharacter->DamagePlayer(DistanceDmgModifier,GetOwner(),_explosionImpact * DistanceModifVar,true);
+					//_containerCharacter->DamagePlayer(DistanceDmgModifier,GetOwner(),_explosionImpact * DistanceModifVar,true);
 				}
 			 }//else
 			// {

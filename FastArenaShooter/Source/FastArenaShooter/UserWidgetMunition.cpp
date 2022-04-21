@@ -31,7 +31,10 @@ void UUserWidgetMunition::MunitionChanged(int WhichWeapon,int MunitionLeft, int 
 
 void UUserWidgetMunition::HPChange(int HPLeft, int HPMax)
 {
-	_HPImage->Brush.ImageSize.X = _sizeHPImage.X * HPLeft / HPMax;
+	float _hpPercentage = (float)HPLeft /(float)HPMax;
+	_hpPercentage/=2;
+	UE_LOG(LogTemp,Warning,TEXT("%f"),_hpPercentage)
+	_HPImage->SetOpacity(0.5f - _hpPercentage);
 }
 
 void UUserWidgetMunition::SwapWeapon(int WhichWeapon)
