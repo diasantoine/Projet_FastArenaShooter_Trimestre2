@@ -115,7 +115,9 @@ void AAITankMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
 	if (_actualHP <= 0)
 	{
-		Destroy();
+		_IAController->StopMovement();
+		_onDeath = true;
+		//Destroy();
 	}
 }
 

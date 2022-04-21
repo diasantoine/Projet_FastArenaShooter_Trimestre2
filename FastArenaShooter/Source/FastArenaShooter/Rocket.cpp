@@ -78,7 +78,10 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 				AFASCharacter* _containerCharacter = Cast<AFASCharacter>(Out.GetActor());
 				if (_containerIA != nullptr)
 				{
-					_containerIA->LaunchCharacter((Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _explosionImpact * DistanceModifVar,true,true);
+					if (_containerIA->_actualHP - DistanceDmgModifier * _dataBullet._dmg > 0)
+					{
+						_containerIA->LaunchCharacter((Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _explosionImpact * DistanceModifVar,true,true);
+					}
 					_containerIA->DamageIA(DistanceDmgModifier * _dataBullet._dmg,GetOwner(),_dataBullet._impactPower * DistanceModifVar);
 				}else if (_containerCharacter != nullptr)
 				{

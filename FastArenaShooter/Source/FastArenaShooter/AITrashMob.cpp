@@ -102,7 +102,9 @@ void AAITrashMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 	_onTakingDMG = true;
 	if (_actualHP <= 0)
 	{
-		Destroy();
+		_IAController->StopMovement();
+		_onDeath = true;
+		//Destroy();
 	}
 }
 

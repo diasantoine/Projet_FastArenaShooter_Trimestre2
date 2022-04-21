@@ -25,7 +25,7 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 		AAITankMob* IATankMob = Cast<AAITankMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 		if (IARange != nullptr)
 		{
-			if (!IARange->_onAttackSpecial && !IARange->_onTakingDMG)
+			if (!IARange->_onAttackSpecial && !IARange->_onTakingDMG && !IARange->_onDeath)
 			{
 				IARange->_isMoving = true;
 				IARange->IAMoving(_player);
@@ -33,7 +33,8 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 		}else if (IATankMob != nullptr)
 		{
 			float _distance = FVector::Dist(IATankMob->GetActorLocation(),_player->GetActorLocation());
-			if (!IATankMob->_onAttackSpecial && !IATankMob->_onTakingDMG && !IATankMob->_isJumpingNav && _distance > IATankMob->_minimalDistanceForAggro && !IATankMob->_isAggro)
+			if (!IATankMob->_onAttackSpecial && !IATankMob->_onTakingDMG && !IATankMob->_isJumpingNav && _distance > IATankMob->_minimalDistanceForAggro && !IATankMob->_isAggro
+				&& !IATankMob->_onDeath)
 			{
 				IATankMob->_isMoving = true;
 				IATankMob->IARandomMove();
@@ -50,7 +51,7 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 		}
 		else if(IA != nullptr)
 		{
-			if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial)
+			if (IA->GetCharacterMovement()->IsMovingOnGround() && !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial && !IA->_onDeath)
 			{
 				IA->_isMoving = true;
 				IA->IAMoving(_player);
