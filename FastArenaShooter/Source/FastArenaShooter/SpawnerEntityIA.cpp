@@ -20,20 +20,20 @@ void ASpawnerEntityIA::BeginPlay()
 {
 	Super::BeginPlay();
 	//GetWorldTimerManager().SetTimer(_timerManager,this,&ASpawnerEntityIA::RapidSpawnIA,5,true,0);
-	if (Cast<AAITrashMob>(_iaToSpawn))
-	{
-		GetWorldTimerManager().SetTimer(_timerIATrash,this,&ASpawnerEntityIA::IATrashSpawner,_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
-			_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn);
-	}else if (Cast<AAIRangeMob>(_iaToSpawn))
-	{
-		GetWorldTimerManager().SetTimer(_timerIARange,this,&ASpawnerEntityIA::IARangeSpawner,_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
-			_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn);
-	}
-	else
-	{
-		GetWorldTimerManager().SetTimer(_timerIATank,this,&ASpawnerEntityIA::IATankSpawner,_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
-			_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn);
-	}
+	// if (Cast<AAITrashMob>(_iaToSpawn))
+	// {
+	// 	GetWorldTimerManager().SetTimer(_timerIATrash,this,&ASpawnerEntityIA::IATrashSpawner,_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+	// 		_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn);
+	// }else if (Cast<AAIRangeMob>(_iaToSpawn))
+	// {
+	// 	GetWorldTimerManager().SetTimer(_timerIARange,this,&ASpawnerEntityIA::IARangeSpawner,_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+	// 		_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn);
+	// }
+	// else
+	// {
+	// 	GetWorldTimerManager().SetTimer(_timerIATank,this,&ASpawnerEntityIA::IATankSpawner,_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+	// 		_waweIA[0]._waweParameter[_iaToSpawn]._cooldownSpawn);
+	// }
 }
 
 // Called every frame
@@ -44,22 +44,26 @@ void ASpawnerEntityIA::Tick(float DeltaTime)
 
 void ASpawnerEntityIA::ChangeWawe()
 {
+	if (_index < _waweIA.Num())
+	{
+		_index = FMath::Clamp(_index,0,_waweIA.Num()-1);
+		GetWorldTimerManager().ClearAllTimersForObject(this);
+		if (Cast<AAITrashMob>(_iaToSpawn))
+		{
+			GetWorldTimerManager().SetTimer(_timerIATrash,this,&ASpawnerEntityIA::IATrashSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+				_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
+		}else if (Cast<AAIRangeMob>(_iaToSpawn))
+		{
+			GetWorldTimerManager().SetTimer(_timerIARange,this,&ASpawnerEntityIA::IARangeSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+				_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
+		}
+		else
+		{
+			GetWorldTimerManager().SetTimer(_timerIATank,this,&ASpawnerEntityIA::IATankSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
+				_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
+		}
+	}
 	_index++;
-	GetWorldTimerManager().ClearAllTimersForObject(this);
-	if (Cast<AAITrashMob>(_iaToSpawn))
-	{
-		GetWorldTimerManager().SetTimer(_timerIATrash,this,&ASpawnerEntityIA::IATrashSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
-			_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
-	}else if (Cast<AAIRangeMob>(_iaToSpawn))
-	{
-		GetWorldTimerManager().SetTimer(_timerIARange,this,&ASpawnerEntityIA::IARangeSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
-			_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
-	}
-	else
-	{
-		GetWorldTimerManager().SetTimer(_timerIATank,this,&ASpawnerEntityIA::IATankSpawner,_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn,true,
-			_waweIA[_index]._waweParameter[_iaToSpawn]._cooldownSpawn);
-	}
 }
 
 

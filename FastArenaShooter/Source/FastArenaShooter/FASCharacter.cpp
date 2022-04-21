@@ -3,8 +3,10 @@
 
 #include "FASCharacter.h"
 
+#include "EngineUtils.h"
 #include "RiffleWeapon.h"
 #include "RocketLauncher.h"
+#include "SpawnerManager.h"
 #include "TimerManager.h"
 #include "WeaponShotGun.h"
 #include "Components/Image.h"
@@ -73,6 +75,11 @@ void AFASCharacter::BeginPlay()
 	_numberOfLifeLeft = _fDataStruct._numberOfLives;
 	_ContainerpercentageSpeedMaxSpeedRiffle = _fDataStruct._percentageSpeedMaxSpeedlvl1;
 	weaponBehaviourObject->_percentageSpeed = _ContainerpercentageSpeedMaxSpeedRiffle;
+	for (TActorIterator<ASpawnerManager> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		_spawnerManager = *ActorItr;
+		//ASpawnerManager * theActor = *ActorItr;
+	}
 }
 
 // Called every frame
@@ -149,7 +156,28 @@ void AFASCharacter::InputPlayer()
 	this->InputComponent->BindAction("SpecialFire",IE_Pressed,this,&AFASCharacter::ActivationJumpPlayer);
 	this->InputComponent->BindAction("SpecialFire",IE_Released,this,&AFASCharacter::DesactivationJumpPlayer);
 	this->InputComponent->BindAxis("WheelMouse",this,&AFASCharacter::ChangeWeapon);
+
+	this->InputComponent->BindAction("ResetScene", IE_Pressed, this,&AFASCharacter::ResetScene);
+	this->InputComponent->BindAction("LaunchWawe", IE_Pressed, this,&AFASCharacter::LaunchWawe);
+
 }
+
+void AFASCharacter::ResetScene()
+{
+	FString _levelName = UGameplayStatics::GetCurrentLevelName(this,true);
+	UGameplayStatics::OpenLevel(GetWorld(), FName(*_levelName));
+}
+
+void AFASCharacter::LaunchWawe()
+{
+	ASpawnerManager* Spawner = Cast<ASpawnerManager>(_spawnerManager);
+	if (Spawner != nullptr)
+	{
+		Spawner->_inputWaweLaunched = true;
+	}
+}
+
+
 
 void AFASCharacter::PitchRotation(float _value)
 {
