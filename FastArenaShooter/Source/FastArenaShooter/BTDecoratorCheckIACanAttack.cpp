@@ -18,7 +18,7 @@ bool UBTDecoratorCheckIACanAttack::CalculateRawConditionValue(UBehaviorTreeCompo
 	float angle = FMath::RadiansToDegrees(AngleRadians);
 	//UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()));
 	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttack
-		&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial && IA->_timeBeforeAbilityBack <= 0)
+		&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial && IA->_timeBeforeAbilityBack <= 0 && !IA->_onDeath)
 	{
 		AAITankMob* AITankMob = Cast<AAITankMob>(OwnerComp.GetAIOwner()->GetPawn());
 		if (AITankMob != nullptr)
