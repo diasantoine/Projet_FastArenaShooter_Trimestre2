@@ -58,7 +58,7 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
 			if (_containerIA != nullptr)
 			{
-				_containerIA->DamageIA( FMath::Clamp(_dataBullet._dmg * _percentageSpeed,_dataBullet._dmg,_minimalDMGExplosion),GetOwner(),_explosionImpact);
+				_containerIA->DamageIA( FMath::Clamp(_dataBullet._dmg * _percentageSpeed,_dataBullet._dmg * _minimalDMGExplosion,_dataBullet._dmg),GetOwner(),_explosionImpact);
 			}
 		}
 		TArray<FHitResult> out;
@@ -72,14 +72,14 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 			{
 				float DistanceModifVar = FMath::Clamp(_minimumDistanceForOptimalImpact/ FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),_minimalPower,1.f )
 			 * _percentageSpeed;
-				float DistanceDmgModifier = FMath::Clamp(_minimumDistanceForOptimalImpact/ FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),_minimalDMGExplosion,_dataBullet._dmg )
+				float DistanceDmgModifier = FMath::Clamp(_minimumDistanceForOptimalImpact/ FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),_minimalDMGExplosion,1.f)
 			 * _percentageSpeed;
 				AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(Out.GetActor());
 				AFASCharacter* _containerCharacter = Cast<AFASCharacter>(Out.GetActor());
 				if (_containerIA != nullptr)
 				{
 					_containerIA->LaunchCharacter((Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _explosionImpact * DistanceModifVar,true,true);
-					_containerIA->DamageIA(DistanceDmgModifier,GetOwner(),_dataBullet._impactPower * DistanceModifVar);
+					_containerIA->DamageIA(DistanceDmgModifier * _dataBullet._dmg,GetOwner(),_dataBullet._impactPower * DistanceModifVar);
 				}else if (_containerCharacter != nullptr)
 				{
 					_containerCharacter->KnockBackPlayer(RocketLauncherKnock,_dataBullet._knockPlayerDuration * DistanceModifVar,_explosionImpact * DistanceModifVar,

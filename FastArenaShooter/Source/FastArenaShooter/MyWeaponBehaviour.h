@@ -90,6 +90,9 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
 	bool _justFireRecoil = false;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Parameter")
+	bool _justFireRecoilAnimation = false;
+
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _percentageSpeed = 0;
 

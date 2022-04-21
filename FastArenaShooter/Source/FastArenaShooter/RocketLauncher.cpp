@@ -16,6 +16,7 @@ void ARocketLauncher::NormalFire(USceneComponent* FP_MuzzleLocation, float _perc
 		if (_timeBeforeNextShoot <= 0)
 		{
 			_justFire = true;
+			_justFireRecoilAnimation = true;
 			while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 && _numberOfBallLeft > 0)
 			{
 				breakWhile++;
