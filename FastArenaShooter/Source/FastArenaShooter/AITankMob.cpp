@@ -113,6 +113,7 @@ void AAITankMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 	_isAggro = true;
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
+	_onTakingDMGVFX = true;
 	if (_actualHP <= 0)
 	{
 		_IAController->StopMovement();
@@ -274,7 +275,8 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 				else if (_containerIA)
 				{
 					//_IAController->StopMovement();
-					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
+					_containerIA->LaunchCharacter(GetVelocity() * _iaDataStruct._powerHit, true,true);
+					//OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
 					//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
 				}
 				else if (_containerBullet == nullptr)

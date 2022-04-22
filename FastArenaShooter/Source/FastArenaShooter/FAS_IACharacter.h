@@ -107,6 +107,9 @@ public:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _onTakingDMG = false;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "IA")
+	bool _onTakingDMGVFX = false;
+
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "IA")
 	bool _onDeath = false;
 

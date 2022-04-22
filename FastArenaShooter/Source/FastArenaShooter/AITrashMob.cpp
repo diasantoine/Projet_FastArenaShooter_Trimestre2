@@ -100,6 +100,7 @@ void AAITrashMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 	_actualHP -= DMG;
 	_actualHP = FMath::Clamp(_actualHP,0,_iaDataStruct._hpMax);
 	_onTakingDMG = true;
+	_onTakingDMGVFX = true;
 	if (_actualHP <= 0)
 	{
 		_IAController->StopMovement();

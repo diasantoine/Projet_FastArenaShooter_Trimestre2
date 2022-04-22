@@ -101,6 +101,7 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 			// 	}
 			// }
 		}
-		Destroy();
+		_onDeath = true;
+		//Destroy();
 	}
 }
