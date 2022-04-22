@@ -223,12 +223,15 @@ void AFASCharacter::CheckPlayerPosition()
 	if (GetActorLocation().X > _maxCoordinateValue.X || GetActorLocation().X < _minCoordinateValue.X)
 	{
 		Respawn();
+		UE_LOG(LogTemp,Warning,TEXT("touché"));
 	}else if (GetActorLocation().Y > _maxCoordinateValue.Y || GetActorLocation().Y < _minCoordinateValue.Y)
 	{
 		Respawn();
+		UE_LOG(LogTemp,Warning,TEXT("touché"));
 	}else if (GetActorLocation().Z > _maxCoordinateValue.Z || GetActorLocation().Z < _minCoordinateValue.Z)
 	{
 		Respawn();
+		UE_LOG(LogTemp,Warning,TEXT("touché"));
 	}
 }
 
@@ -238,7 +241,8 @@ void AFASCharacter::Respawn()
 	_numberOfLifeLeft--;
 	if (_numberOfLifeLeft <= 0)
 	{
-		InputComponent->Deactivate();
+		InputComponent->ClearActionBindings();
+		GetController()->InputComponent->ClearActionBindings();
 		GetCapsuleComponent()->SetConstraintMode(EDOFMode::SixDOF);
 		GetMesh()->SetConstraintMode(EDOFMode::SixDOF);
 		

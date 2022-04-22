@@ -240,7 +240,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 					_onAttack = false;
 					//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
-					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
+					_containerPlayer->DamagePlayer(_iaDataStruct._dmg/2,GetOwner(),_iaDataStruct._powerHit,true);
 				}else if (_containeIATank != nullptr)
 				{
 					_IAController->StopMovement();
@@ -266,7 +266,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					_onAttackSpecial = false;
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;//TODO check knocback and make one dash at a time
 					_containerPlayer->KnockBackPlayer(IATankKnock,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
-					_containerPlayer->DamagePlayer(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,false);
+					_containerPlayer->DamagePlayer(_iaDataStruct._dmg/2,GetOwner(),_iaDataStruct._powerHit,false);
 				}else if (_containeIATank != nullptr)
 				{
 					_onAttackSpecial = false;
