@@ -23,6 +23,14 @@ EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& O
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	AAIRangeMob* AIRangeMob = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	AAITankMob* AITankMob =  Cast<AAITankMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
+	if (_player != nullptr)
+	{
+		if	(_player->_numberOfLifeLeft <= 0) return EBTNodeResult::Failed;
+	}
+	else
+	{
+		return EBTNodeResult::Failed;
+	}
 	if (AIRangeMob != nullptr && _player != nullptr)
 	{
 		AIRangeMob->_isMoving = false;
