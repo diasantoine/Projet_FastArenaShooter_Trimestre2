@@ -19,6 +19,14 @@ EBTNodeResult::Type UBTT_Node_MoveIAToLocation::ExecuteTask(UBehaviorTreeCompone
 {
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
+	if (_player != nullptr)
+	{
+		if	(_player->_numberOfLifeLeft <= 0) return EBTNodeResult::Failed;
+	}
+	else
+	{
+		return EBTNodeResult::Failed;
+	}
 	if (IA != nullptr && _player != nullptr)
 	{
 		AAIRangeMob* IARange = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());

@@ -15,6 +15,15 @@ void UBTT_Node_FindPlayerPosition::OnGameplayTaskInitialized(UGameplayTask& Task
 EBTNodeResult::Type UBTT_Node_FindPlayerPosition::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	OwnerComp.GetBlackboardComponent()->SetValueAsObject(FName("Player"),Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+	AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	if (_player != nullptr)
+	{
+		if	(_player->_numberOfLifeLeft <= 0) return EBTNodeResult::Failed;
+	}
+	else
+	{
+		return EBTNodeResult::Failed;
+	}
 	OwnerComp.GetBlackboardComponent()->SetValueAsVector(FName("PlayerPosition"),GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
 	return EBTNodeResult::Succeeded;
 }

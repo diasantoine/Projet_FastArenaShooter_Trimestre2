@@ -9,6 +9,7 @@
 #include "SpawnerManager.h"
 #include "TimerManager.h"
 #include "WeaponShotGun.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/Image.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -237,17 +238,22 @@ void AFASCharacter::Respawn()
 	_numberOfLifeLeft--;
 	if (_numberOfLifeLeft <= 0)
 	{
-		UE_LOG(LogTemp,Warning,TEXT("TES MORT"));
+		InputComponent->Deactivate();
+		GetCapsuleComponent()->SetConstraintMode(EDOFMode::SixDOF);
+		GetMesh()->SetConstraintMode(EDOFMode::SixDOF);
+		
+	}else
+	{
+		_actualHP = _fDataStruct._hpMax;
+		_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
+		_containerVelocityBunny = 0;
+		_onBunny = false;
+		_keepBunnySpeed = false;
+		_forwardSign = 1;
+		GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
+		GetCharacterMovement()->Velocity = {0,0,0};
+		SetActorLocation(_respawnPosition);
 	}
-	_actualHP = _fDataStruct._hpMax;
-	_userWidgetMunition->HPChange(_actualHP,_fDataStruct._hpMax);
-	_containerVelocityBunny = 0;
-	_onBunny = false;
-	_keepBunnySpeed = false;
-	_forwardSign = 1;
-	GetWorldTimerManager().ClearTimer(ManagerTimeDotRotation);
-	GetCharacterMovement()->Velocity = {0,0,0};
-	SetActorLocation(_respawnPosition);
 }
 
 void AFASCharacter::HPRegeneration(float DeltaTime)
