@@ -36,4 +36,6 @@ public:
 	float _minimalExplosionRange = 100.f;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
 	float _minimalDMGExplosion = 0.3f;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapon Parameter")
+	bool _onDeath = false;
 };
