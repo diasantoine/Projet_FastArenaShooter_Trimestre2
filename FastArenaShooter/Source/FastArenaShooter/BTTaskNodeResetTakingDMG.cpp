@@ -26,7 +26,6 @@ EBTNodeResult::Type UBTTaskNodeResetTakingDMG::ExecuteTask(UBehaviorTreeComponen
 		return EBTNodeResult::Succeeded;
 	}
 	return EBTNodeResult::Failed;
-	//	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn());
 }
 
 void UBTTaskNodeResetTakingDMG::OnGameplayTaskActivated(UGameplayTask& Task)

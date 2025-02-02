@@ -42,7 +42,6 @@ void AAITrashMob::Tick(float DeltaTime)
 		{
 			_isJumpingNav = false;
 			GetMesh()->SetCollisionProfileName(_IACollision,false);
-		//	GetCapsuleComponent()->SetCollisionProfileName(_IACollision,false);
 		}
 		if (_onAttackSpecial)
 		{
@@ -70,9 +69,6 @@ bool AAITrashMob::CanAttack(AFASCharacter* _player)
 	float AngleCosine = FVector::DotProduct(_player->GetActorLocation(),  GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
 	float AngleRadians = FMath::Acos(AngleCosine);
 	float angle = FMath::RadiansToDegrees(AngleRadians);
-	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
-	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
-//	UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),GetActorLocation()));
 	if (angle <= _iaDataStruct._minimalAngleForAttack  &&FVector::Distance(_player->GetActorLocation(),GetActorLocation()) < _iaDataStruct._minimumDistanceForAttack)
 	{
 		return true;
@@ -82,16 +78,11 @@ bool AAITrashMob::CanAttack(AFASCharacter* _player)
 
 void AAITrashMob::AttackPlayer(AFASCharacter* player)
 {
-	// if (CanAttack(player))
-	// {
-	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-	// }
 	if (player)
 	{
 		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
 		_IAController->StopMovement();
 		FaceRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), player->GetActorLocation()));
-		//player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
 }
 
@@ -105,7 +96,6 @@ void AAITrashMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 	{
 		_IAController->StopMovement();
 		_onDeath = true;
-		//Destroy();
 	}
 }
 
@@ -115,13 +105,6 @@ void AAITrashMob::IAMoving(AFASCharacter* _player)
 	if (_player != nullptr)
 	{
 		_IAController->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
-		// float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
-		// float AngleRadians = FMath::Acos(AngleCosine);
-		// float angle = FMath::RadiansToDegrees(AngleRadians);
-		// if (angle <= _iaDataStruct._minimalAngleForAttack)
-		// {
-		// 	IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
-		// }
 	}
 }
 
@@ -129,8 +112,6 @@ void AAITrashMob::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
-		//Cast<AMyAiController>(GetController())->StopMovement();
-		//GetMesh()->SetSimulatePhysics(true);
 		_timeBeforeSpecialAbilityBack = _iaDataStruct._cooldownBetweenEachSpecialAbility;
 		GetCharacterMovement()->Velocity = (_player->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _iaDataStruct._groundSpeed;
 		Jump();
@@ -161,16 +142,8 @@ void AAITrashMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_isJumpingNav = true;
 			_isMoving = false;
 			GetMesh()->SetCollisionProfileName(_jumpIACollision,false);
-			//GetCapsuleComponent()->SetCollisionProfileName(_jumpIACollision,false);
-			//Jump();
 		}
 	}
-	//_isJumpingNav = false;
-	// FVector _vectorDirection = TargetPostion - GetActorLocation();
-	// _vectorDirection = _vectorDirection.GetSafeNormal();
- //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());
- //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
- //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
 }
 
 void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
@@ -185,21 +158,9 @@ void AAITrashMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimiti
 			{
 				_IAController->StopMovement();
 				_onPlayerTakingDMG = true;
-				//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 				_containerPlayer->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 				_onAttack = false;
 			}
-			// else if (_containerIA)
-			// {
-			// 	_IAController->StopMovement();
-			// 	OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-			// }
 		}
 	}
 }
-
-
-
-
-
-

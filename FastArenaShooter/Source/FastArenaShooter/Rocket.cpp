@@ -49,10 +49,6 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 	// Only add impulse and destroy projectile if we hit a physics
 	if (OtherComp != nullptr)
 	{
-		// if (OtherComp->IsSimulatingPhysics())
-		// {
-		// 	OtherComp->AddImpulseAtLocation(GetVelocity() * _explosionImpact, GetActorLocation());
-		// }
 		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
 			AFAS_IACharacter* _containerIA = Cast<AFAS_IACharacter>(OtherActor);
@@ -87,21 +83,9 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 				{
 					_containerCharacter->KnockBackPlayer(RocketLauncherKnock,_dataBullet._knockPlayerDuration * DistanceModifVar,_explosionImpact * DistanceModifVar,
 						(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _explosionImpact * DistanceModifVar);
-					// _containerCharacter->LaunchCharacter(
-					// 	(Out.GetActor()->GetActorLocation() - GetActorLocation()).GetSafeNormal() * _dataBullet._impactPower / FVector::Dist(GetActorLocation(),Out.GetActor()->GetActorLocation()),true,true);
-					//_containerCharacter->DamagePlayer(DistanceDmgModifier,GetOwner(),_explosionImpact * DistanceModifVar,true);
 				}
-			 }//else
-			// {
-			// 	float DistanceModifVar = FMath::Clamp(_minimumDistanceForOptimalImpact/ FVector::Dist(GetActorLocation(),Out.GetComponent()->GetComponentLocation()),_minimalPower,1.f )
-			//  * _percentageSpeed;
-			// 	if (Out.GetComponent()->IsSimulatingPhysics())
-			// 	{
-			// 		Out.GetComponent()->AddImpulseAtLocation(GetVelocity() * _explosionImpact * DistanceModifVar, GetActorLocation());
-			// 	}
-			// }
+			 }
 		}
 		_onDeath = true;
-		//Destroy();
 	}
 }

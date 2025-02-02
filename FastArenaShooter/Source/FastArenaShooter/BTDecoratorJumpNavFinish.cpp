@@ -10,10 +10,8 @@
 
 bool UBTDecoratorJumpNavFinish::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
-	//Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn());
 	AAITankMob* IATank = Cast<AAITankMob>(OwnerComp.GetAIOwner()->GetPawn());
-	//AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (IATank != nullptr)
 	{
 		if (!IATank->_onAttackSpecial)

@@ -17,12 +17,12 @@ void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percentage
 		{
 			_justFire = true;
 			_justFireRecoilAnimation = true;
-			while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 )//&& _numberOfBallLeft > 0)
+			while (numberOfBallNeededToBeShoot > 0 && breakWhile < 100 )
 				{
 					breakWhile++;
 					numberOfBallNeededToBeShoot--;
 					const FVector FacingVector = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation() - GetActorLocation();
-					const FRotator SpawnRotation = FacingVector.Rotation();//GetActorRotation();//GetControlRotation();
+					const FRotator SpawnRotation = FacingVector.Rotation();
 					FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
 					const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 					FTransform BulletTransform = {SpawnRotation,SpawnLocation};
@@ -41,7 +41,6 @@ void AIAWeapon::NormalFire(USceneComponent* FP_MuzzleLocation, float _percentage
 				}
 			_timeBeforeNextShoot = _dataWeapon._cadenceTir;
 		}
-		//_numberOfBallLeft--;
 	}
 }
 
@@ -56,7 +55,7 @@ void  AIAWeapon::SpecialFire(USceneComponent* FP_MuzzleLocation, float _percenta
 		{
 			breakWhile++;
 			numberOfBallNeededToBeShoot--;
-			const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
+			const FRotator SpawnRotation = GetActorRotation();
 			FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
 			const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 			FActorSpawnParameters ActorSpawnParams;

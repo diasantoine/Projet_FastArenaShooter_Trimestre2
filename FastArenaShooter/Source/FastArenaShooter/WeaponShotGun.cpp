@@ -21,18 +21,9 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation,float _percen
 			{
 				breakWhile++;
 				numberOfBallNeededToBeShoot--;
-				const FRotator SpawnRotation = UGameplayStatics::GetPlayerCameraManager(World,0)->GetCameraRotation();//GetActorRotation();//GetControlRotation();
-				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-				//	const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(_dataWeapon._gunOffset);
-				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
+				const FRotator SpawnRotation = UGameplayStatics::GetPlayerCameraManager(World,0)->GetCameraRotation();
 				FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
-				//UKismetMathLibrary::RandomUnitVectorInConeInDegrees(,120f);
 				const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-
-				//Set Spawn Collision Handling Override
-				// FActorSpawnParameters ActorSpawnParams;
-				// ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
 				// spawn the projectile at the muzzle
 				FTransform BulletTransform = {SpawnRotation,SpawnLocation};
 				BulletTransform.SetScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
@@ -40,7 +31,6 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation,float _percen
 					ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn);
 				if (_bulletsShotgun != nullptr)
 				{
-					//_bulletsShotgun->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
 					AShotGunBullets* _bulletClass = Cast<AShotGunBullets>(_bulletsShotgun);
 					if (_bulletClass != nullptr)
 					
@@ -49,18 +39,6 @@ void AWeaponShotGun::NormalFire(USceneComponent* FP_MuzzleLocation,float _percen
 					}
 					UGameplayStatics::FinishSpawningActor(_bulletsShotgun,BulletTransform);
 				}
-				// ABaseBullet* _bulletsShotgun = World->SpawnActor<ABaseBullet>(_dataWeapon._modelOfBullet, SpawnLocation, SpawnRotation, ActorSpawnParams);
-				// if (_bulletsShotgun != nullptr)
-				// {
-				// 	_bulletsShotgun->SetActorScale3D(FVector(_dataWeapon._ballSize,_dataWeapon._ballSize,_dataWeapon._ballSize));
-				// 	AShotGunBullets* _bulletClass = Cast<AShotGunBullets>(_bulletsShotgun);
-				// 	if (_bulletClass != nullptr)
-				// 	{
-				// 		_bulletClass->_dataBullet._dmg = _dataWeapon._dmg;
-				// 		_bulletClass->_dataBullet._speed = _dataWeapon._speed;
-				// 		_bulletClass->_dataBullet._impactPower = _dataWeapon._impactPower;
-				// 	}
-				// }
 			}
 			_timeBeforeNextShoot = _dataWeapon._cadenceTir;
 			_numberOfBallLeft--;
@@ -79,10 +57,7 @@ void AWeaponShotGun::SpecialFire(USceneComponent* FP_MuzzleLocation, float _perc
 		{
 			breakWhile++;
 			numberOfBallNeededToBeShoot--;
-			const FRotator SpawnRotation = GetActorRotation();//GetControlRotation();
-			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-			//	const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(_dataWeapon._gunOffset);
-			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
+			const FRotator SpawnRotation = GetActorRotation();
 			FVector GunOffset = FVector(100.0f, 0.0f, 10.0f);
 			const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 

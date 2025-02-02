@@ -12,10 +12,6 @@ void AMyAiController::OnPossess(APawn* InPawn)
 
 	if (AIEntity)
 	{
-		// if (AIEntity->_behaviorTree->BlackboardAsset)
-		// {
-		// 	Blackboard->InitializeBlackboard(*(AIEntity->_behaviorTree->BlackboardAsset));
-		// }
 		RunBehaviorTree(AIEntity->_behaviorTree);
 	}
 }

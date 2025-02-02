@@ -6,53 +6,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Navigation/NavLinkProxy.h"
 
-// // Sets default values
-// AFAS_IACharacter::AFAS_IACharacter()
-// {
-//  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-// 	PrimaryActorTick.bCanEverTick = true;
-//
-// }
-//
-// // Called when the game starts or when spawned
-// void AFAS_IACharacter::BeginPlay()
-// {
-// 	Super::BeginPlay();
-// 	_actualHP = _iaDataStruct._hpMax;
-// 	GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
-// 	GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
-// }
-//
-// // Called every frame
-// void AFAS_IACharacter::Tick(float DeltaTime)
-// {
-// 	Super::Tick(DeltaTime);
-// 	if (!GetCharacterMovement()->IsMovingOnGround())
-// 	{
-// 		if (!_isJumpingNav)
-// 		{
-// 			GetCharacterMovement()->Velocity += FVector(0,0,GetWorld()->GetGravityZ()) * DeltaTime;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		if (_isJumpingNav)
-// 		{
-// 			_isJumpingNav = false;
-// 		}
-// 		if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
-// 		{
-// 			GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
-// 		}
-// 	}
-// 	// if (_isMoving)
-// 	// {
-// 	// 	IAMoving(Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()));
-// 	// }
-// }
-//
-//
-
 // Called to bind functionality to input
 void AFAS_IACharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -65,9 +18,6 @@ bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
 	float AngleCosine = FVector::DotProduct(_player->GetActorLocation(),  GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
 	float AngleRadians = FMath::Acos(AngleCosine);
 	float angle = FMath::RadiansToDegrees(AngleRadians);
-	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
-	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
-//	UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),GetActorLocation()));
 	if (angle <= _iaDataStruct._minimalAngleForAttack  &&FVector::Distance(_player->GetActorLocation(),GetActorLocation()) < _iaDataStruct._minimumDistanceForAttack)
 	{
 		return true;
@@ -77,10 +27,6 @@ bool AFAS_IACharacter::CanAttack(AFASCharacter* _player)
 
 void AFAS_IACharacter::AttackPlayer(AFASCharacter* player)
 {
-	// if (CanAttack(player))
-	// {
-	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-	// }
 	Cast<AMyAiController>(GetController())->StopMovement();
 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 }
@@ -112,8 +58,6 @@ void AFAS_IACharacter::IASpecialAttack(AFASCharacter* _player)
 {
 	if (_player!= nullptr)
 	{
-		//Cast<AMyAiController>(GetController())->StopMovement();
-		//GetMesh()->SetSimulatePhysics(true);
 		Jump();
 	}
 }
@@ -138,15 +82,9 @@ void AFAS_IACharacter::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
-			//Jump();
 		}
 	}
 	_isJumpingNav = false;
-	// FVector _vectorDirection = TargetPostion - GetActorLocation();
-	// _vectorDirection = _vectorDirection.GetSafeNormal();
- //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());
- //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
- //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
 }
 
 void AFAS_IACharacter::CheckIAPosition()

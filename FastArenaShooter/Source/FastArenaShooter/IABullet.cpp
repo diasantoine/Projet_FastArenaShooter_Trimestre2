@@ -47,10 +47,6 @@ void AIABullet::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimiti
 	// Only add impulse and destroy projectile if we hit a physics
 	if (OtherComp != nullptr)
 	{
-		// if (OtherComp->IsSimulatingPhysics())
-		// {
-		// 	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-		// }
 		if ((OtherActor != nullptr) && (OtherActor != this))
 		{
 			AFASCharacter* _containerPlayer = Cast<AFASCharacter>(OtherActor);

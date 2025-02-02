@@ -9,7 +9,6 @@
 
 bool UBTDecoratorCheckIACanAttack::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
-	//Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn());
 	AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (_player != nullptr)
@@ -20,11 +19,9 @@ bool UBTDecoratorCheckIACanAttack::CalculateRawConditionValue(UBehaviorTreeCompo
 	{
 		return false;
 	}
-//	Cast<AMyAiController>(OwnerComp.GetAIOwner())->StopMovement();
 	float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), IA->GetActorLocation()) / (_player->GetActorLocation().Size() * IA->GetActorLocation().Size());
 	float AngleRadians = FMath::Acos(AngleCosine);
 	float angle = FMath::RadiansToDegrees(AngleRadians);
-	//UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()));
 	if (angle <= IA->_iaDataStruct._minimalAngleForAttack  && FVector::Distance(_player->GetActorLocation(),IA->GetActorLocation()) < IA->_iaDataStruct._minimumDistanceForAttack
 		&& !IA->_onAttack && !IA->_isJumpingNav && !IA->_onTakingDMG && !IA->_onAttackSpecial && IA->_timeBeforeAbilityBack <= 0 && !IA->_onDeath)
 	{

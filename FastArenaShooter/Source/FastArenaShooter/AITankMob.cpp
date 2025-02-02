@@ -239,7 +239,6 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					_IAController->StopMovement();
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 					_onAttack = false;
-					//_containerPlayer->KnockBackPlayer(RocketLauncher,_iaDataStruct._timeKnockBack,_iaDataStruct._powerHit,(_containerPlayer->GetActorLocation() - GetActorLocation()).GetSafeNormal());
 					_containerPlayer->DamagePlayer(_iaDataStruct._dmg/2,GetOwner(),_iaDataStruct._powerHit,true);
 				}else if (_containeIATank != nullptr)
 				{
@@ -250,7 +249,6 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					_IAController->StopMovement();
 					_onAttack = false;
 					OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-					//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
 				}
 				else if (_containerBullet == nullptr)
 				{
@@ -274,10 +272,7 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 				}
 				else if (_containerIA)
 				{
-					//_IAController->StopMovement();
 					_containerIA->LaunchCharacter(GetVelocity() * _iaDataStruct._powerHit, true,true);
-					//OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-					//_containerIA->DamageIA(_iaDataStruct._dmg,GetOwner(),_iaDataStruct._powerHit,true);
 				}
 				else if (_containerBullet == nullptr)
 				{
@@ -287,26 +282,6 @@ void AAITankMob::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiv
 					GetCharacterMovement()->MaxWalkSpeed = _iaDataStruct._maxSpeed;
 				}
 			}
-			//else
-			// {
-			// 	if (OtherComp->IsSimulatingPhysics())
-			// 	{
-			// 		OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-			// 	}
-			// }
-		}//else
-		// {
-		// 	if (OtherComp->IsSimulatingPhysics())
-		// 	{
-		// 		OtherComp->AddImpulseAtLocation(GetVelocity() * _iaDataStruct._powerHit, GetActorLocation());
-		// 	}
-		// }
+		}
 	}
 }
-
-
-
-
-
-
-

@@ -18,7 +18,6 @@ void UBTTNodeSPecialAttack::OnGameplayTaskInitialized(UGameplayTask& Task)
 
 EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	//Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn())->_isMoving = true;
 	AFASCharacter* _player = Cast<AFASCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("Player"));
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
 	AAIRangeMob* AIRangeMob = Cast<AAIRangeMob>(Cast<AMyAiController>(OwnerComp.GetAIOwner())->GetPawn());
@@ -53,8 +52,6 @@ EBTNodeResult::Type UBTTNodeSPecialAttack::ExecuteTask(UBehaviorTreeComponent& O
 		return EBTNodeResult::Succeeded;
 	}
 	return EBTNodeResult::Failed;
-	//Cast<AMyAiController>(OwnerComp.GetAIOwner())->StopMovement();
-	//	Cast<AMyAiController>(OwnerComp.GetAIOwner())->MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn());
 }
 
 void UBTTNodeSPecialAttack::OnGameplayTaskActivated(UGameplayTask& Task)

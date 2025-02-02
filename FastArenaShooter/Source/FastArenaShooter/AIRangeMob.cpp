@@ -18,7 +18,6 @@ AAIRangeMob::AAIRangeMob()
 	FP_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
-	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	FP_Gun->SetupAttachment(RootComponent);
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
@@ -36,7 +35,6 @@ void AAIRangeMob::BeginPlay()
 	container->AttachToComponent(FP_Gun,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	weaponBehaviourObject = container;
 	_IAController = Cast<AMyAiController>(GetController());
-	//_modifHeightIA = GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
 	_modifHeightIA = GetActorLocation().Z;
 	_heighIA = _modifHeightIA;
 	GetWorldTimerManager().SetTimer(_timeManager,this,&AAIRangeMob::MakeIaMoveInZ,_timeBetweenZChangement,true,0);
@@ -54,24 +52,6 @@ void AAIRangeMob::Tick(float DeltaTime)
 	{
 		_timeBeforeSpecialAbilityBack -= DeltaTime;
 	}
-	// if (!GetCharacterMovement()->IsMovingOnGround())
-	// {
-	// 	if (!_isJumpingNav)
-	// 	{
-	// 		GetCharacterMovement()->Velocity += FVector(0,0,GetWorld()->GetGravityZ()) * DeltaTime;
-	// 	}
-	// }
-	// else
-	// {
-	// 	if (_isJumpingNav)
-	// 	{
-	// 		_isJumpingNav = false;
-	// 	}
-	// 	if (GetCharacterMovement()->JumpZVelocity != _iaDataStruct._jumpAttackHeight)
-	// 	{
-	// 		GetCharacterMovement()->JumpZVelocity = _iaDataStruct._jumpAttackHeight;
-	// 	}
-	// }
 }
 
 
@@ -80,9 +60,6 @@ bool AAIRangeMob::CanAttack(AFASCharacter* _player)
 	float AngleCosine = FVector::DotProduct(_player->GetActorLocation(),  GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
 	float AngleRadians = FMath::Acos(AngleCosine);
 	float angle = FMath::RadiansToDegrees(AngleRadians);
-	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
-	//float angle = FMath::Abs((acosf(FVector::DotProduct(test, GetActorForwardVector()))) * (180 / PI));
-//	UE_LOG(LogTemp,Warning,TEXT("%f %f"),angle, FVector::Distance(_player->GetActorLocation(),GetActorLocation()));
 	if (angle <= _iaDataStruct._minimalAngleForAttack  &&FVector::Distance(_player->GetActorLocation(),GetActorLocation()) < _iaDataStruct._minimumDistanceForAttack)
 	{
 		return true;
@@ -92,20 +69,11 @@ bool AAIRangeMob::CanAttack(AFASCharacter* _player)
 
 void AAIRangeMob::AttackPlayer(AFASCharacter* player)
 {
-	// if (CanAttack(player))
-	// {
-	// 	player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit);
-	// }
 	if (player != nullptr)
 	{
-		//_IAController->StopMovement();
 		_timeBeforeAbilityBack = _iaDataStruct._cooldownBetweenEachAbility;
 		player->DamagePlayer(_iaDataStruct._dmg,this,_iaDataStruct._powerHit,false);
 	}
-	// if (weaponBehaviourObject != nullptr)
-	// {
-	// 	weaponBehaviourObject->Fire(true,FP_MuzzleLocation);
-	// }
 }
 
 void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
@@ -118,14 +86,12 @@ void AAIRangeMob::DamageIA(int DMG, AActor* Attaquant, float Power)
 	{
 		_IAController->StopMovement();
 		_onDeath = true;
-		//Destroy();
 	}
 }
 
 
 void AAIRangeMob::MakeIaMoveInZ()
 {
-	//GetCapsuleComponent()->SetCapsuleHalfHeight(_modifHeightIA + FMath::RandRange(_modifHeightIA/3,_modifHeightIA * 2));
 	_modifHeightIA = FMath::FRandRange(_heighIA/_heighChangeValueLow,_heighIA * _heighChangeValueHigh);
 }
 
@@ -146,15 +112,6 @@ void AAIRangeMob::IAMoving(AFASCharacter* _player)
 		{
 			GetCharacterMovement()->StopMovementImmediately();
 		}
-		//GetCharacterMovement()->AddInputVector(_direction.GetSafeNormal(),false);
-		// _IAController->MoveToActor(_player,_iaDataStruct._acceptanceRadius,false);
-		// float AngleCosine = FVector::DotProduct(_player->GetActorLocation(), GetActorLocation()) / (_player->GetActorLocation().Size() * GetActorLocation().Size());
-		// float AngleRadians = FMath::Acos(AngleCosine);
-		// float angle = FMath::RadiansToDegrees(AngleRadians);
-		// if (_player->GetActorLocation().Z < GetActorLocation().Z * 1.6f && angle <= _iaDataStruct._minimalAngleForAttack)
-		// {
-		// 	IAJumpNavMesh(_player->GetActorLocation(),_isInNeedToJump);
-		// }
 	}
 }
 
@@ -191,14 +148,6 @@ void AAIRangeMob::IAJumpNavMesh(FVector TargetPostion, bool _needToJump)
 			_destinationLocation.Z /=  _iaDataStruct._jumpNavMeshDuration;
 			ACharacter::LaunchCharacter(_destinationLocation,true,true);
 			_isJumpingNav = true;
-			//Jump();
 		}
 	}
-	// FVector _vectorDirection = TargetPostion - GetActorLocation();
-	// _vectorDirection = _vectorDirection.GetSafeNormal();
- //    float _distanceJump = FVector::Dist(TargetPostion,GetActorLocation());
- //    GetCharacterMovement()->Velocity = TargetPostion / 2.500f * 2;
- //    float _jumpSpeed =  GetCharacterMovement()->Velocity.Size();
 }
-
-

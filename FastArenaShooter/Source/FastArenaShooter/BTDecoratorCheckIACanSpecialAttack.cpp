@@ -12,7 +12,6 @@
 
 bool UBTDecoratorCheckIACanSpecialAttack::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
-	//Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 	AFAS_IACharacter* IA = Cast<AFAS_IACharacter>(OwnerComp.GetAIOwner()->GetPawn());
 	AFASCharacter* _player = Cast<AFASCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (_player != nullptr)
